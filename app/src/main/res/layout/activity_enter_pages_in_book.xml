@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EnterPagesInBookActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="-16dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutEnterPages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/rounded_corners_2"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Количество страниц:"
+                android:textColor="@color/textColor"
+                android:textSize="30sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonMinus"
+                    android:layout_width="45dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/button_1"
+                    android:onClick="onClickMinus"
+                    android:text="-"
+                    android:textColor="@color/textColor" />
+
+                <EditText
+                    android:id="@+id/editTextPages"
+                    android:layout_width="70dp"
+                    android:layout_height="45dp"
+                    android:ems="10"
+                    android:inputType="numberSigned" />
+
+                <Button
+                    android:id="@+id/buttonPlus"
+                    android:layout_width="45dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/button_1"
+                    android:onClick="onClickPlus"
+                    android:text="+"
+                    android:textColor="@color/textColor" />
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/checkBoxIsAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Добавить в счетчик страниц"
+                android:textColor="@color/textColor2" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/buttonSave"
+                    android:layout_width="160dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/textColor"
+                    android:background="@drawable/button_1"
+                    android:onClick="onClickSave"
+                    android:text="Сохранить" />
+            </TableRow>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

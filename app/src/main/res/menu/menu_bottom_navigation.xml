@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_home"
+        android:icon="@drawable/ic_home_black_48dp"
+        android:title="Главная"/>
+    <item
+        android:id="@+id/action_books"
+        android:icon="@drawable/ic_library_shelves"
+        android:title="Книги" />
+    <item
+        android:id="@+id/action_profile"
+        android:icon="@drawable/ic_person_black_48dp"
+        android:title="Статистика" />
+</menu>

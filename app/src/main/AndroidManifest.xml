@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.spappstudio.myapplication"
+    android:versionName="1.0"
+    android:versionCode="2">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.spappstudio.myapplication.EnterDatePagesActivity"></activity>
+        <activity android:name="com.spappstudio.myapplication.SettingsActivity" />
+        <activity android:name="com.spappstudio.myapplication.AboutActivity" />
+        <activity android:name="com.spappstudio.myapplication.EnterPagesInBookActivity" />
+        <activity android:name="com.spappstudio.myapplication.OneBookActivity" />
+        <activity android:name="com.spappstudio.myapplication.AddBookActivity" />
+        <activity android:name="com.spappstudio.myapplication.BooksActivity" />
+        <activity android:name="com.spappstudio.myapplication.EnterPagesActivity" />
+        <activity android:name="com.spappstudio.myapplication.EditActivity" />
+        <activity android:name="com.spappstudio.myapplication.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

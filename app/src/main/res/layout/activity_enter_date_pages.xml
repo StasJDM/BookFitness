@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EnterDatePagesActivity"
+    android:background="@color/backgroundColor">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="8dp"
+        android:background="@drawable/rounded_corners_2"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Страниц за день"
+            android:textColor="@color/textColor"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/textColor2"
+            android:text="Дата" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextDate"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:ems="10"
+                android:onClick="setDate"
+                android:text="01.01.2000" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="#00F48FB1"
+                android:onClick="setDate"
+                android:tint="@color/colorPrimary"
+                app:srcCompat="@drawable/ic_edit_black_36dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/textColor2"
+            android:text="Количество страниц" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonMinus"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button_1"
+                android:onClick="onClickMinus"
+                android:text="-"
+                android:textColor="@color/textColor" />
+
+            <EditText
+                android:id="@+id/editTextPages"
+                android:layout_width="70dp"
+                android:layout_height="45dp"
+                android:ems="10"
+                android:inputType="numberSigned" />
+
+            <Button
+                android:id="@+id/buttonPlus"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button_1"
+                android:textColor="@color/textColor"
+                android:onClick="onClickPlus"
+                android:text="+" />
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/textColor"
+            android:background="@drawable/button_1"
+            android:onClick="onClickSave"
+            android:text="Сохранить" />
+    </LinearLayout>
+</LinearLayout>

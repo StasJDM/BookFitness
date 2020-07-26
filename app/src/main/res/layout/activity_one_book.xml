@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OneBookActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/backgroundColor">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_corners_2"
+            android:layout_margin="8dp"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Книга:"
+                android:textColor="@color/textColor"
+                android:textSize="30sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewBookTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="Автор книги - Название книги"
+                    android:textAllCaps="false"
+                    android:textColor="@color/textColor"
+                    android:textColorHighlight="#FFFFFF"
+                    android:textSize="22sp" />
+
+                <ImageButton
+                    android:id="@+id/imageButton1"
+                    android:layout_width="30dp"
+                    android:layout_height="26dp"
+                    android:layout_margin="4dp"
+                    android:background="#00F48FB1"
+                    android:onClick="onClickEditBook"
+                    android:tint="@color/colorAccent"
+                    app:srcCompat="@drawable/ic_edit_black_36dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="Всего страниц: "
+                    android:textAllCaps="false"
+                    android:textColor="@color/textColor2"
+                    android:textColorHighlight="#FFFFFF"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textViewPagesAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="321"
+                    android:textColor="@color/textColor2"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="Страниц прочтено:"
+                    android:textAllCaps="false"
+                    android:textColor="@color/textColor2"
+                    android:textColorHighlight="#FFFFFF"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textViewPage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="123"
+                    android:textColor="@color/textColor2"
+                    android:textSize="18sp" />
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="#00F48FB1"
+                    android:onClick="onClickAddPages"
+                    android:tint="@color/colorAccent"
+                    app:srcCompat="@drawable/ic_add_white_36dp" />
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/checkBoxIsEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Книга закончена"
+                android:textAllCaps="false"
+                android:textColor="@color/textColor2"
+                android:textColorHighlight="#FFFFFF"
+                android:onClick="onClickIsEnd"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
