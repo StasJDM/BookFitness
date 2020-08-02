@@ -27,7 +27,7 @@
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Количество страниц:"
+                android:text="@string/page_number"
                 android:textColor="@color/textColor"
                 android:textSize="30sp" />
 
@@ -75,7 +75,7 @@
                     android:textColor="@color/textColor"
                     android:background="@drawable/button_1"
                     android:onClick="onClickSave"
-                    android:text="Сохранить" />
+                    android:text="@string/save" />
             </TableRow>
 
         </LinearLayout>

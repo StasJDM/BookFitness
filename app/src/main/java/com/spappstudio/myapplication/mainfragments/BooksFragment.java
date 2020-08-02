@@ -47,7 +47,7 @@ public class BooksFragment extends Fragment {
         booksId = bundle.getIntArray("booksId");
 
         if (booksTitle.size() == 0) {
-            booksTitle.add("Нажмите, чтобы добавить книгу");
+            booksTitle.add(getString(R.string.add_book_message));
             booksProgress = new int[] {0};
             nullBooks = true;
         }
@@ -96,17 +96,12 @@ public class BooksFragment extends Fragment {
                                     String textRepresentation) {
             int i = 0;
             switch (view.getId()) {
-
                 case R.id.pbBookProgress:
                     i = ((Integer) data).intValue();
                     ((ProgressBar)view).setProgress(i);
                     if (nullBooks) {
                         view.setVisibility(View.INVISIBLE);
                     }
-                    /*if (i == 100) {
-                        Log.d("LOG progress: ", String.valueOf(i));
-                        view.setVisibility(View.INVISIBLE);
-                    }*/
                     return true;
             }
             return false;

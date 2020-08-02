@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jjoe64.graphview.GraphView;
@@ -29,7 +27,6 @@ import com.spappstudio.myapplication.mainfragments.HomeFragment;
 import com.spappstudio.myapplication.mainfragments.ProfileFragment;
 
 import java.util.ArrayList;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -186,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_activity_menu, menu);
         return true;
     }
@@ -200,10 +196,10 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(MainActivity.this, AboutActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.action_settings:
+            /*case R.id.action_settings:
                 intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
-                return true;
+                return true;*/
         }
         return super.onOptionsItemSelected(item);
     }
@@ -305,14 +301,12 @@ public class MainActivity extends AppCompatActivity {
     public void createGraph() {
 
         GraphView graph = findViewById(R.id.graph);
-
         graph.removeAllSeries();
 
         DataPoint dataPoint[] = new DataPoint[7];
         for (int i = 0; i < 7; i++) {
             dataPoint[i] = new DataPoint(i, week[6 - i]);
         }
-
 
         BarGraphSeries<DataPoint> bar_series = new BarGraphSeries<DataPoint>(dataPoint);
         LineGraphSeries<DataPoint> line_series = new LineGraphSeries<DataPoint>(dataPoint);
@@ -406,7 +400,6 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < dayInMonth; i++) {
             dataPointMonth[i] = new DataPoint(i, month[dayInMonth - i - 1]);
         }
-
 
         BarGraphSeries<DataPoint> bar_series_month = new BarGraphSeries<DataPoint>(dataPointMonth);
         LineGraphSeries<DataPoint> line_series_month = new LineGraphSeries<DataPoint>(dataPointMonth);

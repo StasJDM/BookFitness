@@ -26,7 +26,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="8dp"
                     android:paddingTop="8dp"
-                    android:text="Список книг"
+                    android:text="@string/book_list"
                     android:textColor="@color/textColor"
                     android:textSize="30sp" />
 
@@ -42,7 +42,7 @@
                         android:layout_height="40dp"
                         android:background="@drawable/button_1"
                         android:onClick="onClickAddBook"
-                        android:text="Добавить книгу"
+                        android:text="@string/add_book"
                         android:textColor="@color/textColor" />
                 </TableRow>
 

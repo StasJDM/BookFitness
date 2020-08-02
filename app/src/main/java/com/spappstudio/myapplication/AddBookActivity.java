@@ -26,12 +26,10 @@ public class AddBookActivity extends AppCompatActivity {
     String page;
     int is_end;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
-
 
         editTextAuthor = (EditText)findViewById(R.id.editTextAuthor);
         editTextName = (EditText)findViewById(R.id.editTextName);
@@ -44,7 +42,7 @@ public class AddBookActivity extends AppCompatActivity {
 
         book_id = getIntent().getIntExtra("book_id", -1);
         if (book_id != -1) {
-            textViewTitle.setText("Редактировать книгу");
+            textViewTitle.setText(getString(R.string.edit_book));
             Book book = dbHelper.getBookByID(book_id);
             editTextAuthor.setText(book.author);
             editTextName.setText(book.name);
@@ -52,7 +50,6 @@ public class AddBookActivity extends AppCompatActivity {
             editTextPage.setText(String.valueOf(book.page));
             checkBoxIsEnd.setChecked(book.is_end);
         }
-
     }
 
     public void onClickAdd(View view) {
@@ -97,19 +94,19 @@ public class AddBookActivity extends AppCompatActivity {
 
 
                     } else {
-                        editTextPage.setHint("Введите номер страницы");
+                        editTextPage.setHint(getString(R.string.enter_page_number));
                         editTextPage.setHintTextColor(Color.RED);
                     }
                 } else {
-                    editTextPagesAll.setHint("Введите количество страниц");
+                    editTextPagesAll.setHint(getString(R.string.enter_page_count));
                     editTextPagesAll.setHintTextColor(Color.RED);
                 }
             } else {
-                editTextName.setHint("Введите название книги");
+                editTextName.setHint(getString(R.string.enter_book_name));
                 editTextName.setHintTextColor(Color.RED);
             }
         } else {
-            editTextAuthor.setHint("Введите автора книги");
+            editTextAuthor.setHint(getString(R.string.enter_book_author));
             editTextAuthor.setHintTextColor(Color.RED);
         }
 

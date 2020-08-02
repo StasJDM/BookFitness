@@ -26,7 +26,7 @@
                 android:id="@+id/textView12"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Статистика"
+                android:text="@string/statistics"
                 android:textColor="@color/textColor"
                 android:textSize="30sp" />
 
@@ -39,7 +39,7 @@
                     android:id="@+id/textView22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Страниц сегодня: "
+                    android:text="@string/pages_today"
                     android:textSize="22sp" />
 
                 <TextView
@@ -59,7 +59,7 @@
                     android:id="@+id/textView25"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Вчера: "
+                    android:text="@string/yesterday"
                     android:textSize="22sp" />
 
                 <TextView
@@ -79,7 +79,7 @@
                     android:id="@+id/textView27"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="В среднем за неделю: "
+                    android:text="@string/week_average"
                     android:textSize="22sp" />
 
                 <TextView
@@ -99,7 +99,7 @@
                     android:id="@+id/textView29"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="В среднем за месяц: "
+                    android:text="@string/month_average"
                     android:textSize="22sp" />
 
                 <TextView
@@ -132,13 +132,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="За неделю: "
-                    android:textColor="@color/textColor"
-                    android:textSize="24sp" />
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/for_week"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp" />
 
                     <TextView
                         android:id="@+id/textViewWeek"
@@ -207,13 +207,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView32"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="В этом месяце: "
-                    android:textColor="@color/textColor"
-                    android:textSize="24sp" />
+                    <TextView
+                        android:id="@+id/textView32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/in_this_month"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp" />
 
                     <TextView
                         android:id="@+id/textViewMonth"

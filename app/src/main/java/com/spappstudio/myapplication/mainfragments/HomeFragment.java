@@ -17,12 +17,11 @@ import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.spappstudio.myapplication.Quotes;
 import com.spappstudio.myapplication.R;
 
 public class HomeFragment extends Fragment {
 
-    String[] daysOfWeek = {"", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"};
+    String[] daysOfWeek;
 
     int pageCount;
     int deltaPageCount;
@@ -32,16 +31,13 @@ public class HomeFragment extends Fragment {
     int graphType;
     String bookTitle;
 
-
     TextView textViewPageCount;
     TextView textViewDeltaPageCount;
-    TextView textViewQuote;
     TextView textViewBookName;
     ProgressBar progressBarBookProgress;
     GraphView graph;
     ImageButton imageButtonBar;
     ImageButton imageButtonLine;
-
 
     public HomeFragment() {
 
@@ -53,12 +49,13 @@ public class HomeFragment extends Fragment {
 
         textViewPageCount = (TextView)rootView.findViewById(R.id.textViewPageCount);
         textViewDeltaPageCount = (TextView)rootView.findViewById(R.id.textViewDeltaPageCount);
-        textViewQuote = (TextView)rootView.findViewById(R.id.textViewQuote);
         textViewBookName = (TextView)rootView.findViewById(R.id.textViewBookName);
         progressBarBookProgress = (ProgressBar)rootView.findViewById(R.id.progressBarBookProgress);
         graph = (GraphView) rootView.findViewById(R.id.graph);
         imageButtonBar = (ImageButton)rootView.findViewById(R.id.imageButtonBar);
         imageButtonLine = (ImageButton)rootView.findViewById(R.id.imageButtonLine);
+
+        daysOfWeek = getResources().getStringArray(R.array.days_of_week);
 
         Bundle bundle = getArguments();
         pageCount = bundle.getInt("pageCount", 0);
@@ -71,9 +68,8 @@ public class HomeFragment extends Fragment {
 
         textViewPageCount.setText(String.valueOf(pageCount));
         textViewDeltaPageCount.setText(String.valueOf(deltaPageCount));
-        textViewQuote.setText(Quotes.getRandom());
         textViewBookName.setText(bookTitle);
-        if (bookTitle.equals("Нажмите, чтобы добавить книгу")) {
+        if (bookTitle.equals(getString(R.string.add_book_message))) {
             progressBarBookProgress.setVisibility(View.INVISIBLE);
         } else {
             progressBarBookProgress.setProgress(bookProgress);
@@ -94,7 +90,6 @@ public class HomeFragment extends Fragment {
             dataPoint[i] = new DataPoint(i, week[6 - i]);
         }
 
-
         BarGraphSeries<DataPoint> bar_series = new BarGraphSeries<DataPoint>(dataPoint);
         LineGraphSeries<DataPoint> line_series = new LineGraphSeries<DataPoint>(dataPoint);
         bar_series.setColor(Color.parseColor("#388E3C"));
@@ -106,7 +101,6 @@ public class HomeFragment extends Fragment {
         graph.getViewport().setMaxX(7);
         graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
         graph.getGridLabelRenderer().setHumanRounding(false, true);
-
 
         imageButtonBar.setBackgroundColor(Color.WHITE);
         imageButtonLine.setBackgroundColor(Color.WHITE);
@@ -135,6 +129,4 @@ public class HomeFragment extends Fragment {
 
         return rootView;
     }
-
-
 }
