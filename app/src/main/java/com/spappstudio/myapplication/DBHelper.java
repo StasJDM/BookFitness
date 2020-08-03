@@ -320,4 +320,9 @@ public class DBHelper extends SQLiteOpenHelper {
         return c.get(Calendar.DAY_OF_WEEK);
     }
 
+    public void deleteBook(int book_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(BOOKS_TABLE_NAME, "id = " + book_id, null);
+    }
+
 }

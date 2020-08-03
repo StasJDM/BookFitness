@@ -114,8 +114,12 @@ public class MainActivity extends AppCompatActivity {
                                 } else {
                                     Book book;
                                     if (sharedPreferences.contains(APP_PREFERENCES_LAST_BOOK_ID)) {
-                                        int last_book_id = sharedPreferences.getInt(APP_PREFERENCES_LAST_BOOK_ID, 0);
-                                        book = dbHelper.getBookByID(last_book_id);
+                                        try {
+                                            int last_book_id = sharedPreferences.getInt(APP_PREFERENCES_LAST_BOOK_ID, 0);
+                                            book = dbHelper.getBookByID(last_book_id);
+                                        } catch (Exception e) {
+                                            book = dbHelper.getLastInsertedBook();
+                                        }
                                     } else {
                                         book = dbHelper.getLastInsertedBook();
                                     }

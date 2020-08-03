@@ -38,6 +38,10 @@
     <string name="yesterday">Yesterday</string>
     <string name="week_average">On average per week</string>
     <string name="month_average">On average per month</string>
+    <string name="book_will_deleted">The book will be deleted</string>
+    <string name="changes_will_not_be_saved">Changes will not be saved</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
 
     <string name="menu_edit_book">Edit book</string>
     <string name="menu_delete_book">Delete book</string>

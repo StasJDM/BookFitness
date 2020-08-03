@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.spappstudio.myapplication.dialogs.BackDialog;
 import com.spappstudio.myapplication.mainfragments.BooksFragment;
 
 public class AddBookActivity extends AppCompatActivity {
@@ -61,7 +62,7 @@ public class AddBookActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                super.onBackPressed();
+                this.onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -118,5 +119,11 @@ public class AddBookActivity extends AppCompatActivity {
             editTextAuthor.setHint(getString(R.string.enter_book_author));
             editTextAuthor.setHintTextColor(Color.RED);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        BackDialog backDialog = new BackDialog();
+        backDialog.show(getSupportFragmentManager(), "Back");
     }
 }

@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.spappstudio.myapplication.dialogs.DeleteDialog;
+
 public class OneBookActivity extends AppCompatActivity {
 
 
@@ -89,6 +91,11 @@ public class OneBookActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_EDIT_BOOK);
                 return true;
             case R.id.item_delete_book:
+                DeleteDialog deleteDialog = new DeleteDialog();
+                Bundle args = new Bundle();
+                args.putInt("book_id", book_id);
+                deleteDialog.setArguments(args);
+                deleteDialog.show(getSupportFragmentManager(), "Delete");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
