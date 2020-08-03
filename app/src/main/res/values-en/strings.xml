@@ -19,7 +19,7 @@
     <string name="book_is_end">Book finished</string>
     <string name="save">Save</string>
     <string name="book_list">List of books</string>
-    <string name="pages_today">Pages today: </string>
+    <string name="pages_today">Pages today</string>
     <string name="add_pages">Add pages</string>
     <string name="change">Edit</string>
     <string name="change_another_day">Change another day</string>
@@ -30,14 +30,14 @@
     <string name="quotes">Reading quotes</string>
     <string name="books">Books</string>
     <string name="book">Book</string>
-    <string name="all_pages">Total pages:</string>
-    <string name="ready_pages">Pages read:</string>
+    <string name="all_pages">Total pages</string>
+    <string name="ready_pages">Pages read</string>
     <string name="statistics">Statistics</string>
-    <string name="for_week">During the week: </string>
-    <string name="in_this_month">This month: </string>
-    <string name="yesterday">Yesterday: </string>
-    <string name="week_average">On average per week: </string>
-    <string name="month_average">On average per month: </string>
+    <string name="for_week">During the week</string>
+    <string name="in_this_month">This month</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="week_average">On average per week</string>
+    <string name="month_average">On average per month</string>
 
     <string name="menu_edit_book">Edit book</string>
     <string name="menu_delete_book">Delete book</string>

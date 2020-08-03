@@ -33,11 +33,11 @@
     <string name="all_pages">Всего страниц:</string>
     <string name="ready_pages">Страниц прочитано:</string>
     <string name="statistics">Статистика</string>
-    <string name="for_week">За неделю: </string>
-    <string name="in_this_month">В этом месяце: </string>
+    <string name="for_week">За неделю</string>
+    <string name="in_this_month">В этом месяце</string>
     <string name="yesterday">Вчера</string>
-    <string name="week_average">В среднем за неделю: </string>
-    <string name="month_average">В среднем за месяц: </string>
+    <string name="week_average">В среднем за неделю</string>
+    <string name="month_average">В среднем за месяц</string>
 
     <string name="menu_edit_book">Редактировать книгу</string>
     <string name="menu_delete_book">Удалить книгу</string>
