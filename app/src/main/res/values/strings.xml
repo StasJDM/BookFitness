@@ -39,6 +39,10 @@
     <string name="week_average">On average per week</string>
     <string name="month_average">On average per month</string>
 
+    <string name="menu_edit_book">Edit book</string>
+    <string name="menu_delete_book">Delete book</string>
+    <string name="menu_add_pages">Add pages</string>
+
     <string name="MY_NAME">Pyatnicyn Stanislav</string>
     <string name="MY_EMAIL">pyatnicyn.stanislav@gmail.com</string>
     <string name="MAY_BEE">Design - MayBee</string>

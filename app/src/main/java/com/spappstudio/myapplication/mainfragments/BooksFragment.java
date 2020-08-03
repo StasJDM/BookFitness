@@ -31,6 +31,8 @@ public class BooksFragment extends Fragment {
     int booksId[];
     boolean nullBooks;
 
+    SimpleAdapter simpleAdapter;
+
     public BooksFragment() {
 
     }
@@ -64,7 +66,7 @@ public class BooksFragment extends Fragment {
         String[] from = {ATTRIBUTE_NAME_TEXT, ATTRIBUTE_NAME_PROGRESS};
         int[] to = {R.id.tvBookName, R.id.pbBookProgress};
 
-        SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(), data, R.layout.list_item_book, from, to);
+        simpleAdapter = new SimpleAdapter(getActivity(), data, R.layout.list_item_book, from, to);
         simpleAdapter.setViewBinder(new MyViewBinder());
 
         listViewBooks.setAdapter(simpleAdapter);
@@ -89,8 +91,6 @@ public class BooksFragment extends Fragment {
 
     class MyViewBinder implements SimpleAdapter.ViewBinder {
 
-
-
         @Override
         public boolean setViewValue(View view, Object data,
                                     String textRepresentation) {
@@ -106,5 +106,9 @@ public class BooksFragment extends Fragment {
             }
             return false;
         }
+    }
+
+    public void updateList() {
+        simpleAdapter.notifyDataSetChanged();
     }
 }

@@ -1,9 +1,11 @@
 package com.spappstudio.myapplication;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -27,6 +29,10 @@ public class EnterPagesInBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_pages_in_book);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         buttonMinus = (Button)findViewById(R.id.buttonMinus);
         buttonPlus = (Button)findViewById(R.id.buttonPlus);
         buttonSave = (Button)findViewById(R.id.buttonSave);
@@ -38,7 +44,17 @@ public class EnterPagesInBookActivity extends AppCompatActivity {
         dbHelper = new DBHelper(this);
         book_id = getIntent().getExtras().getInt("book_id");
         book = dbHelper.getBookByID(book_id);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void onClickPlus(View view) {

@@ -17,7 +17,6 @@
         <activity android:name="com.spappstudio.myapplication.EnterPagesInBookActivity" />
         <activity android:name="com.spappstudio.myapplication.OneBookActivity" />
         <activity android:name="com.spappstudio.myapplication.AddBookActivity" />
-        <activity android:name="com.spappstudio.myapplication.BooksActivity" />
         <activity android:name="com.spappstudio.myapplication.EnterPagesActivity" />
         <activity android:name="com.spappstudio.myapplication.EditActivity" />
         <activity android:name="com.spappstudio.myapplication.MainActivity">

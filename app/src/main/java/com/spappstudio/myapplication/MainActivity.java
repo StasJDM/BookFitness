@@ -1,6 +1,7 @@
 package com.spappstudio.myapplication;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -227,15 +228,13 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, AddBookActivity.class);
             startActivityForResult(intent, 1);
         } else {
-            /*Intent intent = new Intent(MainActivity.this, BooksActivity.class);
-            startActivity(intent);*/
             bottomNavigationView.setSelectedItemId(R.id.action_books);
         }
     }
 
     public void onClickAddBook (View view){
         Intent intent = new Intent(MainActivity.this, AddBookActivity.class);
-        startActivityForResult(intent, 1);
+        startActivity(intent);
     }
 
     public void onClickLineGraph(View view) {

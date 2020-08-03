@@ -1,16 +1,24 @@
 package com.spappstudio.myapplication;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.spappstudio.myapplication.mainfragments.BooksFragment;
+
 public class AddBookActivity extends AppCompatActivity {
+
+    int book_id;
+
+    DBHelper dbHelper;
 
     EditText editTextAuthor;
     EditText editTextName;
@@ -18,18 +26,15 @@ public class AddBookActivity extends AppCompatActivity {
     EditText editTextPage;
     TextView textViewTitle;
     CheckBox checkBoxIsEnd;
-    DBHelper dbHelper;
-    int book_id;
-    String author;
-    String name;
-    String pagesAll;
-    String page;
-    int is_end;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         editTextAuthor = (EditText)findViewById(R.id.editTextAuthor);
         editTextName = (EditText)findViewById(R.id.editTextName);
@@ -52,47 +57,51 @@ public class AddBookActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public void onClickAdd(View view) {
-        author = editTextAuthor.getText().toString();
-        name = editTextName.getText().toString();
-        pagesAll = editTextPagesAll.getText().toString();
-        page = editTextPage.getText().toString();
+        int is_end;
         if (checkBoxIsEnd.isChecked()) {
             is_end = 1;
         } else {
             is_end = 0;
         }
 
-        if (!author.isEmpty()) {
+        if (!editTextAuthor.getText().toString().isEmpty()) {
 
-            if (!name.isEmpty()) {
+            if (!editTextName.getText().toString().isEmpty()) {
 
-                if (!pagesAll.isEmpty()) {
+                if (!editTextPagesAll.getText().toString().isEmpty()) {
 
-                    if (!page.isEmpty()) {
+                    if (!editTextPage.getText().toString().isEmpty()) {
+
+                        Book book = new Book(
+                                book_id,
+                                editTextAuthor.getText().toString(),
+                                editTextName.getText().toString(),
+                                Integer.valueOf(editTextPagesAll.getText().toString()),
+                                Integer.valueOf(editTextPage.getText().toString()),
+                                is_end
+                        );
 
                         if (book_id == -1) {
-                            dbHelper.insertBook(
-                                    author,
-                                    name,
-                                    Integer.valueOf(pagesAll),
-                                    Integer.valueOf(page),
-                                    is_end
-                            );
+                            dbHelper.insertBook(book);
                         } else {
-                            dbHelper.updateBook(book_id,
-                                    author,
-                                    name,
-                                    Integer.valueOf(pagesAll),
-                                    Integer.valueOf(page),
-                                    is_end);
+                            dbHelper.updateBook(book);
                         }
 
-                        Intent intent = new Intent();
-                        setResult(RESULT_OK);
+                        Intent intent = new Intent(AddBookActivity.this, MainActivity.class);
+                        startActivity(intent);
                         finish();
-
-
                     } else {
                         editTextPage.setHint(getString(R.string.enter_page_number));
                         editTextPage.setHintTextColor(Color.RED);
@@ -109,6 +118,5 @@ public class AddBookActivity extends AppCompatActivity {
             editTextAuthor.setHint(getString(R.string.enter_book_author));
             editTextAuthor.setHintTextColor(Color.RED);
         }
-
     }
 }
