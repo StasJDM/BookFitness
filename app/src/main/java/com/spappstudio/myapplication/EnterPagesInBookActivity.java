@@ -9,18 +9,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
+import android.widget.NumberPicker;
 
 public class EnterPagesInBookActivity extends AppCompatActivity {
 
     int book_id;
     Book book;
 
-    Button buttonPlus;
-    Button buttonMinus;
     Button buttonSave;
     CheckBox checkBoxIsAdd;
-    EditText editTextPages;
+    NumberPicker numberPicker;
 
     DBHelper dbHelper;
 
@@ -33,13 +31,14 @@ public class EnterPagesInBookActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        buttonMinus = (Button)findViewById(R.id.buttonMinus);
-        buttonPlus = (Button)findViewById(R.id.buttonPlus);
         buttonSave = (Button)findViewById(R.id.buttonSave);
         checkBoxIsAdd = (CheckBox)findViewById(R.id.checkBoxIsAdd);
-        editTextPages = (EditText)findViewById(R.id.editTextPages);
+        numberPicker = (NumberPicker)findViewById(R.id.numberPicker);
 
-        editTextPages.setHint("0");
+        numberPicker.setMinValue(0);
+        numberPicker.setMaxValue(999);
+        numberPicker.setValue(0);
+        numberPicker.setWrapSelectorWheel(false);
 
         dbHelper = new DBHelper(this);
         book_id = getIntent().getExtras().getInt("book_id");
@@ -57,40 +56,13 @@ public class EnterPagesInBookActivity extends AppCompatActivity {
         }
     }
 
-    public void onClickPlus(View view) {
-        String c = editTextPages.getText().toString();
-        if (!c.isEmpty()) {
-            int a = Integer.parseInt(c);
-            a++;
-            editTextPages.setText(String.valueOf(a));
-        } else {
-            editTextPages.setText("1");
-        }
-    }
-
-    public void onClickMinus(View view) {
-        String c = editTextPages.getText().toString();
-        if (!c.isEmpty()) {
-            int a = Integer.parseInt(c);
-            if (a == 0) {
-                a = 0;
-            } else {
-                a--;
-            }
-            editTextPages.setText(String.valueOf(a));
-        } else {
-            editTextPages.setText("0");
-        }
-    }
-
     public void onClickSave(View view) {
         boolean isAdd = checkBoxIsAdd.isChecked();
-        String c = editTextPages.getText().toString();
-        int a = Integer.parseInt(c);
+        int insertPageCount = numberPicker.getValue();
 
-        dbHelper.updatePageInBook(book.id, book.addPages(a), book.pagesAll);
+        dbHelper.updatePageInBook(book.id, book.addPages(insertPageCount), book.pagesAll);
         if (isAdd) {
-            dbHelper.updateAddPages(a);
+            dbHelper.updateAddPages(insertPageCount);
         }
 
         Intent intent = new Intent();

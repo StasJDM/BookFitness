@@ -325,4 +325,13 @@ public class DBHelper extends SQLiteOpenHelper {
         db.delete(BOOKS_TABLE_NAME, "id = " + book_id, null);
     }
 
+    public int getHighScore() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT MAX(Pages) FROM " + PAGES_TABLE_NAME + ";", null);
+        cursor.moveToFirst();
+        int highScore = cursor.getInt(0);
+        cursor.close();
+        return highScore;
+    }
+
 }

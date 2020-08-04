@@ -112,10 +112,4 @@ public class OneBookActivity extends AppCompatActivity {
         intent.putExtra("book_id", book_id);
         startActivityForResult(intent, REQUEST_ADD_PAGES);
     }
-
-    public void onClickEditBook(View view) {
-        Intent intent = new Intent(OneBookActivity.this, AddBookActivity.class);
-        intent.putExtra("book_id", book_id);
-        startActivityForResult(intent, REQUEST_EDIT_BOOK);
-    }
 }

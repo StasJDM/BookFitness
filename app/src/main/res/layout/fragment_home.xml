@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ScrollView
@@ -17,63 +18,127 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp">
+                android:layout_margin="8dp"
+                app:cardCornerRadius="@dimen/card_view_radius">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:orientation="horizontal"
-                    android:padding="8dp">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:id="@+id/layout_1"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="67dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="32dp"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/textView3"
-                            android:layout_width="match_parent"
+                            android:id="@+id/textViewYesterdayPageCount"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/pages_today"
-                            android:textColor="@color/textColor"
-                            android:textSize="24sp" />
+                            android:text="36"
+                            android:textSize="30sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/yesterday" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="16dp">
+
+                        <ProgressBar
+                            android:id="@+id/circleProgressBar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:background="@drawable/circle_progressbar_background"
+                            android:layout_width="175dp"
+                            android:layout_height="175dp"
+                            android:layout_centerInParent="true"
+                            android:indeterminate="false"
+                            android:max="100"
+                            android:progress="85"
+                            android:progressDrawable="@drawable/circle_progressbar" />
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical">
 
                             <TextView
                                 android:id="@+id/textViewPageCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:text="43"
-                                android:textColor="@color/textColor"
-                                android:textIsSelectable="true"
-                                android:textSize="36sp" />
+                                android:textSize="30sp" />
 
                             <TextView
-                                android:id="@+id/textViewDeltaPageCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="+12"
-                                android:textSize="24sp" />
-
-                            <ImageButton
-                                android:id="@+id/imageButton"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:layout_margin="5dp"
-                                android:background="#00F48FB1"
-                                android:onClick="onClickEditPages"
-                                android:tint="@color/colorAccent"
-                                app:srcCompat="@drawable/ic_edit_black_36dp" />
+                                android:layout_gravity="center"
+                                android:text="@string/today" />
 
                         </LinearLayout>
 
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="67dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="32dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textViewGoal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="60"
+                            android:textSize="30sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/goal" />
+
                     </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginTop="180dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="onClickEditPages"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"
+                        android:text="@string/add_pages" />
+
+                    <Button
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"
+                        android:onClick="onClickEditGoal"
+                        android:text="@string/change_goal" />
 
                 </LinearLayout>
 
@@ -82,7 +147,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp">
+                android:layout_margin="8dp"
+                app:cardCornerRadius="@dimen/card_view_radius">
 
                 <LinearLayout
                     android:id="@+id/layout_2"
@@ -149,7 +215,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp">
+                android:layout_margin="8dp"
+                app:cardCornerRadius="@dimen/card_view_radius">
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -19,12 +19,14 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.spappstudio.myapplication.R;
 
+
 public class HomeFragment extends Fragment {
 
     String[] daysOfWeek;
 
+    int goal;
+    int yesterdayPageCount;
     int pageCount;
-    int deltaPageCount;
     int dayOfWeek;
     int week[];
     int bookProgress;
@@ -32,12 +34,14 @@ public class HomeFragment extends Fragment {
     String bookTitle;
 
     TextView textViewPageCount;
-    TextView textViewDeltaPageCount;
+    TextView textViewYesterdayPageCount;
+    TextView textViewGoal;
     TextView textViewBookName;
     ProgressBar progressBarBookProgress;
     GraphView graph;
     ImageButton imageButtonBar;
     ImageButton imageButtonLine;
+    ProgressBar circleProgressBar;
 
     public HomeFragment() {
 
@@ -48,41 +52,36 @@ public class HomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         textViewPageCount = (TextView)rootView.findViewById(R.id.textViewPageCount);
-        textViewDeltaPageCount = (TextView)rootView.findViewById(R.id.textViewDeltaPageCount);
+        textViewYesterdayPageCount = (TextView)rootView.findViewById(R.id.textViewYesterdayPageCount);
+        textViewGoal = (TextView)rootView.findViewById(R.id.textViewGoal);
         textViewBookName = (TextView)rootView.findViewById(R.id.textViewBookName);
         progressBarBookProgress = (ProgressBar)rootView.findViewById(R.id.progressBarBookProgress);
         graph = (GraphView) rootView.findViewById(R.id.graph);
         imageButtonBar = (ImageButton)rootView.findViewById(R.id.imageButtonBar);
         imageButtonLine = (ImageButton)rootView.findViewById(R.id.imageButtonLine);
+        circleProgressBar = (ProgressBar)rootView.findViewById(R.id.circleProgressBar);
 
         daysOfWeek = getResources().getStringArray(R.array.days_of_week);
 
         Bundle bundle = getArguments();
         pageCount = bundle.getInt("pageCount", 0);
+        yesterdayPageCount = bundle.getInt("yesterday", 0);
+        goal = bundle.getInt("goal", 0);
         graphType = bundle.getInt("graphType", 0);
-        deltaPageCount = bundle.getInt("deltaPageCount", 0);
         week = bundle.getIntArray("week");
         dayOfWeek = bundle.getInt("dayOfWeek", 1);
         bookTitle = bundle.getString("bookTitle");
         bookProgress = bundle.getInt("bookProgress");
 
+        circleProgressBar.setProgress((int)(100 * yesterdayPageCount / goal));
         textViewPageCount.setText(String.valueOf(pageCount));
-        textViewDeltaPageCount.setText(String.valueOf(deltaPageCount));
+        textViewYesterdayPageCount.setText(String.valueOf(yesterdayPageCount));
+        textViewGoal.setText(String.valueOf(goal));
         textViewBookName.setText(bookTitle);
         if (bookTitle.equals(getString(R.string.add_book_message))) {
             progressBarBookProgress.setVisibility(View.INVISIBLE);
         } else {
             progressBarBookProgress.setProgress(bookProgress);
-        }
-
-        if (deltaPageCount > 0) {
-            textViewDeltaPageCount.setText("+" + String.valueOf(deltaPageCount));
-            textViewDeltaPageCount.setTextColor(Color.parseColor("#4CAF50"));
-        } else {
-            textViewDeltaPageCount.setText(String.valueOf(deltaPageCount));
-            if (deltaPageCount < 0) {
-                textViewDeltaPageCount.setTextColor(Color.parseColor("#f44336"));
-            }
         }
 
         DataPoint dataPoint[] = new DataPoint[7];

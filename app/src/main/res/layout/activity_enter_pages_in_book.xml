@@ -11,7 +11,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+        android:layout_margin="8dp"
+        app:cardCornerRadius="@dimen/card_view_radius">
 
         <LinearLayout
             android:id="@+id/linearLayoutEnterPages"
@@ -29,43 +30,18 @@
                 android:textColor="@color/textColor"
                 android:textSize="30sp" />
 
-            <LinearLayout
+            <NumberPicker
+                android:id="@+id/numberPicker"
+                android:layout_margin="16dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/buttonMinus"
-                    android:layout_width="45dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/button_1"
-                    android:onClick="onClickMinus"
-                    android:text="-"
-                    android:textColor="@color/textColor" />
-
-                <EditText
-                    android:id="@+id/editTextPages"
-                    android:layout_width="70dp"
-                    android:layout_height="45dp"
-                    android:ems="10"
-                    android:inputType="numberSigned" />
-
-                <Button
-                    android:id="@+id/buttonPlus"
-                    android:layout_width="45dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/button_1"
-                    android:onClick="onClickPlus"
-                    android:text="+"
-                    android:textColor="@color/textColor" />
-
-            </LinearLayout>
+                android:layout_height="wrap_content" />
 
             <CheckBox
                 android:id="@+id/checkBoxIsAdd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/add_in_page_counter"
+                android:textSize="16sp"
                 android:textColor="@color/textColor2" />
 
             <TableRow
@@ -74,10 +50,10 @@
 
                 <Button
                     android:id="@+id/buttonSave"
-                    android:layout_width="160dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="4dp"
-                    android:textColor="@color/textColor"
+                    android:textColor="@android:color/white"
                     android:background="@drawable/button_1"
                     android:onClick="onClickSave"
                     android:text="@string/save" />

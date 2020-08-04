@@ -34,11 +34,13 @@ public class ProfileFragment extends Fragment {
     int month[];
     int week_sr;
     int month_sr;
+    int highScore;
 
     TextView textViewToday;
     TextView textViewYesterday;
     TextView textViewWeek;
     TextView textViewMonth;
+    TextView textViewHighScore;
     TextView textViewWeekSr;
     TextView textViewMonthSr;
 
@@ -65,6 +67,7 @@ public class ProfileFragment extends Fragment {
         textViewYesterday = (TextView)rootView.findViewById(R.id.textViewYesterday);
         textViewWeek = (TextView)rootView.findViewById(R.id.textViewWeek);
         textViewMonth = (TextView)rootView.findViewById(R.id.textViewMonth);
+        textViewHighScore = (TextView)rootView.findViewById(R.id.textViewHighScore);
         textViewWeekSr = (TextView)rootView.findViewById(R.id.textViewWeekSr);
         textViewMonthSr = (TextView)rootView.findViewById(R.id.textViewMonthSr);
         graphViewWeek = (GraphView)rootView.findViewById(R.id.graphWeek);
@@ -77,6 +80,7 @@ public class ProfileFragment extends Fragment {
         daysOfWeek = getResources().getStringArray(R.array.days_of_week);
 
         Bundle bundle = getArguments();
+        highScore = bundle.getInt("high_score", 0);
         today = bundle.getInt("today", 0);
         yesterday = bundle.getInt("yesterday", 0);
         for_week = bundle.getInt("for_week", 0);
@@ -95,6 +99,7 @@ public class ProfileFragment extends Fragment {
         textViewYesterday.setText(String.valueOf(yesterday));
         textViewWeek.setText(String.valueOf(for_week));
         textViewMonth.setText(String.valueOf(for_month));
+        textViewHighScore.setText(String.valueOf(highScore));
         textViewWeekSr.setText(String.valueOf(week_sr));
         textViewMonthSr.setText(String.valueOf(month_sr));
 
@@ -102,7 +107,6 @@ public class ProfileFragment extends Fragment {
         for (int i = 0; i < 7; i++) {
             dataPoint[i] = new DataPoint(i, week[6 - i]);
         }
-
 
         BarGraphSeries<DataPoint> bar_series = new BarGraphSeries<DataPoint>(dataPoint);
         LineGraphSeries<DataPoint> line_series = new LineGraphSeries<DataPoint>(dataPoint);

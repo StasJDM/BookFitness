@@ -33,16 +33,17 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String APP_PREFERENCES = "BookFitnessData";
     private static final String APP_PREFERENCES_LAST_BOOK_ID = "last_book_id";
+    private static final String APP_PREFERENCES_GOAL = "goal";
     private static final String APP_PREFERENCES_GRAPH_TYPE = "graph_type";
     private static final String APP_PREFERENCES_GRAPH_TYPE_MONTH = "graph_type_month";
 
-    String[] daysOfWeek = {"", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"};
+    String[] daysOfWeek;
 
     SharedPreferences sharedPreferences;
     DBHelper dbHelper;
 
     int pageCount;
-    int deltaPageCount;
+    int yesterdayPageCount;
     int booksCount;
     int week[];
     int month[];
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     int dayOfWeek;
     int graphType;
     int graphTypeMonth;
+    int goal;
     String bookTitle;
 
     BottomNavigationView bottomNavigationView;
@@ -73,6 +75,13 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         dbHelper = new DBHelper(this);
 
+        if (sharedPreferences.contains(APP_PREFERENCES_GOAL)) {
+            goal = sharedPreferences.getInt(APP_PREFERENCES_GOAL, 20);
+        } else {
+            sharedPreferences.edit().putInt(APP_PREFERENCES_GOAL, 20).apply();
+            goal = 20;
+        }
+
         if(sharedPreferences.contains(APP_PREFERENCES_GRAPH_TYPE))
         {
             graphType = sharedPreferences.getInt(APP_PREFERENCES_GRAPH_TYPE, 0);
@@ -93,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
         booksFragment = new BooksFragment();
         profileFragment = new ProfileFragment();
 
+        daysOfWeek = getResources().getStringArray(R.array.days_of_week);
+
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -106,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                                 pageCount = dbHelper.getPagesToday();
                                 dayOfWeek = dbHelper.getTodayDayOfWeek();
                                 pageCount = dbHelper.getPagesToday();
-                                deltaPageCount = pageCount - dbHelper.getPagesYesterday();
+                                yesterdayPageCount = dbHelper.getPagesYesterday();
                                 week = dbHelper.getPagesPerWeek();
                                 booksCount = dbHelper.getBooksCount();
                                 if (booksCount == 0) {
@@ -127,8 +138,9 @@ public class MainActivity extends AppCompatActivity {
                                     bookProgress = book.getPercent();
                                 }
                                 bundle.putInt("graphType", graphType);
+                                bundle.putInt("goal", goal);
+                                bundle.putInt("yesterday", yesterdayPageCount);
                                 bundle.putInt("pageCount", pageCount);
-                                bundle.putInt("deltaPageCount", deltaPageCount);
                                 bundle.putIntArray("week", week);
                                 bundle.putInt("dayOfWeek", dayOfWeek);
                                 bundle.putInt("bookProgress", bookProgress);
@@ -159,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
                                 return true;
                             case R.id.action_profile:
 
+                                int highScore = dbHelper.getHighScore();
                                 int yesterday = dbHelper.getPagesYesterday();
                                 int for_week = dbHelper.getPagesForWeek();
                                 int for_month = dbHelper.getPagesForMount();
@@ -167,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
                                 month = dbHelper.getPagesPerMonth();
 
                                 bundle = new Bundle();
+                                bundle.putInt("high_score", highScore);
                                 bundle.putInt("today", pageCount);
                                 bundle.putInt("yesterday", yesterday);
                                 bundle.putInt("for_week", for_week);
@@ -184,6 +198,11 @@ public class MainActivity extends AppCompatActivity {
                         return false;
                     }
                 });
+    }
+
+    public void onClickEditGoal(View view) {
+        Intent intent = new Intent(MainActivity.this, EditGoalActivity.class);
+        startActivity(intent);
     }
 
     @Override

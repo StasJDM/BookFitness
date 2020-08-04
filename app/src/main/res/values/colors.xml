@@ -6,7 +6,9 @@
     <color name="textColor">#4CAF50</color>
     <color name="textColor2">#547A5C</color>
     <color name="textColor3">#388E3C</color>
-    <color name="backgroundColor">#E8F5E9</color>
+    <color name="backgroundColor">#EAEAEA</color>
+    <color name="backgroundGray">#E3E3E3</color>
+    <color name="cardViewBackground">#FFFFFF</color>
     <color name="colorGray">#757575</color>
     <color name="lightGray">#E0E0E0</color>
 </resources>

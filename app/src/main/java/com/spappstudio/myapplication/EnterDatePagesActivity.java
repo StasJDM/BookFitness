@@ -1,14 +1,17 @@
 package com.spappstudio.myapplication;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 
 import java.util.Calendar;
 
@@ -17,26 +20,30 @@ public class EnterDatePagesActivity extends AppCompatActivity {
     int pages;
     String date;
 
-    Button buttonPlus;
-    Button buttonMinus;
     Button buttonSave;
-    EditText editTextPages;
     EditText editTextDate;
+    NumberPicker numberPicker;
 
     DBHelper dbHelper;
 
-    Calendar dateAndTime=Calendar.getInstance();
+    Calendar dateAndTime = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_date_pages);
 
-        buttonMinus = (Button)findViewById(R.id.buttonMinus);
-        buttonPlus = (Button)findViewById(R.id.buttonPlus);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         buttonSave = (Button)findViewById(R.id.buttonSave);
-        editTextPages = (EditText)findViewById(R.id.editTextPages);
         editTextDate = (EditText)findViewById(R.id.editTextDate);
+        numberPicker = (NumberPicker)findViewById(R.id.numberPicker);
+
+        numberPicker.setMinValue(0);
+        numberPicker.setMaxValue(999);
+        numberPicker.setWrapSelectorWheel(false);
 
         dbHelper = new DBHelper(this);
         date = dbHelper.getTodayDateString();
@@ -45,32 +52,17 @@ public class EnterDatePagesActivity extends AppCompatActivity {
 
 
         editTextDate.setText(date);
-        editTextPages.setText(String.valueOf(pages));
+        numberPicker.setValue(pages);
     }
 
-    public void onClickPlus(View view) {
-        String c = editTextPages.getText().toString();
-        if (!c.isEmpty()) {
-            int a = Integer.parseInt(c);
-            a++;
-            editTextPages.setText(String.valueOf(a));
-        } else {
-            editTextPages.setText("1");
-        }
-    }
-
-    public void onClickMinus(View view) {
-        String c = editTextPages.getText().toString();
-        if (!c.isEmpty()) {
-            int a = Integer.parseInt(c);
-            if (a == 0) {
-                a = 0;
-            } else {
-                a--;
-            }
-            editTextPages.setText(String.valueOf(a));
-        } else {
-            editTextPages.setText("0");
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -82,8 +74,7 @@ public class EnterDatePagesActivity extends AppCompatActivity {
     }
 
     public void onClickSave(View view) {
-        String c = editTextPages.getText().toString();
-        pages = Integer.parseInt(c);
+        pages = numberPicker.getValue();
 
         dbHelper.updatePages(date, pages);
 
@@ -111,11 +102,11 @@ public class EnterDatePagesActivity extends AppCompatActivity {
                 d = String.valueOf(dayOfMonth);
             }
 
-            date = d + "." + m + "." +String.valueOf(year);
+            date = d + "." + m + "." + String.valueOf(year);
             pages = dbHelper.getPages(date);
 
             editTextDate.setText(date);
-            editTextPages.setText(String.valueOf(pages));
+            numberPicker.setValue(pages);
 
         }
     };
