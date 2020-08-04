@@ -48,6 +48,9 @@
     <string name="set_goal_text">Set a goal and try to achieve it more often</string>
     <string name="high_score">High score</string>
 
+    <string name="add_pages_button">Add pages</string>
+    <string name="change_goal_button">Change goal</string>
+
     <string name="menu_edit_book">Edit book</string>
     <string name="menu_delete_book">Delete book</string>
     <string name="menu_add_pages">Add pages</string>

@@ -48,6 +48,9 @@
     <string name="set_goal_text">Установите цель и старайтесь чаще её достигать</string>
     <string name="high_score">Рекорд</string>
 
+    <string name="add_pages_button">Добавить\nстраницы</string>
+    <string name="change_goal_button">Изменить\nцель</string>
+
     <string name="menu_edit_book">Редактировать книгу</string>
     <string name="menu_delete_book">Удалить книгу</string>
     <string name="menu_add_pages">Добавить страницы</string>

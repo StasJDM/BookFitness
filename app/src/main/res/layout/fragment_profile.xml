@@ -251,7 +251,6 @@
                     android:id="@+id/graphWeek"
                     android:layout_width="match_parent"
                     android:layout_height="200dip"
-                    android:layout_margin="24dp"
                     app:seriesType="bar" />
             </LinearLayout>
 
@@ -341,7 +340,6 @@
                     android:id="@+id/graphMonth"
                     android:layout_width="match_parent"
                     android:layout_height="200dip"
-                    android:layout_margin="24dp"
                     android:paddingBottom="1dp"
                     app:seriesType="bar" />
             </LinearLayout>
