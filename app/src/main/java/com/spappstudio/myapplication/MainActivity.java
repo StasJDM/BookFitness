@@ -1,10 +1,10 @@
 package com.spappstudio.myapplication;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jjoe64.graphview.GraphView;
@@ -30,21 +29,21 @@ import com.spappstudio.myapplication.mainfragments.ProfileFragment;
 
 import java.util.ArrayList;
 
-
 public class MainActivity extends AppCompatActivity {
 
     private static final String APP_PREFERENCES = "BookFitnessData";
     private static final String APP_PREFERENCES_LAST_BOOK_ID = "last_book_id";
+    private static final String APP_PREFERENCES_GOAL = "goal";
     private static final String APP_PREFERENCES_GRAPH_TYPE = "graph_type";
     private static final String APP_PREFERENCES_GRAPH_TYPE_MONTH = "graph_type_month";
 
-    String[] daysOfWeek = {"", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"};
+    String[] daysOfWeek;
 
     SharedPreferences sharedPreferences;
     DBHelper dbHelper;
 
     int pageCount;
-    int deltaPageCount;
+    int yesterdayPageCount;
     int booksCount;
     int week[];
     int month[];
@@ -52,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     int dayOfWeek;
     int graphType;
     int graphTypeMonth;
+    int goal;
     String bookTitle;
 
     BottomNavigationView bottomNavigationView;
@@ -75,6 +75,13 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         dbHelper = new DBHelper(this);
 
+        if (sharedPreferences.contains(APP_PREFERENCES_GOAL)) {
+            goal = sharedPreferences.getInt(APP_PREFERENCES_GOAL, 20);
+        } else {
+            sharedPreferences.edit().putInt(APP_PREFERENCES_GOAL, 20).apply();
+            goal = 20;
+        }
+
         if(sharedPreferences.contains(APP_PREFERENCES_GRAPH_TYPE))
         {
             graphType = sharedPreferences.getInt(APP_PREFERENCES_GRAPH_TYPE, 0);
@@ -95,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
         booksFragment = new BooksFragment();
         profileFragment = new ProfileFragment();
 
+        daysOfWeek = getResources().getStringArray(R.array.days_of_week);
+
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -108,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                                 pageCount = dbHelper.getPagesToday();
                                 dayOfWeek = dbHelper.getTodayDayOfWeek();
                                 pageCount = dbHelper.getPagesToday();
-                                deltaPageCount = pageCount - dbHelper.getPagesYesterday();
+                                yesterdayPageCount = dbHelper.getPagesYesterday();
                                 week = dbHelper.getPagesPerWeek();
                                 booksCount = dbHelper.getBooksCount();
                                 if (booksCount == 0) {
@@ -116,8 +125,12 @@ public class MainActivity extends AppCompatActivity {
                                 } else {
                                     Book book;
                                     if (sharedPreferences.contains(APP_PREFERENCES_LAST_BOOK_ID)) {
-                                        int last_book_id = sharedPreferences.getInt(APP_PREFERENCES_LAST_BOOK_ID, 0);
-                                        book = dbHelper.getBookByID(last_book_id);
+                                        try {
+                                            int last_book_id = sharedPreferences.getInt(APP_PREFERENCES_LAST_BOOK_ID, 0);
+                                            book = dbHelper.getBookByID(last_book_id);
+                                        } catch (Exception e) {
+                                            book = dbHelper.getLastInsertedBook();
+                                        }
                                     } else {
                                         book = dbHelper.getLastInsertedBook();
                                     }
@@ -125,8 +138,9 @@ public class MainActivity extends AppCompatActivity {
                                     bookProgress = book.getPercent();
                                 }
                                 bundle.putInt("graphType", graphType);
+                                bundle.putInt("goal", goal);
+                                bundle.putInt("yesterday", yesterdayPageCount);
                                 bundle.putInt("pageCount", pageCount);
-                                bundle.putInt("deltaPageCount", deltaPageCount);
                                 bundle.putIntArray("week", week);
                                 bundle.putInt("dayOfWeek", dayOfWeek);
                                 bundle.putInt("bookProgress", bookProgress);
@@ -157,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
                                 return true;
                             case R.id.action_profile:
 
+                                int highScore = dbHelper.getHighScore();
                                 int yesterday = dbHelper.getPagesYesterday();
                                 int for_week = dbHelper.getPagesForWeek();
                                 int for_month = dbHelper.getPagesForMount();
@@ -165,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
                                 month = dbHelper.getPagesPerMonth();
 
                                 bundle = new Bundle();
+                                bundle.putInt("high_score", highScore);
                                 bundle.putInt("today", pageCount);
                                 bundle.putInt("yesterday", yesterday);
                                 bundle.putInt("for_week", for_week);
@@ -184,9 +200,13 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    public void onClickEditGoal(View view) {
+        Intent intent = new Intent(MainActivity.this, EditGoalActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_activity_menu, menu);
         return true;
     }
@@ -200,10 +220,10 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(MainActivity.this, AboutActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.action_settings:
+            /*case R.id.action_settings:
                 intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
-                return true;
+                return true;*/
         }
         return super.onOptionsItemSelected(item);
     }
@@ -231,15 +251,13 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, AddBookActivity.class);
             startActivityForResult(intent, 1);
         } else {
-            /*Intent intent = new Intent(MainActivity.this, BooksActivity.class);
-            startActivity(intent);*/
             bottomNavigationView.setSelectedItemId(R.id.action_books);
         }
     }
 
     public void onClickAddBook (View view){
         Intent intent = new Intent(MainActivity.this, AddBookActivity.class);
-        startActivityForResult(intent, 1);
+        startActivity(intent);
     }
 
     public void onClickLineGraph(View view) {
@@ -305,14 +323,12 @@ public class MainActivity extends AppCompatActivity {
     public void createGraph() {
 
         GraphView graph = findViewById(R.id.graph);
-
         graph.removeAllSeries();
 
         DataPoint dataPoint[] = new DataPoint[7];
         for (int i = 0; i < 7; i++) {
             dataPoint[i] = new DataPoint(i, week[6 - i]);
         }
-
 
         BarGraphSeries<DataPoint> bar_series = new BarGraphSeries<DataPoint>(dataPoint);
         LineGraphSeries<DataPoint> line_series = new LineGraphSeries<DataPoint>(dataPoint);
@@ -406,7 +422,6 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < dayInMonth; i++) {
             dataPointMonth[i] = new DataPoint(i, month[dayInMonth - i - 1]);
         }
-
 
         BarGraphSeries<DataPoint> bar_series_month = new BarGraphSeries<DataPoint>(dataPointMonth);
         LineGraphSeries<DataPoint> line_series_month = new LineGraphSeries<DataPoint>(dataPointMonth);

@@ -57,14 +57,14 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean insertBook(String author, String name, int pagesAll, int page, int is_end) {
+    public boolean insertBook(Book book) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(BOOKS_TABLE_COLUMN_AUTHOR, author);
-        contentValues.put(BOOKS_TABLE_COLUMN_NAME, name);
-        contentValues.put(BOOKS_TABLE_COLUMN_PAGES_ALL, pagesAll);
-        contentValues.put(BOOKS_TABLE_COLUMN_PAGE, page);
-        contentValues.put(BOOKS_TABLE_COLUMN_IS_END, is_end);
+        contentValues.put(BOOKS_TABLE_COLUMN_AUTHOR, book.author);
+        contentValues.put(BOOKS_TABLE_COLUMN_NAME, book.name);
+        contentValues.put(BOOKS_TABLE_COLUMN_PAGES_ALL, book.pagesAll);
+        contentValues.put(BOOKS_TABLE_COLUMN_PAGE, book.page);
+        contentValues.put(BOOKS_TABLE_COLUMN_IS_END, book.is_end);
         db.insert(BOOKS_TABLE_NAME, null, contentValues);
         return true;
     }
@@ -118,15 +118,15 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean updateBook(int book_id, String author, String name, int page, int pagesAll, int is_end) {
+    public boolean updateBook(Book book) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(BOOKS_TABLE_COLUMN_AUTHOR, author);
-        contentValues.put(BOOKS_TABLE_COLUMN_NAME, name);
-        contentValues.put(BOOKS_TABLE_COLUMN_PAGES_ALL, pagesAll);
-        contentValues.put(BOOKS_TABLE_COLUMN_PAGE, page);
-        contentValues.put(BOOKS_TABLE_COLUMN_IS_END, is_end);
-        db.update(BOOKS_TABLE_NAME, contentValues, "id = ?", new String[] {String.valueOf(book_id)});
+        contentValues.put(BOOKS_TABLE_COLUMN_AUTHOR, book.author);
+        contentValues.put(BOOKS_TABLE_COLUMN_NAME, book.name);
+        contentValues.put(BOOKS_TABLE_COLUMN_PAGES_ALL, book.pagesAll);
+        contentValues.put(BOOKS_TABLE_COLUMN_PAGE, book.page);
+        contentValues.put(BOOKS_TABLE_COLUMN_IS_END, book.is_end);
+        db.update(BOOKS_TABLE_NAME, contentValues, "id = ?", new String[] {String.valueOf(book.id)});
         return true;
     }
 
@@ -318,6 +318,20 @@ public class DBHelper extends SQLiteOpenHelper {
     public int getTodayDayOfWeek() {
         Calendar c = Calendar.getInstance();
         return c.get(Calendar.DAY_OF_WEEK);
+    }
+
+    public void deleteBook(int book_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(BOOKS_TABLE_NAME, "id = " + book_id, null);
+    }
+
+    public int getHighScore() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT MAX(Pages) FROM " + PAGES_TABLE_NAME + ";", null);
+        cursor.moveToFirst();
+        int highScore = cursor.getInt(0);
+        cursor.close();
+        return highScore;
     }
 
 }

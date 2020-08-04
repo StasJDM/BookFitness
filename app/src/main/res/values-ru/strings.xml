@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BookFitness</string>
+    <string name="about_text">О нас</string>
+    <string name="settings_text">Настройки</string>
+
+    <string name="add_book_message">Нажмите, чтобы добавить книгу</string>
+    <string name="edit_book">Редактировать книгу</string>
+    <string name="enter_page_number">Введите номер страницы</string>
+    <string name="enter_page_count">Введите количество страниц</string>
+    <string name="enter_book_name">Введите название книги</string>
+    <string name="enter_book_author">Введите автора книги</string>
+    <string name="year">2020</string>
+    <string name="add_book">Добавить книгу</string>
+    <string name="author">Автор</string>
+    <string name="name">Название</string>
+    <string name="page_number">Количество страниц</string>
+    <string name="page_now">На какой странице вы сейчас</string>
+    <string name="book_is_end">Книга закончена</string>
+    <string name="save">Сохранить</string>
+    <string name="book_list">Список книг</string>
+    <string name="pages_today">Страниц сегодня</string>
+    <string name="add_pages">Добавить страницы</string>
+    <string name="change">Изменить</string>
+    <string name="change_another_day">Изменить другой день</string>
+    <string name="pages_for_day">Страниц за день</string>
+    <string name="date">Дата</string>
+    <string name="add_in_page_counter">Добавить в счётчик страниц</string>
+    <string name="progress_for_week">Прогресс за неделю</string>
+    <string name="quotes">Цитаты о чтении</string>
+    <string name="books">Книги</string>
+    <string name="book">Книга</string>
+    <string name="all_pages">Всего страниц:</string>
+    <string name="ready_pages">Страниц прочитано:</string>
+    <string name="statistics">Статистика</string>
+    <string name="for_week">За неделю</string>
+    <string name="in_this_month">В этом месяце</string>
+    <string name="yesterday">Вчера</string>
+    <string name="week_average">В среднем за неделю</string>
+    <string name="month_average">В среднем за месяц</string>
+    <string name="book_will_deleted">Книга будет удалена</string>
+    <string name="changes_will_not_be_saved">Изменения не будут сохранены</string>
+    <string name="ok">Ок</string>
+    <string name="cancel">Отмена</string>
+    <string name="change_goal">Изменить цель</string>
+    <string name="goal">Цель</string>
+    <string name="today">Сегодня</string>
+    <string name="set_goal_text">Установите цель и старайтесь чаще её достигать</string>
+    <string name="high_score">Рекорд</string>
+
+    <string name="add_pages_button">Добавить\nстраницы</string>
+    <string name="change_goal_button">Изменить\nцель</string>
+
+    <string name="menu_edit_book">Редактировать книгу</string>
+    <string name="menu_delete_book">Удалить книгу</string>
+    <string name="menu_add_pages">Добавить страницы</string>
+    <string name="add_book_button">Добавить</string>
+
+    <string name="MY_NAME">Пятницын Станислав</string>
+    <string name="MY_EMAIL">pyatnicyn.stanislav@gmail.com</string>
+    <string name="MAY_BEE">Дизайн - MayBee</string>
+
+    <string name="menu_home">Главная</string>
+    <string name="menu_books">Книги</string>
+    <string name="menu_statistics">Статистика</string>
+
+    <string-array name="days_of_week">
+        <item></item>
+        <item>Пн</item>
+        <item>Вт</item>
+        <item>Ср</item>
+        <item>Чт</item>
+        <item>Пт</item>
+        <item>Сб</item>
+        <item>Вс</item>
+        <item>Пн</item>
+        <item>Вт</item>
+        <item>Ср</item>
+        <item>Чт</item>
+        <item>Пт</item>
+        <item>Сб</item>
+        <item>Вс</item>
+    </string-array>
+
+</resources>

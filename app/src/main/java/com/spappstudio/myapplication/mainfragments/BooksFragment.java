@@ -31,6 +31,8 @@ public class BooksFragment extends Fragment {
     int booksId[];
     boolean nullBooks;
 
+    SimpleAdapter simpleAdapter;
+
     public BooksFragment() {
 
     }
@@ -47,7 +49,7 @@ public class BooksFragment extends Fragment {
         booksId = bundle.getIntArray("booksId");
 
         if (booksTitle.size() == 0) {
-            booksTitle.add("Нажмите, чтобы добавить книгу");
+            booksTitle.add(getString(R.string.add_book_message));
             booksProgress = new int[] {0};
             nullBooks = true;
         }
@@ -64,7 +66,7 @@ public class BooksFragment extends Fragment {
         String[] from = {ATTRIBUTE_NAME_TEXT, ATTRIBUTE_NAME_PROGRESS};
         int[] to = {R.id.tvBookName, R.id.pbBookProgress};
 
-        SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(), data, R.layout.list_item_book, from, to);
+        simpleAdapter = new SimpleAdapter(getActivity(), data, R.layout.list_item_book, from, to);
         simpleAdapter.setViewBinder(new MyViewBinder());
 
         listViewBooks.setAdapter(simpleAdapter);
@@ -89,27 +91,24 @@ public class BooksFragment extends Fragment {
 
     class MyViewBinder implements SimpleAdapter.ViewBinder {
 
-
-
         @Override
         public boolean setViewValue(View view, Object data,
                                     String textRepresentation) {
             int i = 0;
             switch (view.getId()) {
-
                 case R.id.pbBookProgress:
                     i = ((Integer) data).intValue();
                     ((ProgressBar)view).setProgress(i);
                     if (nullBooks) {
                         view.setVisibility(View.INVISIBLE);
                     }
-                    /*if (i == 100) {
-                        Log.d("LOG progress: ", String.valueOf(i));
-                        view.setVisibility(View.INVISIBLE);
-                    }*/
                     return true;
             }
             return false;
         }
+    }
+
+    public void updateList() {
+        simpleAdapter.notifyDataSetChanged();
     }
 }

@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/backgroundColor"
     tools:context=".EnterPagesInBookActivity">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/backgroundColor"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="-16dp">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="@dimen/card_view_radius">
 
         <LinearLayout
             android:id="@+id/linearLayoutEnterPages"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:background="@drawable/rounded_corners_2"
             android:orientation="vertical"
             android:padding="8dp">
 
@@ -27,47 +26,22 @@
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Количество страниц:"
+                android:text="@string/page_number"
                 android:textColor="@color/textColor"
                 android:textSize="30sp" />
 
-            <LinearLayout
+            <NumberPicker
+                android:id="@+id/numberPicker"
+                android:layout_margin="16dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/buttonMinus"
-                    android:layout_width="45dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/button_1"
-                    android:onClick="onClickMinus"
-                    android:text="-"
-                    android:textColor="@color/textColor" />
-
-                <EditText
-                    android:id="@+id/editTextPages"
-                    android:layout_width="70dp"
-                    android:layout_height="45dp"
-                    android:ems="10"
-                    android:inputType="numberSigned" />
-
-                <Button
-                    android:id="@+id/buttonPlus"
-                    android:layout_width="45dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/button_1"
-                    android:onClick="onClickPlus"
-                    android:text="+"
-                    android:textColor="@color/textColor" />
-
-            </LinearLayout>
+                android:layout_height="wrap_content" />
 
             <CheckBox
                 android:id="@+id/checkBoxIsAdd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Добавить в счетчик страниц"
+                android:text="@string/add_in_page_counter"
+                android:textSize="16sp"
                 android:textColor="@color/textColor2" />
 
             <TableRow
@@ -76,17 +50,17 @@
 
                 <Button
                     android:id="@+id/buttonSave"
-                    android:layout_width="160dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="4dp"
-                    android:textColor="@color/textColor"
+                    android:textColor="@android:color/white"
                     android:background="@drawable/button_1"
                     android:onClick="onClickSave"
-                    android:text="Сохранить" />
+                    android:text="@string/save" />
             </TableRow>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

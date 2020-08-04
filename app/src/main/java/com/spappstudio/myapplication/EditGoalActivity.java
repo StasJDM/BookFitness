@@ -3,49 +3,50 @@ package com.spappstudio.myapplication;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.NumberPicker;
 
-public class EnterPagesActivity extends AppCompatActivity {
+public class EditGoalActivity extends AppCompatActivity {
 
-    int pageCount;
-    String type;
+    private static final String APP_PREFERENCES = "BookFitnessData";
+    private static final String APP_PREFERENCES_GOAL = "goal";
 
-    Button buttonSave;
+    int goal;
+
     NumberPicker numberPicker;
-
-    DBHelper dbHelper;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_enter_pages);
+        setContentView(R.layout.activity_edit_goal);
+        setTitle(getString(R.string.change_goal));
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        dbHelper = new DBHelper(this);
-        pageCount = dbHelper.getPagesToday();
+        sharedPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        goal = sharedPreferences.getInt(APP_PREFERENCES_GOAL, 20);
 
-        buttonSave = (Button)findViewById(R.id.buttonSave);
         numberPicker = (NumberPicker)findViewById(R.id.numberPicker);
-
         numberPicker.setMinValue(0);
         numberPicker.setMaxValue(999);
+        numberPicker.setValue(goal);
         numberPicker.setWrapSelectorWheel(false);
+    }
 
-        type = getIntent().getExtras().getString("type");
-        if (type.equals("add")) {
-            numberPicker.setValue(0);
-        }
-        if (type.equals("edit")) {
-            numberPicker.setValue(pageCount);
-        }
+    public void onClickSaveGoal(View view) {
+        goal = numberPicker.getValue();
+        sharedPreferences.edit().putInt(APP_PREFERENCES_GOAL, goal).apply();
+        Intent intent = new Intent(EditGoalActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -57,17 +58,5 @@ public class EnterPagesActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    public void onClickSave(View view) {
-        int insertPageCount = numberPicker.getValue();
-        if (type.equals("add")) {
-            insertPageCount += pageCount;
-        }
-        dbHelper.updatePages(insertPageCount);
-
-        Intent intent = new Intent(EnterPagesActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
     }
 }

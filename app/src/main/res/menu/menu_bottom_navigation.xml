@@ -3,13 +3,13 @@
     <item
         android:id="@+id/action_home"
         android:icon="@drawable/ic_home_black_48dp"
-        android:title="Главная"/>
+        android:title="@string/menu_home"/>
     <item
         android:id="@+id/action_books"
         android:icon="@drawable/ic_library_shelves"
-        android:title="Книги" />
+        android:title="@string/menu_books" />
     <item
         android:id="@+id/action_profile"
         android:icon="@drawable/ic_person_black_48dp"
-        android:title="Статистика" />
+        android:title="@string/menu_statistics" />
 </menu>

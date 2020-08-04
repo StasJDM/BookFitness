@@ -20,7 +20,7 @@ import com.spappstudio.myapplication.R;
 
 public class ProfileFragment extends Fragment {
 
-    String[] daysOfWeek = {"", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"};
+    String[] daysOfWeek;
 
     int today;
     int yesterday;
@@ -34,11 +34,13 @@ public class ProfileFragment extends Fragment {
     int month[];
     int week_sr;
     int month_sr;
+    int highScore;
 
     TextView textViewToday;
     TextView textViewYesterday;
     TextView textViewWeek;
     TextView textViewMonth;
+    TextView textViewHighScore;
     TextView textViewWeekSr;
     TextView textViewMonthSr;
 
@@ -65,6 +67,7 @@ public class ProfileFragment extends Fragment {
         textViewYesterday = (TextView)rootView.findViewById(R.id.textViewYesterday);
         textViewWeek = (TextView)rootView.findViewById(R.id.textViewWeek);
         textViewMonth = (TextView)rootView.findViewById(R.id.textViewMonth);
+        textViewHighScore = (TextView)rootView.findViewById(R.id.textViewHighScore);
         textViewWeekSr = (TextView)rootView.findViewById(R.id.textViewWeekSr);
         textViewMonthSr = (TextView)rootView.findViewById(R.id.textViewMonthSr);
         graphViewWeek = (GraphView)rootView.findViewById(R.id.graphWeek);
@@ -74,7 +77,10 @@ public class ProfileFragment extends Fragment {
         imageButtonLineWeek = (ImageButton)rootView.findViewById(R.id.imageButtonLineWeek);
         imageButtonLineMonth = (ImageButton)rootView.findViewById(R.id.imageButtonLineMonth);
 
+        daysOfWeek = getResources().getStringArray(R.array.days_of_week);
+
         Bundle bundle = getArguments();
+        highScore = bundle.getInt("high_score", 0);
         today = bundle.getInt("today", 0);
         yesterday = bundle.getInt("yesterday", 0);
         for_week = bundle.getInt("for_week", 0);
@@ -86,15 +92,14 @@ public class ProfileFragment extends Fragment {
         month = bundle.getIntArray("month");
 
         dayInMonth = month.length;
-
         week_sr = for_week / 7;
         month_sr = for_month / month.length;
-
 
         textViewToday.setText(String.valueOf(today));
         textViewYesterday.setText(String.valueOf(yesterday));
         textViewWeek.setText(String.valueOf(for_week));
         textViewMonth.setText(String.valueOf(for_month));
+        textViewHighScore.setText(String.valueOf(highScore));
         textViewWeekSr.setText(String.valueOf(week_sr));
         textViewMonthSr.setText(String.valueOf(month_sr));
 
@@ -102,7 +107,6 @@ public class ProfileFragment extends Fragment {
         for (int i = 0; i < 7; i++) {
             dataPoint[i] = new DataPoint(i, week[6 - i]);
         }
-
 
         BarGraphSeries<DataPoint> bar_series = new BarGraphSeries<DataPoint>(dataPoint);
         LineGraphSeries<DataPoint> line_series = new LineGraphSeries<DataPoint>(dataPoint);
@@ -143,13 +147,10 @@ public class ProfileFragment extends Fragment {
 
         //     ГРАФИК ЗА МЕСЯЦ     //
 
-
-
         DataPoint dataPointMonth[] = new DataPoint[dayInMonth];
         for (int i = 0; i < dayInMonth; i++) {
             dataPointMonth[i] = new DataPoint(i, month[dayInMonth - i - 1]);
         }
-
 
         BarGraphSeries<DataPoint> bar_series_month = new BarGraphSeries<DataPoint>(dataPointMonth);
         LineGraphSeries<DataPoint> line_series_month = new LineGraphSeries<DataPoint>(dataPointMonth);
@@ -178,8 +179,6 @@ public class ProfileFragment extends Fragment {
             graphViewMonth.addSeries(line_series_month);
             imageButtonLineMonth.setBackgroundResource(R.drawable.rounded_corners_4);
         }
-
-
 
         return rootView;
     }

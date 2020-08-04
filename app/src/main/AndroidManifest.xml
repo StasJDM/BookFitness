@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spappstudio.myapplication"
-    android:versionName="1.0"
-    android:versionCode="2">
+    android:versionCode="2"
+    android:versionName="1.0">
 
     <application
         android:allowBackup="true"
@@ -11,16 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.spappstudio.myapplication.EnterDatePagesActivity"></activity>
-        <activity android:name="com.spappstudio.myapplication.SettingsActivity" />
-        <activity android:name="com.spappstudio.myapplication.AboutActivity" />
-        <activity android:name="com.spappstudio.myapplication.EnterPagesInBookActivity" />
-        <activity android:name="com.spappstudio.myapplication.OneBookActivity" />
-        <activity android:name="com.spappstudio.myapplication.AddBookActivity" />
-        <activity android:name="com.spappstudio.myapplication.BooksActivity" />
-        <activity android:name="com.spappstudio.myapplication.EnterPagesActivity" />
-        <activity android:name="com.spappstudio.myapplication.EditActivity" />
-        <activity android:name="com.spappstudio.myapplication.MainActivity">
+        <activity android:name=".EditGoalActivity"></activity>
+        <activity android:name=".EnterDatePagesActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".EnterPagesInBookActivity" />
+        <activity android:name=".OneBookActivity" />
+        <activity android:name=".AddBookActivity" />
+        <activity android:name=".EnterPagesActivity" />
+        <activity android:name=".EditActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

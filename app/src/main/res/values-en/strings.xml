@@ -30,8 +30,8 @@
     <string name="quotes">Reading quotes</string>
     <string name="books">Books</string>
     <string name="book">Book</string>
-    <string name="all_pages">Total pages:</string>
-    <string name="ready_pages">Pages read:</string>
+    <string name="all_pages">Total pages</string>
+    <string name="ready_pages">Pages read</string>
     <string name="statistics">Statistics</string>
     <string name="for_week">During the week</string>
     <string name="in_this_month">This month</string>
