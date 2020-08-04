@@ -47,9 +47,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginTop="10dp"
-                        android:paddingBottom="0dp"
+                        android:paddingBottom="1dp"
                         android:onClick="onClickAddBook"
-                        android:text="@string/add_book" />
+                        android:textColor="@color/textColor2"
+                        android:text="@string/add_book_button" />
 
                     </LinearLayout>
 

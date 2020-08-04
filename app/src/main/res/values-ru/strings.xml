@@ -54,6 +54,7 @@
     <string name="menu_edit_book">Редактировать книгу</string>
     <string name="menu_delete_book">Удалить книгу</string>
     <string name="menu_add_pages">Добавить страницы</string>
+    <string name="add_book_button">Добавить</string>
 
     <string name="MY_NAME">Пятницын Станислав</string>
     <string name="MY_EMAIL">pyatnicyn.stanislav@gmail.com</string>

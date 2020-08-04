@@ -50,6 +50,7 @@
 
     <string name="add_pages_button">Add pages</string>
     <string name="change_goal_button">Change goal</string>
+    <string name="add_book_button">Add</string>
 
     <string name="menu_edit_book">Edit book</string>
     <string name="menu_delete_book">Delete book</string>
