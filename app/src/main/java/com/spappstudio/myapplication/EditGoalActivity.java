@@ -44,8 +44,7 @@ public class EditGoalActivity extends AppCompatActivity {
     public void onClickSaveGoal(View view) {
         goal = numberPicker.getValue();
         sharedPreferences.edit().putInt(APP_PREFERENCES_GOAL, goal).apply();
-        Intent intent = new Intent(EditGoalActivity.this, MainActivity.class);
-        startActivity(intent);
+        setResult(RESULT_OK);
         finish();
     }
 

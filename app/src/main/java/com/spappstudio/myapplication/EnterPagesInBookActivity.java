@@ -65,7 +65,6 @@ public class EnterPagesInBookActivity extends AppCompatActivity {
             dbHelper.updateAddPages(insertPageCount);
         }
 
-        Intent intent = new Intent();
         setResult(RESULT_OK);
         finish();
     }

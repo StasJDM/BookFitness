@@ -73,17 +73,6 @@ public class HomeFragment extends Fragment {
         bookTitle = bundle.getString("bookTitle");
         bookProgress = bundle.getInt("bookProgress");
 
-        circleProgressBar.setProgress((int)(100 * yesterdayPageCount / goal));
-        textViewPageCount.setText(String.valueOf(pageCount));
-        textViewYesterdayPageCount.setText(String.valueOf(yesterdayPageCount));
-        textViewGoal.setText(String.valueOf(goal));
-        textViewBookName.setText(bookTitle);
-        if (bookTitle.equals(getString(R.string.add_book_message))) {
-            progressBarBookProgress.setVisibility(View.INVISIBLE);
-        } else {
-            progressBarBookProgress.setProgress(bookProgress);
-        }
-
         DataPoint dataPoint[] = new DataPoint[7];
         for (int i = 0; i < 7; i++) {
             dataPoint[i] = new DataPoint(i, week[6 - i]);
@@ -127,5 +116,30 @@ public class HomeFragment extends Fragment {
         graph.getViewport().setDrawBorder(true);
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Bundle bundle = getArguments();
+        pageCount = bundle.getInt("pageCount", 0);
+        yesterdayPageCount = bundle.getInt("yesterday", 0);
+        goal = bundle.getInt("goal", 0);
+        graphType = bundle.getInt("graphType", 0);
+        week = bundle.getIntArray("week");
+        dayOfWeek = bundle.getInt("dayOfWeek", 1);
+        bookTitle = bundle.getString("bookTitle");
+        bookProgress = bundle.getInt("bookProgress");
+
+        circleProgressBar.setProgress((int)(100 * pageCount / goal));
+        textViewPageCount.setText(String.valueOf(pageCount));
+        textViewYesterdayPageCount.setText(String.valueOf(yesterdayPageCount));
+        textViewGoal.setText(String.valueOf(goal));
+        textViewBookName.setText(bookTitle);
+        if (bookTitle.equals(getString(R.string.add_book_message))) {
+            progressBarBookProgress.setVisibility(View.INVISIBLE);
+        } else {
+            progressBarBookProgress.setProgress(bookProgress);
+        }
     }
 }
