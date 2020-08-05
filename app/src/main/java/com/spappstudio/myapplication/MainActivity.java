@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
                                     bookTitle = book.getTitle();
                                     bookProgress = book.getPercent();
                                 }
+                                goal = sharedPreferences.getInt(APP_PREFERENCES_GOAL, 20);
                                 bundle.putInt("graphType", graphType);
                                 bundle.putInt("goal", goal);
                                 bundle.putInt("yesterday", yesterdayPageCount);
@@ -202,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickEditGoal(View view) {
         Intent intent = new Intent(MainActivity.this, EditGoalActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 0);
     }
 
     @Override
@@ -243,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickEditPages(View view) {
         Intent intent = new Intent(MainActivity.this, EditActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
     public void onClickBooks(View view) {
