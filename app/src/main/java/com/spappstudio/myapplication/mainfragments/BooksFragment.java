@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.chip.Chip;
 import com.spappstudio.myapplication.AddBookActivity;
 import com.spappstudio.myapplication.OneBookActivity;
 import com.spappstudio.myapplication.R;
@@ -31,6 +33,10 @@ public class BooksFragment extends Fragment {
     int booksId[];
     boolean nullBooks;
 
+    Chip chip_current;
+    Chip chip_archive;
+    Chip chip_wishful;
+
     SimpleAdapter simpleAdapter;
 
     public BooksFragment() {
@@ -42,6 +48,11 @@ public class BooksFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_books, container, false);
 
         listViewBooks = (ListView)rootView.findViewById(R.id.listViewBooks);
+
+        chip_current = (Chip)rootView.findViewById(R.id.chip_current);
+        chip_archive = (Chip)rootView.findViewById(R.id.chip_archive);
+        chip_wishful = (Chip)rootView.findViewById(R.id.chip_wishful);
+        chip_current.setChecked(true);
 
         Bundle bundle = getArguments();
         booksTitle = bundle.getStringArrayList("booksTitle");
