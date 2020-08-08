@@ -60,6 +60,38 @@
 
     </androidx.cardview.widget.CardView>
 
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_current"
+            android:onClick="onClickButtonCurrent"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/current" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_archive"
+            android:onClick="onClickButtonArchive"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/archive" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_wishful"
+            android:onClick="onClickButtonWishful"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wishful" />
+
+    </com.google.android.material.chip.ChipGroup>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

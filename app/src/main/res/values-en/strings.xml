@@ -47,6 +47,9 @@
     <string name="today">Today</string>
     <string name="set_goal_text">Set a goal and try to achieve it more often</string>
     <string name="high_score">High score</string>
+    <string name="current">Current</string>
+    <string name="wishful">Wishful</string>
+    <string name="archive">Archive</string>
 
     <string name="add_pages_button">Add pages</string>
     <string name="change_goal_button">Change goal</string>
