@@ -15,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.spappstudio.myapplication.dialogs.DeleteDialog;
+import com.spappstudio.myapplication.objects.Book;
 
 public class OneBookActivity extends AppCompatActivity {
 

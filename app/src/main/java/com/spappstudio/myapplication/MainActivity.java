@@ -28,6 +28,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.spappstudio.myapplication.mainfragments.BooksFragment;
 import com.spappstudio.myapplication.mainfragments.HomeFragment;
 import com.spappstudio.myapplication.mainfragments.ProfileFragment;
+import com.spappstudio.myapplication.objects.Book;
 
 import java.util.ArrayList;
 
