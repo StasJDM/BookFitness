@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.spappstudio.myapplication.dialogs.BackDialog;
-import com.spappstudio.myapplication.mainfragments.BooksFragment;
+import com.spappstudio.myapplication.objects.Book;
 
 public class AddBookActivity extends AppCompatActivity {
 

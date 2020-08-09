@@ -1,4 +1,4 @@
-package com.spappstudio.myapplication;
+package com.spappstudio.myapplication.objects;
 
 public class Book {
 
