@@ -39,10 +39,11 @@ public class BooksRecyclerAdapter extends RecyclerView.Adapter<BooksRecyclerAdap
     public void onBindViewHolder(BooksRecyclerAdapter.ViewHolder holder, int position) {
         Book book = books.get(position);
         holder.textView.setText(book.author + " - " + book.name);
-        if (type == "wishful") {
-            holder.progressBar.setVisibility(View.GONE);
-        } else {
+        if (type == "all") {
             holder.progressBar.setProgress(book.getPercent());
+            holder.progressBar.setVisibility(View.VISIBLE);
+        } else {
+            holder.progressBar.setVisibility(View.GONE);
         }
 
     }
@@ -50,6 +51,12 @@ public class BooksRecyclerAdapter extends RecyclerView.Adapter<BooksRecyclerAdap
     @Override
     public int getItemCount() {
         return books.size();
+    }
+
+    public void updateData(ArrayList<Book> books, String type) {
+        this.books = books;
+        this.type = type;
+        this.notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
