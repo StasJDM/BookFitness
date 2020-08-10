@@ -25,8 +25,6 @@ import com.spappstudio.myapplication.adapters.BooksRecyclerAdapter;
 import com.spappstudio.myapplication.objects.Book;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class BooksFragment extends Fragment {
 
@@ -49,14 +47,35 @@ public class BooksFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_books, container, false);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewBooks);
-
         chip_current = (Chip)rootView.findViewById(R.id.chip_current);
         chip_archive = (Chip)rootView.findViewById(R.id.chip_archive);
         chip_wishful = (Chip)rootView.findViewById(R.id.chip_wishful);
-        chip_current.setChecked(true);
 
-        DBHelper dbHelper = new DBHelper(getContext());
-        final ArrayList<Book> books = dbHelper.getAllBooks();
+        final DBHelper dbHelper = new DBHelper(getContext());
+        ArrayList<Book> books = dbHelper.getAllUnreadBook();
+
+        chip_current.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerAdapter.updateData(dbHelper.getAllUnreadBook(), "all");
+            }
+        });
+
+        chip_archive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerAdapter.updateData(dbHelper.getAllReadBook(), "archive");
+            }
+        });
+
+        chip_wishful.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerAdapter.updateData(dbHelper.getAllWishfulBooks(), "wishful");
+            }
+        });
+
+        chip_current.setChecked(true);
 
         if (books.size() == 0) {
             books.add(new Book(-1, getString(R.string.add_book_message), "", 0, 0, 0));
@@ -65,7 +84,11 @@ public class BooksFragment extends Fragment {
 
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerAdapter = new BooksRecyclerAdapter(getContext(), books, "all");
+        if (books.size() > 0) {
+            recyclerAdapter = new BooksRecyclerAdapter(getContext(), books, "all");
+        } else {
+            recyclerAdapter = new BooksRecyclerAdapter(getContext(), books, "null");
+        }
         recyclerView.setAdapter(recyclerAdapter);
 
         return rootView;

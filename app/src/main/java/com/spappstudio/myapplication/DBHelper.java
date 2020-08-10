@@ -18,7 +18,7 @@ import java.util.Date;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
 
     public static final String PAGES_TABLE_NAME = "BookFitnessPages";
     public static final String BOOKS_TABLE_NAME = "BookFitnessBooks";
@@ -50,7 +50,10 @@ public class DBHelper extends SQLiteOpenHelper {
         switch (oldVersion) {
             case 1:
                 db.execSQL("CREATE TABLE " + BOOKS_TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, Author TEXT, Name TEXT, Pages_All INTEGER, Page INTEGER, is_end INTEGER);");
+                db.execSQL("CREATE TABLE " + WISHFUL_BOOKS_TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, author TEXT, name TEXT);");
                 break;
+            case 2:
+                db.execSQL("CREATE TABLE " + WISHFUL_BOOKS_TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, author TEXT, name TEXT);");
             default:
                 break;
         }
@@ -85,11 +88,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.insert(WISHFUL_BOOKS_TABLE_NAME, null, contentValues);
     }
 
-    public WishfulBook getWishfulBook(int id) {
+    public Book getWishfulBook(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + WISHFUL_BOOKS_TABLE_NAME + " WHERE " + WISHFUL_TABLE_COLUMN_ID + " = '" + id +"';", null);
         cursor.moveToFirst();
-        WishfulBook wishfulBook = new WishfulBook(
+        Book wishfulBook = new Book(
                 id,
                 cursor.getString(cursor.getColumnIndex(WISHFUL_TABLE_COLUMN_AUTHOR)),
                 cursor.getString(cursor.getColumnIndex(WISHFUL_TABLE_COLUMN_NAME))
@@ -98,14 +101,14 @@ public class DBHelper extends SQLiteOpenHelper {
         return wishfulBook;
     }
 
-    public ArrayList<WishfulBook> getAllWishfulBooks() {
+    public ArrayList<Book> getAllWishfulBooks() {
         SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<WishfulBook> wishfulBooks = new ArrayList<WishfulBook>();
+        ArrayList<Book> wishfulBooks = new ArrayList<Book>();
         Cursor cursor = db.rawQuery("SELECT * FROM " + WISHFUL_BOOKS_TABLE_NAME + ";", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast())
         {
-            wishfulBooks.add(new WishfulBook(
+            wishfulBooks.add(new Book(
                     cursor.getInt(cursor.getColumnIndex(WISHFUL_TABLE_COLUMN_ID)),
                     cursor.getString(cursor.getColumnIndex(WISHFUL_TABLE_COLUMN_AUTHOR)),
                     cursor.getString(cursor.getColumnIndex(WISHFUL_TABLE_COLUMN_NAME))
@@ -154,7 +157,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return books;
     }
 
-    public void updateWishfulBook(WishfulBook wishfulBook) {
+    public void updateWishfulBook(Book wishfulBook) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(WISHFUL_TABLE_COLUMN_AUTHOR, wishfulBook.author);

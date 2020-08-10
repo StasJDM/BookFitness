@@ -68,7 +68,6 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_current"
-            android:onClick="onClickButtonCurrent"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,7 +75,6 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_archive"
-            android:onClick="onClickButtonArchive"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,7 +82,6 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_wishful"
-            android:onClick="onClickButtonWishful"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
