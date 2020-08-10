@@ -98,8 +98,8 @@
         android:layout_margin="8dp"
         app:cardCornerRadius="@dimen/card_view_radius">
 
-        <ListView
-            android:id="@+id/listViewBooks"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewBooks"
             android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

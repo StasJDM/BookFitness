@@ -75,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_main_2);
 
-        //chip_current.setSelected(true);
-
         sharedPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         dbHelper = new DBHelper(this);
 
@@ -156,23 +154,6 @@ public class MainActivity extends AppCompatActivity {
                                 return true;
 
                             case R.id.action_books:
-                                bundle = new Bundle();
-
-                                Book book;
-                                ArrayList<Book> books = dbHelper.getAllBooks();
-                                ArrayList<String> booksTitle = new ArrayList<String>();
-                                int[] booksProgress = new int[books.size()];
-                                int[] booksId = new int[books.size()];
-                                for (int i = 0; i < books.size(); i++) {
-                                    book = books.get(i);
-                                    booksTitle.add(book.getTitle());
-                                    booksProgress[i] = book.getPercent();
-                                    booksId[i] = book.id;
-                                }
-                                bundle.putStringArrayList("booksTitle", booksTitle);
-                                bundle.putIntArray("booksProgress", booksProgress);
-                                bundle.putIntArray("booksId", booksId);
-                                booksFragment.setArguments(bundle);
                                 loadFragment(booksFragment);
                                 return true;
                             case R.id.action_profile:
