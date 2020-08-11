@@ -12,21 +12,33 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.spappstudio.myapplication.dialogs.BackDialog;
 import com.spappstudio.myapplication.objects.Book;
+
+import org.w3c.dom.Text;
 
 public class AddBookActivity extends AppCompatActivity {
 
     int book_id;
+    String type;
 
     DBHelper dbHelper;
 
+    Chip chip_current;
+    Chip chip_archive;
+    Chip chip_wishful;
+    ChipGroup chipGroup;
     EditText editTextAuthor;
     EditText editTextName;
     EditText editTextPagesAll;
     EditText editTextPage;
+    EditText editTextDate;
     TextView textViewTitle;
-    CheckBox checkBoxIsEnd;
+    TextView textViewPagesAll;
+    TextView textViewPageNow;
+    TextView textViewDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +49,56 @@ public class AddBookActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        chip_current = (Chip)findViewById(R.id.chip_current);
+        chip_archive = (Chip)findViewById(R.id.chip_archive);
+        chip_wishful = (Chip)findViewById(R.id.chip_wishful);
+        chipGroup = (ChipGroup)findViewById(R.id.chip_group);
         editTextAuthor = (EditText)findViewById(R.id.editTextAuthor);
         editTextName = (EditText)findViewById(R.id.editTextName);
         editTextPagesAll = (EditText)findViewById(R.id.editTextPagesAll);
         editTextPage = (EditText)findViewById(R.id.editTextPage);
-        checkBoxIsEnd = (CheckBox)findViewById(R.id.checkBoxIsEnd);
         textViewTitle = (TextView)findViewById(R.id.textViewTitle);
+        textViewPagesAll = (TextView)findViewById(R.id.textViewNumberOfPages);
+        textViewPageNow = (TextView)findViewById(R.id.textViewPageNow);
+
+        chip_current.setChecked(true);
+
+        chip_current.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type = "current";
+                textViewPagesAll.setVisibility(View.VISIBLE);
+                textViewPageNow.setVisibility(View.VISIBLE);
+                textViewDate.setVisibility(View.GONE);
+                editTextPage.setVisibility(View.VISIBLE);
+                editTextPagesAll.setVisibility(View.VISIBLE);
+                editTextDate.setVisibility(View.GONE);
+            }
+        });
+
+        chip_archive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type = "archive";
+                textViewPagesAll.setVisibility(View.GONE);
+                textViewPageNow.setVisibility(View.GONE);
+                editTextPage.setVisibility(View.GONE);
+                editTextPagesAll.setVisibility(View.GONE);
+            }
+        });
+
+        chip_wishful.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type = "wishful";
+                textViewPagesAll.setVisibility(View.GONE);
+                textViewPageNow.setVisibility(View.GONE);
+                textViewDate.setVisibility(View.GONE);
+                editTextPage.setVisibility(View.GONE);
+                editTextPagesAll.setVisibility(View.GONE);
+                editTextDate.setVisibility(View.GONE);
+            }
+        });
 
         dbHelper = new DBHelper(this);
 
@@ -50,11 +106,32 @@ public class AddBookActivity extends AppCompatActivity {
         if (book_id != -1) {
             textViewTitle.setText(getString(R.string.edit_book));
             Book book = dbHelper.getBookByID(book_id);
+            type = book.type;
             editTextAuthor.setText(book.author);
             editTextName.setText(book.name);
-            editTextPagesAll.setText(String.valueOf(book.pagesAll));
-            editTextPage.setText(String.valueOf(book.page));
-            checkBoxIsEnd.setChecked(book.is_end);
+            switch (type) {
+                case "current":
+                    editTextPagesAll.setText(String.valueOf(book.pagesAll));
+                    editTextPage.setText(String.valueOf(book.page));
+                    editTextDate.setVisibility(View.GONE);
+                    textViewDate.setVisibility(View.GONE);
+                    break;
+                case "archive":
+                    editTextPagesAll.setVisibility(View.GONE);
+                    editTextPage.setVisibility(View.GONE);
+                    textViewPagesAll.setVisibility(View.GONE);
+                    textViewPageNow.setVisibility(View.GONE);
+                    break;
+                case "wishful":
+                    editTextPagesAll.setVisibility(View.GONE);
+                    editTextPage.setVisibility(View.GONE);
+                    editTextDate.setVisibility(View.GONE);
+                    textViewPagesAll.setVisibility(View.GONE);
+                    textViewPageNow.setVisibility(View.GONE);
+                    textViewDate.setVisibility(View.GONE);
+                    break;
+            }
+            chipGroup.setVisibility(View.GONE);
         }
     }
 
@@ -70,46 +147,20 @@ public class AddBookActivity extends AppCompatActivity {
     }
 
     public void onClickAdd(View view) {
-        int is_end;
-        if (checkBoxIsEnd.isChecked()) {
-            is_end = 1;
-        } else {
-            is_end = 0;
-        }
 
         if (!editTextAuthor.getText().toString().isEmpty()) {
 
             if (!editTextName.getText().toString().isEmpty()) {
 
-                if (!editTextPagesAll.getText().toString().isEmpty()) {
-
-                    if (!editTextPage.getText().toString().isEmpty()) {
-
-                        Book book = new Book(
-                                book_id,
-                                editTextAuthor.getText().toString(),
-                                editTextName.getText().toString(),
-                                Integer.valueOf(editTextPagesAll.getText().toString()),
-                                Integer.valueOf(editTextPage.getText().toString()),
-                                is_end
-                        );
-
-                        if (book_id == -1) {
-                            dbHelper.insertBook(book);
-                        } else {
-                            dbHelper.updateBook(book);
-                        }
-
-                        Intent intent = new Intent(AddBookActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        editTextPage.setHint(getString(R.string.enter_page_number));
-                        editTextPage.setHintTextColor(Color.RED);
-                    }
-                } else {
-                    editTextPagesAll.setHint(getString(R.string.enter_page_count));
-                    editTextPagesAll.setHintTextColor(Color.RED);
+                switch (type) {
+                    case "current":
+                        saveUnreadBook();
+                        break;
+                    case "archive":
+                        saveArchiveBook();
+                        break;
+                    case "wishful":
+                        saveWishfulBook();
                 }
             } else {
                 editTextName.setHint(getString(R.string.enter_book_name));
@@ -119,6 +170,83 @@ public class AddBookActivity extends AppCompatActivity {
             editTextAuthor.setHint(getString(R.string.enter_book_author));
             editTextAuthor.setHintTextColor(Color.RED);
         }
+    }
+
+    private void saveUnreadBook() {
+        if (!editTextPagesAll.getText().toString().isEmpty()) {
+
+            if (!editTextPage.getText().toString().isEmpty()) {
+
+                Book book = new Book(
+                        book_id,
+                        editTextAuthor.getText().toString(),
+                        editTextName.getText().toString(),
+                        Integer.valueOf(editTextPagesAll.getText().toString()),
+                        Integer.valueOf(editTextPage.getText().toString()),
+                        0,
+                        dbHelper.getTodayDateString(),
+                        "current"
+                );
+
+                if (book_id == -1) {
+                    dbHelper.insertBook(book);
+                } else {
+                    dbHelper.updateBook(book);
+                }
+
+                Intent intent = new Intent(AddBookActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                editTextPage.setHint(getString(R.string.enter_page_number));
+                editTextPage.setHintTextColor(Color.RED);
+            }
+        } else {
+            editTextPagesAll.setHint(getString(R.string.enter_page_count));
+            editTextPagesAll.setHintTextColor(Color.RED);
+        }
+    }
+
+    private void saveArchiveBook() {
+        Book book = new Book(
+                book_id,
+                editTextAuthor.getText().toString(),
+                editTextName.getText().toString(),
+                -1,
+                -1,
+                1,
+                dbHelper.getTodayDateString(),
+                "archive"
+        );
+        if (book_id == -1) {
+            dbHelper.insertBook(book);
+        } else {
+            dbHelper.updateBook(book);
+        }
+        Intent intent = new Intent(AddBookActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void saveWishfulBook() {
+        Book book = new Book(
+                book_id,
+                editTextAuthor.getText().toString(),
+                editTextName.getText().toString(),
+                -1,
+                -1,
+                1,
+                "",
+                "wishful"
+        );
+        if (book_id == -1) {
+            dbHelper.insertBook(book);
+        } else {
+            dbHelper.updateBook(book);
+        }
+        Intent intent = new Intent(AddBookActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

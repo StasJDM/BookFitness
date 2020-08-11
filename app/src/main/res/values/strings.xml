@@ -51,6 +51,10 @@
     <string name="wishful">Wishful</string>
     <string name="archive">Archive</string>
 
+    <string name="add_current">Reading now</string>
+    <string name="add_archive">Already read</string>
+    <string name="add_wishful">Want to read</string>
+
     <string name="add_pages_button">Add pages</string>
     <string name="change_goal_button">Change goal</string>
     <string name="add_book_button">Add</string>

@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.spappstudio.myapplication.objects.Book;
-import com.spappstudio.myapplication.objects.WishfulBook;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -23,17 +22,27 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String PAGES_TABLE_NAME = "BookFitnessPages";
     public static final String BOOKS_TABLE_NAME = "BookFitnessBooks";
     public static final String WISHFUL_BOOKS_TABLE_NAME = "BookFitnessWishfulBooks";
+    public static final String WISHFUL_BOOKS_TABLE_NAME_OLD = "BookFitnessWishfulBooksOld";
+
+    public static final String PAGES_TABLE_COLUMN_ID = "id";
+    public static final String PAGES_TABLE_COLUMN_DATE = "Date";
+    public static final String PAGES_TABLE_COLUMN_PAGES = "Pages";
+    public static final String PAGES_TABLE_COLUMN_BOOK_ID = "Book_id";
 
     public static final String BOOKS_TABLE_COLUMN_ID = "id";
     public static final String BOOKS_TABLE_COLUMN_AUTHOR = "Author";
     public static final String BOOKS_TABLE_COLUMN_NAME = "Name";
+    public static final String BOOKS_TABLE_COLUMN_TYPE = "Type";
     public static final String BOOKS_TABLE_COLUMN_PAGES_ALL = "Pages_All";
     public static final String BOOKS_TABLE_COLUMN_PAGE = "Page";
-    public static final String BOOKS_TABLE_COLUMN_IS_END = "is_end";
+    public static final String BOOKS_TABLE_COLUMN_START_DATE = "Start_Date";
+    public static final String BOOKS_TABLE_COLUMN_END_DATE = "End_Date";
+    public static final String BOOKS_TABLE_COLUMN_RATING = "Rating";
+    public static final String BOOKS_TABLE_COLUMN_IS_END = "is_end"; // Outdated
 
-    public static final String WISHFUL_TABLE_COLUMN_ID = "id";
-    public static final String WISHFUL_TABLE_COLUMN_AUTHOR = "author";
-    public static final String WISHFUL_TABLE_COLUMN_NAME = "name";
+    public static final String BOOK_TYPE_CURRENT = "current";
+    public static final String BOOK_TYPE_ARCHIVE = "archive";
+    public static final String BOOK_TYPE_WISHFUL = "wishful";
 
     public DBHelper (Context context) {
         super(context, "BookFitnessDB", null, DATABASE_VERSION);
@@ -41,8 +50,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE BookFitnessPages(id INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT, Pages INTEGER);");
-        db.execSQL("CREATE TABLE " + BOOKS_TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, Author TEXT, Name TEXT, Pages_All INTEGER, Page INTEGER, is_end INTEGER);");
+        db.execSQL("CREATE TABLE BookFitnessPages(id INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT, Pages INTEGER, Book_id INTEGER);");
+        db.execSQL("CREATE TABLE " + BOOKS_TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, Author TEXT, Name TEXT, Type TEXT, Pages_All INTEGER, Page INTEGER, Start_Date TEXT, End_Date TEXT, Rating INTEGER);");
     }
 
     @Override
@@ -50,52 +59,76 @@ public class DBHelper extends SQLiteOpenHelper {
         switch (oldVersion) {
             case 1:
                 db.execSQL("CREATE TABLE " + BOOKS_TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, Author TEXT, Name TEXT, Pages_All INTEGER, Page INTEGER, is_end INTEGER);");
-                db.execSQL("CREATE TABLE " + WISHFUL_BOOKS_TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, author TEXT, name TEXT);");
+                db.execSQL("ALTER TABLE " + PAGES_TABLE_NAME + " ADD COLUMN " + PAGES_TABLE_COLUMN_BOOK_ID + " INTEGER;");
                 break;
             case 2:
-                db.execSQL("CREATE TABLE " + WISHFUL_BOOKS_TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, author TEXT, name TEXT);");
+                db.execSQL("ALTER TABLE " + PAGES_TABLE_NAME + " ADD COLUMN " + PAGES_TABLE_COLUMN_BOOK_ID + " INTEGER;");
+                db.execSQL("ALTER TABLE " + BOOKS_TABLE_NAME + " RENAME TO " + WISHFUL_BOOKS_TABLE_NAME_OLD + ";");
+                db.execSQL("CREATE TABLE " + BOOKS_TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, Author TEXT, Name TEXT, Type TEXT, Pages_All INTEGER, Page INTEGER, Start_Date TEXT, End_Date TEXT, Rating INTEGER);");
+                db.execSQL("INSERT INTO " + WISHFUL_BOOKS_TABLE_NAME + "(id, Author, Name, Pages_All, Page, Type) SELECT id, Author, Name, Pages_All, Page, is_end FROM " + WISHFUL_BOOKS_TABLE_NAME_OLD + ";");
+                db.execSQL("DROP TABLE IF EXISTS " + WISHFUL_BOOKS_TABLE_NAME_OLD + ";");
+                db.execSQL("UPDATE " + BOOKS_TABLE_NAME + " SET Type = '" + BOOK_TYPE_CURRENT + "' WHERE Type = '0';");
+                db.execSQL("UPDATE " + BOOKS_TABLE_NAME + " SET Type = '" + BOOK_TYPE_ARCHIVE + "' WHERE Type = '1';");
             default:
                 break;
         }
     }
 
-    public boolean insert(String date, int pages) {
+    public boolean insert(String date, int pages, int book_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("Date", date);
-        contentValues.put("Pages", pages);
+        contentValues.put(PAGES_TABLE_COLUMN_DATE, date);
+        contentValues.put(PAGES_TABLE_COLUMN_PAGES, pages);
+        contentValues.put(PAGES_TABLE_COLUMN_BOOK_ID, book_id);
         db.insert(PAGES_TABLE_NAME, null, contentValues);
         return true;
     }
 
-    public boolean insertBook(Book book) {
+    public void insertCurrentBook(Book book) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(BOOKS_TABLE_COLUMN_AUTHOR, book.author);
         contentValues.put(BOOKS_TABLE_COLUMN_NAME, book.name);
+        contentValues.put(BOOKS_TABLE_COLUMN_TYPE, book.type);
         contentValues.put(BOOKS_TABLE_COLUMN_PAGES_ALL, book.pagesAll);
         contentValues.put(BOOKS_TABLE_COLUMN_PAGE, book.page);
-        contentValues.put(BOOKS_TABLE_COLUMN_IS_END, book.is_end);
+        contentValues.put(BOOKS_TABLE_COLUMN_START_DATE, book.start_date);
         db.insert(BOOKS_TABLE_NAME, null, contentValues);
-        return true;
     }
 
-    public void insertWishfulBook(String author, String name) {
+    public void insertArchiveBook(Book book) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(WISHFUL_TABLE_COLUMN_AUTHOR, author);
-        contentValues.put(WISHFUL_TABLE_COLUMN_NAME, name);
-        db.insert(WISHFUL_BOOKS_TABLE_NAME, null, contentValues);
+        contentValues.put(BOOKS_TABLE_COLUMN_AUTHOR, book.author);
+        contentValues.put(BOOKS_TABLE_COLUMN_NAME, book.name);
+        contentValues.put(BOOKS_TABLE_COLUMN_TYPE, book.type);
+        if (!book.start_date.isEmpty()) {
+            contentValues.put(BOOKS_TABLE_COLUMN_START_DATE, book.start_date);
+        }
+        if (!book.end_date.isEmpty()) {
+            contentValues.put(BOOKS_TABLE_COLUMN_END_DATE, book.end_date);
+        }
+        db.insert(BOOKS_TABLE_NAME, null, contentValues);
+    }
+
+    public void insertWishfulBook(Book book) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(BOOKS_TABLE_COLUMN_AUTHOR, book.author);
+        contentValues.put(BOOKS_TABLE_COLUMN_NAME, book.name);
+        contentValues.put(BOOKS_TABLE_COLUMN_TYPE, book.type);
+        db.insert(BOOKS_TABLE_NAME, null, contentValues);
     }
 
     public Book getWishfulBook(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + WISHFUL_BOOKS_TABLE_NAME + " WHERE " + WISHFUL_TABLE_COLUMN_ID + " = '" + id +"';", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + BOOKS_TABLE_NAME + " WHERE " + BOOKS_TABLE_COLUMN_ID + " = '" + id +"';", null);
         cursor.moveToFirst();
         Book wishfulBook = new Book(
                 id,
-                cursor.getString(cursor.getColumnIndex(WISHFUL_TABLE_COLUMN_AUTHOR)),
-                cursor.getString(cursor.getColumnIndex(WISHFUL_TABLE_COLUMN_NAME))
+                cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_AUTHOR)),
+                cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_NAME)),
+                cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_TYPE))
         );
         cursor.close();
         return wishfulBook;
@@ -103,15 +136,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public ArrayList<Book> getAllWishfulBooks() {
         SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<Book> wishfulBooks = new ArrayList<Book>();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + WISHFUL_BOOKS_TABLE_NAME + ";", null);
+        ArrayList<Book> wishfulBooks = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + BOOKS_TABLE_NAME + ";", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast())
         {
             wishfulBooks.add(new Book(
-                    cursor.getInt(cursor.getColumnIndex(WISHFUL_TABLE_COLUMN_ID)),
-                    cursor.getString(cursor.getColumnIndex(WISHFUL_TABLE_COLUMN_AUTHOR)),
-                    cursor.getString(cursor.getColumnIndex(WISHFUL_TABLE_COLUMN_NAME))
+                    cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_ID)),
+                    cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_AUTHOR)),
+                    cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_NAME)),
+                    cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_TYPE))
             ));
             cursor.moveToNext();
         }
@@ -119,45 +153,48 @@ public class DBHelper extends SQLiteOpenHelper {
         return wishfulBooks;
     }
 
-    public ArrayList<Book> getAllReadBook() {
+    public ArrayList<Book> getAllArchiveBooks() {
         SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<Book> books = new ArrayList<Book>();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + BOOKS_TABLE_NAME + " WHERE " + BOOKS_TABLE_COLUMN_IS_END + " = '1';", null);
+        ArrayList<Book> books = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + BOOKS_TABLE_NAME + " WHERE " + BOOKS_TABLE_COLUMN_TYPE + " = '" + BOOK_TYPE_ARCHIVE + "';", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             books.add(new Book(
                     cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_ID)),
                     cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_AUTHOR)),
                     cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_NAME)),
-                    cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_PAGES_ALL)),
-                    cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_PAGE)),
-                    cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_IS_END))
+                    cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_TYPE)),
+                    cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_END_DATE)),
+                    cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_END_DATE))
             ));
             cursor.moveToNext();
         }
+        cursor.close();
         return books;
     }
 
-    public ArrayList<Book> getAllUnreadBook() {
+    public ArrayList<Book> getAllCurrentBooks() {
         SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<Book> books = new ArrayList<Book>();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + BOOKS_TABLE_NAME + " WHERE " + BOOKS_TABLE_COLUMN_IS_END + " = '0';", null);
+        ArrayList<Book> books = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + BOOKS_TABLE_NAME + " WHERE " + BOOKS_TABLE_COLUMN_TYPE + " = '" + BOOK_TYPE_CURRENT  + "';", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             books.add(new Book(
                     cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_ID)),
                     cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_AUTHOR)),
                     cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_NAME)),
+                    cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_TYPE)),
                     cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_PAGES_ALL)),
                     cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_PAGE)),
-                    cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_IS_END))
+                    cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_START_DATE))
             ));
             cursor.moveToNext();
         }
+        cursor.close();
         return books;
     }
 
-    public void updateWishfulBook(Book wishfulBook) {
+    public void updateWishfulBook(Book book) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(WISHFUL_TABLE_COLUMN_AUTHOR, wishfulBook.author);
@@ -270,7 +307,9 @@ public class DBHelper extends SQLiteOpenHelper {
                     cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_NAME)),
                     cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_PAGES_ALL)),
                     cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_PAGE)),
-                    cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_IS_END))
+                    cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_IS_END)),
+                    cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_END_DATE)),
+                    BOOK_TYPE_CURRENT
             ));
             cursor.moveToNext();
         }

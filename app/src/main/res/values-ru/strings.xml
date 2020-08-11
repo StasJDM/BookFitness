@@ -59,6 +59,10 @@
     <string name="menu_add_pages">Добавить страницы</string>
     <string name="add_book_button">Добавить</string>
 
+    <string name="add_current">Сейчас читаете</string>
+    <string name="add_archive">Уже прочитали</string>
+    <string name="add_wishful">Хотите прочитать</string>
+
     <string name="MY_NAME">Пятницын Станислав</string>
     <string name="MY_EMAIL">pyatnicyn.stanislav@gmail.com</string>
     <string name="MAY_BEE">Дизайн - MayBee</string>
