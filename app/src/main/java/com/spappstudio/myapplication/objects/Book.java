@@ -5,27 +5,46 @@ public class Book {
     public int id;
     public String author;
     public String name;
+    public String type;
     public int pagesAll;
     public int page;
-    public boolean is_end;
+    public String start_date;
+    public String end_date;
+    public int rating;
 
-    public Book(int id, String author, String name, int pagesAll, int page, int is_end) {
+    public Book(int id, String author, String name, String type) {
         this.id = id;
         this.author = author;
         this.name = name;
-        this.pagesAll = pagesAll;
-        this.page = page;
-        if (is_end == 1) {
-            this.is_end = true;
-        } else {
-            this.is_end = false;
-        }
+        this.type = type;
     }
 
-    public Book(int id, String author, String name) {
+    public Book(int id, String author, String name, String type, int pagesAll, int page) {
         this.id = id;
         this.author = author;
         this.name = name;
+        this.type = type;
+        this.pagesAll = pagesAll;
+        this.page = page;
+    }
+
+    public Book(int id, String author, String name, String type, int pagesAll, int page, String start_date) {
+        this.id = id;
+        this.author = author;
+        this.name = name;
+        this.type = type;
+        this.pagesAll = pagesAll;
+        this.page = page;
+        this.start_date = start_date;
+    }
+
+    public Book(int id, String author, String name, String type, String start_date, String end_date) {
+        this.id = id;
+        this.author = author;
+        this.name = name;
+        this.type = type;
+        this.start_date = start_date;
+        this.end_date = end_date;
     }
 
     public String getTitle () {
