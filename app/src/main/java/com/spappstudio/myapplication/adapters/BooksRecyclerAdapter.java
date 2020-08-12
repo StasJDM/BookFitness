@@ -39,7 +39,7 @@ public class BooksRecyclerAdapter extends RecyclerView.Adapter<BooksRecyclerAdap
     public void onBindViewHolder(BooksRecyclerAdapter.ViewHolder holder, int position) {
         Book book = books.get(position);
         holder.textView.setText(book.author + " - " + book.name);
-        if (type == "all") {
+        if (type == "current") {
             holder.progressBar.setProgress(book.getPercent());
             holder.progressBar.setVisibility(View.VISIBLE);
         } else {

@@ -2,18 +2,27 @@ package com.spappstudio.myapplication;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+
+import com.spappstudio.myapplication.adapters.BooksRecyclerAdapter;
+import com.spappstudio.myapplication.objects.Book;
+
+import java.util.ArrayList;
 
 public class EditActivity extends AppCompatActivity {
 
-    int pageCount;
-    TextView textViewPageCount;
+    ArrayList<Book> books;
+
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    BooksRecyclerAdapter recyclerAdapter;
+
     DBHelper dbHelper;
 
     @Override
@@ -25,18 +34,18 @@ public class EditActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        textViewPageCount = (TextView)findViewById(R.id.textViewPageCount);
-
         dbHelper = new DBHelper(this);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
+        recyclerView = findViewById(R.id.recyclerViewBooks);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerAdapter = new BooksRecyclerAdapter(this, books, "current");
+        recyclerView.setAdapter(recyclerAdapter);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        pageCount = dbHelper.getPagesToday();
-        textViewPageCount.setText(String.valueOf(pageCount));
     }
 
     @Override
@@ -52,22 +61,8 @@ public class EditActivity extends AppCompatActivity {
 
     public void onClickAdd(View view) {
         Intent intent = new Intent(EditActivity.this, EnterPagesActivity.class);
-        intent.putExtra("type", "add");
+        intent.putExtra("type", "add_without_book");
         startActivity(intent);
         finish();
     }
-
-    public void onClickEdit(View view) {
-        Intent intent = new Intent(EditActivity.this, EnterPagesActivity.class);
-        intent.putExtra("type", "edit");
-        startActivity(intent);
-        finish();
-    }
-
-    public void onClickEditMoreDay(View view) {
-        Intent intent = new Intent(EditActivity.this, EnterDatePagesActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
 }

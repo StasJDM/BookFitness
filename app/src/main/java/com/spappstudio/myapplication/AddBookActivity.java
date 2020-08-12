@@ -181,17 +181,16 @@ public class AddBookActivity extends AppCompatActivity {
                         book_id,
                         editTextAuthor.getText().toString(),
                         editTextName.getText().toString(),
+                        type,
                         Integer.valueOf(editTextPagesAll.getText().toString()),
                         Integer.valueOf(editTextPage.getText().toString()),
-                        0,
-                        dbHelper.getTodayDateString(),
-                        "current"
+                        dbHelper.getTodayDateString()
                 );
 
                 if (book_id == -1) {
-                    dbHelper.insertBook(book);
+                    dbHelper.insertBook(book, type);
                 } else {
-                    dbHelper.updateBook(book);
+                    dbHelper.updateBook(book, type);
                 }
 
                 Intent intent = new Intent(AddBookActivity.this, MainActivity.class);
@@ -212,16 +211,12 @@ public class AddBookActivity extends AppCompatActivity {
                 book_id,
                 editTextAuthor.getText().toString(),
                 editTextName.getText().toString(),
-                -1,
-                -1,
-                1,
-                dbHelper.getTodayDateString(),
                 "archive"
         );
         if (book_id == -1) {
-            dbHelper.insertBook(book);
+            dbHelper.insertArchiveBook(book);
         } else {
-            dbHelper.updateBook(book);
+            dbHelper.updateArchiveBook(book);
         }
         Intent intent = new Intent(AddBookActivity.this, MainActivity.class);
         startActivity(intent);
@@ -233,16 +228,12 @@ public class AddBookActivity extends AppCompatActivity {
                 book_id,
                 editTextAuthor.getText().toString(),
                 editTextName.getText().toString(),
-                -1,
-                -1,
-                1,
-                "",
                 "wishful"
         );
         if (book_id == -1) {
-            dbHelper.insertBook(book);
+            dbHelper.insertWishfulBook(book);
         } else {
-            dbHelper.updateBook(book);
+            dbHelper.updateWishfulBook(book);
         }
         Intent intent = new Intent(AddBookActivity.this, MainActivity.class);
         startActivity(intent);
