@@ -1,25 +1,16 @@
 package com.spappstudio.myapplication.mainfragments;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.SimpleAdapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
-import com.spappstudio.myapplication.AddBookActivity;
 import com.spappstudio.myapplication.DBHelper;
-import com.spappstudio.myapplication.OneBookActivity;
 import com.spappstudio.myapplication.R;
 import com.spappstudio.myapplication.adapters.BooksRecyclerAdapter;
 import com.spappstudio.myapplication.objects.Book;
@@ -52,19 +43,19 @@ public class BooksFragment extends Fragment {
         chip_wishful = (Chip)rootView.findViewById(R.id.chip_wishful);
 
         final DBHelper dbHelper = new DBHelper(getContext());
-        ArrayList<Book> books = dbHelper.getAllUnreadBook();
+        ArrayList<Book> books = dbHelper.getAllCurrentBooks();
 
         chip_current.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recyclerAdapter.updateData(dbHelper.getAllUnreadBook(), "all");
+                recyclerAdapter.updateData(dbHelper.getAllCurrentBooks(), "all");
             }
         });
 
         chip_archive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recyclerAdapter.updateData(dbHelper.getAllReadBook(), "archive");
+                recyclerAdapter.updateData(dbHelper.getAllArchiveBooks(), "archive");
             }
         });
 
@@ -78,7 +69,7 @@ public class BooksFragment extends Fragment {
         chip_current.setChecked(true);
 
         if (books.size() == 0) {
-            books.add(new Book(-1, getString(R.string.add_book_message), "", 0, 0, 0));
+            books.add(new Book(-1, getString(R.string.add_book_message), "", ""));
             nullBooks = true;
         }
 
@@ -93,8 +84,4 @@ public class BooksFragment extends Fragment {
 
         return rootView;
     }
-
-    /*public void updateList() {
-        simpleAdapter.notifyDataSetChanged();
-    }*/
 }

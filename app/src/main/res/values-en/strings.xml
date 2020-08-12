@@ -50,6 +50,8 @@
     <string name="current">Current</string>
     <string name="wishful">Wishful</string>
     <string name="archive">Archive</string>
+    <string name="select_book">Select a book</string>
+    <string name="add_without_book">Add without a book</string>
 
     <string name="add_current">Reading now</string>
     <string name="add_archive">Already read</string>

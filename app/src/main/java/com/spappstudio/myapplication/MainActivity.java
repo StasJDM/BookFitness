@@ -1,7 +1,6 @@
 package com.spappstudio.myapplication;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,11 +13,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.chip.Chip;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
@@ -30,7 +27,6 @@ import com.spappstudio.myapplication.mainfragments.HomeFragment;
 import com.spappstudio.myapplication.mainfragments.ProfileFragment;
 import com.spappstudio.myapplication.objects.Book;
 
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
     int pageCount;
     int yesterdayPageCount;
     int booksCount;
-    int week[];
-    int month[];
+    int[] week;
+    int[] month;
     int bookProgress;
     int dayOfWeek;
     int graphType;
@@ -107,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
         daysOfWeek = getResources().getStringArray(R.array.days_of_week);
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -250,8 +246,8 @@ public class MainActivity extends AppCompatActivity {
     public void onClickLineGraph(View view) {
         graphType = 1;
         sharedPreferences.edit().putInt(APP_PREFERENCES_GRAPH_TYPE, 1).apply();
-        imageButtonBar = (ImageButton)findViewById(R.id.imageButtonBar);
-        imageButtonLine = (ImageButton)findViewById(R.id.imageButtonLine);
+        imageButtonBar = findViewById(R.id.imageButtonBar);
+        imageButtonLine = findViewById(R.id.imageButtonLine);
         imageButtonBar.setBackgroundColor(Color.WHITE);
         imageButtonLine.setBackgroundResource(R.drawable.rounded_corners_4);
         createGraph();
@@ -260,8 +256,8 @@ public class MainActivity extends AppCompatActivity {
     public void onClickBarGraph(View view) {
         graphType = 0;
         sharedPreferences.edit().putInt(APP_PREFERENCES_GRAPH_TYPE, 0).apply();
-        imageButtonBar = (ImageButton)findViewById(R.id.imageButtonBar);
-        imageButtonLine = (ImageButton)findViewById(R.id.imageButtonLine);
+        imageButtonBar = findViewById(R.id.imageButtonBar);
+        imageButtonLine = findViewById(R.id.imageButtonLine);
         imageButtonBar.setBackgroundResource(R.drawable.rounded_corners_4);
         imageButtonLine.setBackgroundColor(Color.WHITE);
         createGraph();
@@ -270,8 +266,8 @@ public class MainActivity extends AppCompatActivity {
     public void onClickLineGraphWeek(View view) {
         graphType = 1;
         sharedPreferences.edit().putInt(APP_PREFERENCES_GRAPH_TYPE, 1).apply();
-        imageButtonBarWeek = (ImageButton)findViewById(R.id.imageButtonBarWeek);
-        imageButtonLineWeek = (ImageButton)findViewById(R.id.imageButtonLineWeek);
+        imageButtonBarWeek = findViewById(R.id.imageButtonBarWeek);
+        imageButtonLineWeek =findViewById(R.id.imageButtonLineWeek);
         imageButtonBarWeek.setBackgroundColor(Color.WHITE);
         imageButtonLineWeek.setBackgroundResource(R.drawable.rounded_corners_4);
         createGraphWeek();
@@ -280,8 +276,8 @@ public class MainActivity extends AppCompatActivity {
     public void onClickBarGraphWeek(View view) {
         graphType = 0;
         sharedPreferences.edit().putInt(APP_PREFERENCES_GRAPH_TYPE, 0).apply();
-        imageButtonBarWeek = (ImageButton)findViewById(R.id.imageButtonBarWeek);
-        imageButtonLineWeek = (ImageButton)findViewById(R.id.imageButtonLineWeek);
+        imageButtonBarWeek = findViewById(R.id.imageButtonBarWeek);
+        imageButtonLineWeek = findViewById(R.id.imageButtonLineWeek);
         imageButtonBarWeek.setBackgroundResource(R.drawable.rounded_corners_4);
         imageButtonLineWeek.setBackgroundColor(Color.WHITE);
         createGraphWeek();
@@ -290,8 +286,8 @@ public class MainActivity extends AppCompatActivity {
     public void onClickLineGraphMonth(View view) {
         graphTypeMonth = 1;
         sharedPreferences.edit().putInt(APP_PREFERENCES_GRAPH_TYPE_MONTH, 1).apply();
-        imageButtonBarMonth = (ImageButton)findViewById(R.id.imageButtonBarMonth);
-        imageButtonLineMonth = (ImageButton)findViewById(R.id.imageButtonLineMonth);
+        imageButtonBarMonth = findViewById(R.id.imageButtonBarMonth);
+        imageButtonLineMonth = findViewById(R.id.imageButtonLineMonth);
         imageButtonBarMonth.setBackgroundColor(Color.WHITE);
         imageButtonLineMonth.setBackgroundResource(R.drawable.rounded_corners_4);
         createGraphMonth();
@@ -300,23 +296,11 @@ public class MainActivity extends AppCompatActivity {
     public void onClickBarGraphMonth(View view) {
         graphTypeMonth = 0;
         sharedPreferences.edit().putInt(APP_PREFERENCES_GRAPH_TYPE_MONTH, 0).apply();
-        imageButtonBarMonth = (ImageButton)findViewById(R.id.imageButtonBarMonth);
-        imageButtonLineMonth = (ImageButton)findViewById(R.id.imageButtonLineMonth);
+        imageButtonBarMonth = findViewById(R.id.imageButtonBarMonth);
+        imageButtonLineMonth = findViewById(R.id.imageButtonLineMonth);
         imageButtonBarMonth.setBackgroundResource(R.drawable.rounded_corners_4);
         imageButtonLineMonth.setBackgroundColor(Color.WHITE);
         createGraphMonth();
-    }
-
-    public void onClickButtonCurrent(View view) {
-
-    }
-
-    public void onClickButtonArchive(View view) {
-
-    }
-
-    public void onClickButtonWishful(View view) {
-
     }
 
     public void createGraph() {
@@ -324,13 +308,13 @@ public class MainActivity extends AppCompatActivity {
         GraphView graph = findViewById(R.id.graph);
         graph.removeAllSeries();
 
-        DataPoint dataPoint[] = new DataPoint[7];
+        DataPoint[] dataPoint = new DataPoint[7];
         for (int i = 0; i < 7; i++) {
             dataPoint[i] = new DataPoint(i, week[6 - i]);
         }
 
-        BarGraphSeries<DataPoint> bar_series = new BarGraphSeries<DataPoint>(dataPoint);
-        LineGraphSeries<DataPoint> line_series = new LineGraphSeries<DataPoint>(dataPoint);
+        BarGraphSeries<DataPoint> bar_series = new BarGraphSeries<>(dataPoint);
+        LineGraphSeries<DataPoint> line_series = new LineGraphSeries<>(dataPoint);
         bar_series.setColor(Color.parseColor("#388E3C"));
         line_series.setColor(Color.parseColor("#388E3C"));
         graph.setVisibility(View.INVISIBLE);
@@ -367,13 +351,13 @@ public class MainActivity extends AppCompatActivity {
     public void createGraphWeek() {
         GraphView graphViewWeek = findViewById(R.id.graphWeek);
         graphViewWeek.removeAllSeries();
-        DataPoint dataPoint[] = new DataPoint[7];
+        DataPoint[] dataPoint = new DataPoint[7];
         for (int i = 0; i < 7; i++) {
             dataPoint[i] = new DataPoint(i, week[6 - i]);
         }
 
-        BarGraphSeries<DataPoint> bar_series = new BarGraphSeries<DataPoint>(dataPoint);
-        LineGraphSeries<DataPoint> line_series = new LineGraphSeries<DataPoint>(dataPoint);
+        BarGraphSeries<DataPoint> bar_series = new BarGraphSeries<>(dataPoint);
+        LineGraphSeries<DataPoint> line_series = new LineGraphSeries<>(dataPoint);
         bar_series.setColor(Color.parseColor("#388E3C"));
         line_series.setColor(Color.parseColor("#388E3C"));
         graphViewWeek.setVisibility(View.INVISIBLE);
@@ -417,13 +401,13 @@ public class MainActivity extends AppCompatActivity {
         GraphView graphViewMonth = findViewById(R.id.graphMonth);
         graphViewMonth.removeAllSeries();
         int dayInMonth = month.length;
-        DataPoint dataPointMonth[] = new DataPoint[dayInMonth];
+        DataPoint[] dataPointMonth = new DataPoint[dayInMonth];
         for (int i = 0; i < dayInMonth; i++) {
             dataPointMonth[i] = new DataPoint(i, month[dayInMonth - i - 1]);
         }
 
-        BarGraphSeries<DataPoint> bar_series_month = new BarGraphSeries<DataPoint>(dataPointMonth);
-        LineGraphSeries<DataPoint> line_series_month = new LineGraphSeries<DataPoint>(dataPointMonth);
+        BarGraphSeries<DataPoint> bar_series_month = new BarGraphSeries<>(dataPointMonth);
+        LineGraphSeries<DataPoint> line_series_month = new LineGraphSeries<>(dataPointMonth);
         bar_series_month.setColor(Color.parseColor("#388E3C"));
         line_series_month.setColor(Color.parseColor("#388E3C"));
         graphViewMonth.setVisibility(View.INVISIBLE);

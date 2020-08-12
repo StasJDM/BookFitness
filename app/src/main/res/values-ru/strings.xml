@@ -50,6 +50,8 @@
     <string name="current">Текущие</string>
     <string name="wishful">Желаемые</string>
     <string name="archive">Архив</string>
+    <string name="select_book">Выберите книгу</string>
+    <string name="add_without_book">Добавить без книги</string>
 
     <string name="add_pages_button">Добавить\nстраницы</string>
     <string name="change_goal_button">Изменить\nцель</string>
