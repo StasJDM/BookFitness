@@ -37,6 +37,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String BOOKS_TABLE_COLUMN_PAGE = "Page";
     public static final String BOOKS_TABLE_COLUMN_START_DATE = "Start_Date";
     public static final String BOOKS_TABLE_COLUMN_END_DATE = "End_Date";
+    public static final String BOOKS_TABLE_COLUMN_END_YEAR = "End_Year";
     public static final String BOOKS_TABLE_COLUMN_RATING = "Rating";
     public static final String BOOKS_TABLE_COLUMN_IS_END = "is_end"; // Outdated
 
@@ -51,7 +52,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE BookFitnessPages(id INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT, Pages INTEGER, Book_id INTEGER);");
-        db.execSQL("CREATE TABLE " + BOOKS_TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, Author TEXT, Name TEXT, Type TEXT, Pages_All INTEGER, Page INTEGER, Start_Date TEXT, End_Date TEXT, Rating INTEGER);");
+        db.execSQL("CREATE TABLE " + BOOKS_TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, Author TEXT, Name TEXT, Type TEXT, Pages_All INTEGER, Page INTEGER, Start_Date TEXT, End_Date TEXT, End_Year TEXT, Rating INTEGER);");
     }
 
     @Override
@@ -64,7 +65,7 @@ public class DBHelper extends SQLiteOpenHelper {
             case 2:
                 db.execSQL("ALTER TABLE " + PAGES_TABLE_NAME + " ADD COLUMN " + PAGES_TABLE_COLUMN_BOOK_ID + " INTEGER;");
                 db.execSQL("ALTER TABLE " + BOOKS_TABLE_NAME + " RENAME TO " + WISHFUL_BOOKS_TABLE_NAME_OLD + ";");
-                db.execSQL("CREATE TABLE " + BOOKS_TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, Author TEXT, Name TEXT, Type TEXT, Pages_All INTEGER, Page INTEGER, Start_Date TEXT, End_Date TEXT, Rating INTEGER);");
+                db.execSQL("CREATE TABLE " + BOOKS_TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, Author TEXT, Name TEXT, Type TEXT, Pages_All INTEGER, Page INTEGER, Start_Date TEXT, End_Date TEXT, End_Year TEXT, Rating INTEGER);");
                 db.execSQL("INSERT INTO " + WISHFUL_BOOKS_TABLE_NAME + "(id, Author, Name, Pages_All, Page, Type) SELECT id, Author, Name, Pages_All, Page, is_end FROM " + WISHFUL_BOOKS_TABLE_NAME_OLD + ";");
                 db.execSQL("DROP TABLE IF EXISTS " + WISHFUL_BOOKS_TABLE_NAME_OLD + ";");
                 db.execSQL("UPDATE " + BOOKS_TABLE_NAME + " SET Type = '" + BOOK_TYPE_CURRENT + "' WHERE Type = '0';");
@@ -80,6 +81,14 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(PAGES_TABLE_COLUMN_DATE, date);
         contentValues.put(PAGES_TABLE_COLUMN_PAGES, pages);
         contentValues.put(PAGES_TABLE_COLUMN_BOOK_ID, book_id);
+        db.insert(PAGES_TABLE_NAME, null, contentValues);
+    }
+
+    public void insertPages(String date, int pages) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(PAGES_TABLE_COLUMN_DATE, date);
+        contentValues.put(PAGES_TABLE_COLUMN_PAGES, pages);
         db.insert(PAGES_TABLE_NAME, null, contentValues);
     }
 
@@ -215,11 +224,8 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(BOOKS_TABLE_COLUMN_AUTHOR, book.author);
         contentValues.put(BOOKS_TABLE_COLUMN_NAME, book.name);
         contentValues.put(BOOKS_TABLE_COLUMN_TYPE, book.type);
-        if (!book.start_date.isEmpty()) {
-            contentValues.put(BOOKS_TABLE_COLUMN_START_DATE, book.start_date);
-        }
-        if (!book.end_date.isEmpty()) {
-            contentValues.put(BOOKS_TABLE_COLUMN_END_DATE, book.end_date);
+        if (!book.end_year.isEmpty()) {
+            contentValues.put(BOOKS_TABLE_COLUMN_END_YEAR, book.end_year);
         }
         db.insert(BOOKS_TABLE_NAME, null, contentValues);
     }
@@ -279,10 +285,37 @@ public class DBHelper extends SQLiteOpenHelper {
         return book;
     }
 
+    public int getWishfulBooksCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + BOOKS_TABLE_NAME + " WHERE " + BOOKS_TABLE_COLUMN_TYPE + " = '" + BOOK_TYPE_WISHFUL + "';", null);
+        cursor.moveToNext();
+        int count = cursor.getInt(0);
+        cursor.close();
+        return  count;
+    }
+
+    public int getArchiveBooksCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + BOOKS_TABLE_NAME + " WHERE " + BOOKS_TABLE_COLUMN_TYPE + " = '" + BOOK_TYPE_ARCHIVE + "';", null);
+        cursor.moveToNext();
+        int count = cursor.getInt(0);
+        cursor.close();
+        return  count;
+    }
+
+    public int getCurrentBooksCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + BOOKS_TABLE_NAME + " WHERE " + BOOKS_TABLE_COLUMN_TYPE + " = '" + BOOK_TYPE_CURRENT + "';", null);
+        cursor.moveToNext();
+        int count = cursor.getInt(0);
+        cursor.close();
+        return  count;
+    }
+
     public ArrayList<Book> getAllWishfulBooks() {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Book> wishfulBooks = new ArrayList<>();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + BOOKS_TABLE_NAME + ";", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + BOOKS_TABLE_NAME + " WHERE " + BOOKS_TABLE_COLUMN_TYPE + " = '" + BOOK_TYPE_WISHFUL + "';", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast())
         {
@@ -343,7 +376,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT " + BOOKS_TABLE_COLUMN_PAGE + " FROM " + BOOKS_TABLE_NAME + " WHERE id ='" + book_id + "';", null);
         cursor.moveToNext();
-        int pages = cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_ID));
+        int pages = cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_PAGE));
         cursor.close();
         return pages;
     }

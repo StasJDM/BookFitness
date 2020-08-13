@@ -57,11 +57,17 @@ public class AddBookActivity extends AppCompatActivity {
         editTextName = (EditText)findViewById(R.id.editTextName);
         editTextPagesAll = (EditText)findViewById(R.id.editTextPagesAll);
         editTextPage = (EditText)findViewById(R.id.editTextPage);
+        editTextDate = findViewById(R.id.editTextDate);
+        textViewDate = findViewById(R.id.textViewDate);
         textViewTitle = (TextView)findViewById(R.id.textViewTitle);
         textViewPagesAll = (TextView)findViewById(R.id.textViewNumberOfPages);
         textViewPageNow = (TextView)findViewById(R.id.textViewPageNow);
 
         chip_current.setChecked(true);
+        textViewDate.setVisibility(View.GONE);
+        editTextDate.setVisibility(View.GONE);
+
+        type = "current";
 
         chip_current.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,8 +88,10 @@ public class AddBookActivity extends AppCompatActivity {
                 type = "archive";
                 textViewPagesAll.setVisibility(View.GONE);
                 textViewPageNow.setVisibility(View.GONE);
+                textViewDate.setVisibility(View.VISIBLE);
                 editTextPage.setVisibility(View.GONE);
                 editTextPagesAll.setVisibility(View.GONE);
+                editTextDate.setVisibility(View.VISIBLE);
             }
         });
 
@@ -211,7 +219,8 @@ public class AddBookActivity extends AppCompatActivity {
                 book_id,
                 editTextAuthor.getText().toString(),
                 editTextName.getText().toString(),
-                "archive"
+                "archive",
+                textViewDate.getText().toString()
         );
         if (book_id == -1) {
             dbHelper.insertArchiveBook(book);

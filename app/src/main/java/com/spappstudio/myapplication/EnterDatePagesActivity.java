@@ -76,7 +76,7 @@ public class EnterDatePagesActivity extends AppCompatActivity {
     public void onClickSave(View view) {
         pages = numberPicker.getValue();
 
-        dbHelper.updatePages(date, pages);
+        dbHelper.insertPages(date, pages);
 
         Intent intent = new Intent(EnterDatePagesActivity.this, MainActivity.class);
         startActivity(intent);

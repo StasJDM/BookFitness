@@ -61,9 +61,9 @@ public class EnterPagesInBookActivity extends AppCompatActivity {
         boolean isAdd = checkBoxIsAdd.isChecked();
         int insertPageCount = numberPicker.getValue();
 
-        dbHelper.updatePageInBook(book.id, book.addPages(insertPageCount), book.pagesAll);
+        dbHelper.updatePageInBook(book.id, book.addPages(insertPageCount));
         if (isAdd) {
-            dbHelper.updateAddPages(insertPageCount);
+            dbHelper.insertPages(insertPageCount);
         }
 
         setResult(RESULT_OK);

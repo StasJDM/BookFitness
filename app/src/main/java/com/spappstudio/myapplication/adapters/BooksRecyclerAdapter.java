@@ -2,6 +2,7 @@ package com.spappstudio.myapplication.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.spappstudio.myapplication.AddBookActivity;
+import com.spappstudio.myapplication.EnterPagesActivity;
 import com.spappstudio.myapplication.OneBookActivity;
 import com.spappstudio.myapplication.R;
 import com.spappstudio.myapplication.objects.Book;
@@ -39,7 +41,7 @@ public class BooksRecyclerAdapter extends RecyclerView.Adapter<BooksRecyclerAdap
     public void onBindViewHolder(BooksRecyclerAdapter.ViewHolder holder, int position) {
         Book book = books.get(position);
         holder.textView.setText(book.author + " - " + book.name);
-        if (type == "current") {
+        if (type.equals("current") || type.equals("add_pages")) {
             holder.progressBar.setProgress(book.getPercent());
             holder.progressBar.setVisibility(View.VISIBLE);
         } else {
@@ -74,9 +76,18 @@ public class BooksRecyclerAdapter extends RecyclerView.Adapter<BooksRecyclerAdap
         public void onClick(View view) {
             int itemPosition = getAdapterPosition();
             Intent intent;
-            if (type == "null") {
+            Log.d("TYPE", type);
+            if (type.equals("null")) {
+                Log.d("LOG","NULL");
                 intent = new Intent(view.getContext(), AddBookActivity.class);
+            } else if (type.equals("add_pages")) {
+                Log.d("LOG","ADD PAGES");
+                intent = new Intent(view.getContext(), EnterPagesActivity.class);
+                int book_id = books.get(itemPosition).id;
+                intent.putExtra("type", "add_in_book");
+                intent.putExtra("book_id", book_id);
             } else {
+                Log.d("LOG","ELSE");
                 intent = new Intent(view.getContext(), OneBookActivity.class);
                 int book_id = books.get(itemPosition).id;
                 intent.putExtra("book_id", book_id);
