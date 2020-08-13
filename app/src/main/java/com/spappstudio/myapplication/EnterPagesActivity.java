@@ -11,7 +11,7 @@ import android.widget.NumberPicker;
 
 public class EnterPagesActivity extends AppCompatActivity {
 
-    public static final String ADD_IN_BOOK = "add_id_book";
+    public static final String ADD_IN_BOOK = "add_in_book";
     public static final String ADD_WITHOUT_BOOK = "add_without_book";
 
     int book_id;

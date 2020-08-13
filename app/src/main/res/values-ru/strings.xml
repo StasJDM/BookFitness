@@ -52,6 +52,9 @@
     <string name="archive">Архив</string>
     <string name="select_book">Выберите книгу</string>
     <string name="add_without_book">Добавить без книги</string>
+    <string name="empty_book_message">Добавьте книги, чтобы более подробно сохранять статистику</string>
+    <string name="ending_year">В каком году была прочтена книга </string>
+    <string name="end_date">Год прочтения:</string>
 
     <string name="add_pages_button">Добавить\nстраницы</string>
     <string name="change_goal_button">Изменить\nцель</string>

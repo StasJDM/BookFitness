@@ -10,6 +10,7 @@ public class Book {
     public int page;
     public String start_date;
     public String end_date;
+    public String end_year;
     public int rating;
 
     public Book(int id, String author, String name, String type) {
@@ -26,6 +27,14 @@ public class Book {
         this.type = type;
         this.pagesAll = pagesAll;
         this.page = page;
+    }
+
+    public Book(int id, String author, String name, String type, String end_year) {
+        this.id = id;
+        this.author = author;
+        this.name = name;
+        this.type = type;
+        this.end_year = end_year;
     }
 
     public Book(int id, String author, String name, String type, int pagesAll, int page, String start_date) {

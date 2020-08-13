@@ -11,7 +11,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.spappstudio.myapplication.dialogs.DeleteDialog;
@@ -27,8 +29,12 @@ public class OneBookActivity extends AppCompatActivity {
 
     TextView textViewBookTitle;
     TextView textViewPage;
+    TextView textViewPageTitle;
     TextView textViewPagesAll;
-    CheckBox checkBoxIsEnd;
+    TextView textViewPagesAllTitle;
+    TextView textViewEndingYear;
+    TextView textViewEndingYearTitle;
+    Button buttonAdd;
 
     Book book;
     int book_id;
@@ -47,8 +53,12 @@ public class OneBookActivity extends AppCompatActivity {
 
         textViewBookTitle = (TextView)findViewById(R.id.textViewBookTitle);
         textViewPage = (TextView)findViewById(R.id.textViewPage);
+        textViewPageTitle = (TextView)findViewById(R.id.textViewPageTitle);
         textViewPagesAll = (TextView)findViewById(R.id.textViewPagesAll);
-        checkBoxIsEnd = (CheckBox)findViewById(R.id.checkBoxIsEnd);
+        textViewPagesAllTitle = (TextView)findViewById(R.id.textViewPagesAllTitle);
+        textViewEndingYear = findViewById(R.id.textViewEndingYear);
+        textViewEndingYearTitle = findViewById(R.id.textViewEndingYearTitle);
+        buttonAdd = findViewById(R.id.buttonAdd);
 
         book_id = getIntent().getExtras().getInt("book_id");
 
@@ -62,10 +72,35 @@ public class OneBookActivity extends AppCompatActivity {
         super.onResume();
 
         book = dbHelper.getBookByID(book_id);
+        switch (book.type) {
+            case "current":
+                textViewPagesAll.setText(String.valueOf(book.pagesAll));
+                textViewPage.setText(String.valueOf(book.page));
+
+                textViewEndingYear.setVisibility(View.GONE);
+                textViewEndingYearTitle.setVisibility(View.GONE);
+                break;
+            case "archive":
+                textViewPage.setVisibility(View.GONE);
+                textViewPageTitle.setVisibility(View.GONE);
+                textViewPagesAll.setVisibility(View.GONE);
+                textViewPagesAllTitle.setVisibility(View.GONE);
+                textViewEndingYear.setVisibility(View.GONE);
+                textViewEndingYearTitle.setVisibility(View.GONE);
+                break;
+            case "wishful":
+                textViewPagesAll.setVisibility(View.GONE);
+                textViewPage.setVisibility(View.GONE);
+                textViewPage.setVisibility(View.GONE);
+                textViewPageTitle.setVisibility(View.GONE);
+                textViewPagesAll.setVisibility(View.GONE);
+                textViewPagesAllTitle.setVisibility(View.GONE);
+                break;
+            default:
+                break;
+
+        }
         textViewBookTitle.setText(book.getTitle());
-        textViewPagesAll.setText(String.valueOf(book.pagesAll));
-        textViewPage.setText(String.valueOf(book.page));
-        checkBoxIsEnd.setChecked(book.is_end);
     }
 
     @Override
@@ -101,11 +136,6 @@ public class OneBookActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    public void onClickIsEnd(View view) {
-        book.is_end = !book.is_end;
-        dbHelper.updateIsEndInBook(book.id, book.is_end);
     }
 
     public void onClickAddPages(View view) {

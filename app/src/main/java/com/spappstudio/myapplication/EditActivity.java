@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.spappstudio.myapplication.adapters.BooksRecyclerAdapter;
 import com.spappstudio.myapplication.objects.Book;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 public class EditActivity extends AppCompatActivity {
 
     ArrayList<Book> books;
+    TextView textViewEmptyBookMessage;
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
@@ -34,12 +36,18 @@ public class EditActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        textViewEmptyBookMessage = findViewById(R.id.textViewEmpty);
+
         dbHelper = new DBHelper(this);
+        books = dbHelper.getAllCurrentBooks();
+        if (books.size() > 0) {
+            textViewEmptyBookMessage.setVisibility(View.GONE);
+        }
 
         recyclerView = findViewById(R.id.recyclerViewBooks);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerAdapter = new BooksRecyclerAdapter(this, books, "current");
+        recyclerAdapter = new BooksRecyclerAdapter(this, books, "add_pages");
         recyclerView.setAdapter(recyclerAdapter);
     }
 

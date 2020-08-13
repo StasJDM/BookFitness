@@ -23,11 +23,11 @@ public class BooksFragment extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     BooksRecyclerAdapter recyclerAdapter;
 
-    boolean nullBooks;
-
     Chip chip_current;
     Chip chip_archive;
     Chip chip_wishful;
+
+    ArrayList<Book> empty_book;
 
     public BooksFragment() {
 
@@ -42,43 +42,53 @@ public class BooksFragment extends Fragment {
         chip_archive = (Chip)rootView.findViewById(R.id.chip_archive);
         chip_wishful = (Chip)rootView.findViewById(R.id.chip_wishful);
 
+        empty_book = new ArrayList<>();
+        empty_book.add(new Book(-1, getString(R.string.add_book_message), "", ""));
+
         final DBHelper dbHelper = new DBHelper(getContext());
         ArrayList<Book> books = dbHelper.getAllCurrentBooks();
 
         chip_current.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recyclerAdapter.updateData(dbHelper.getAllCurrentBooks(), "all");
+                if (dbHelper.getCurrentBooksCount() > 0) {
+                    recyclerAdapter.updateData(dbHelper.getAllCurrentBooks(), "current");
+                } else {
+                    recyclerAdapter.updateData(empty_book, "null");
+                }
             }
         });
 
         chip_archive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recyclerAdapter.updateData(dbHelper.getAllArchiveBooks(), "archive");
+                if (dbHelper.getArchiveBooksCount() > 0) {
+                    recyclerAdapter.updateData(dbHelper.getAllArchiveBooks(), "archive");
+                } else {
+                    recyclerAdapter.updateData(empty_book, "null");
+                }
             }
         });
 
         chip_wishful.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recyclerAdapter.updateData(dbHelper.getAllWishfulBooks(), "wishful");
+                if (dbHelper.getWishfulBooksCount() > 0) {
+                    recyclerAdapter.updateData(dbHelper.getAllWishfulBooks(), "wishful");
+                } else {
+                    recyclerAdapter.updateData(empty_book, "null");
+                }
             }
         });
 
         chip_current.setChecked(true);
 
-        if (books.size() == 0) {
-            books.add(new Book(-1, getString(R.string.add_book_message), "", ""));
-            nullBooks = true;
-        }
-
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        if (books.size() > 0) {
-            recyclerAdapter = new BooksRecyclerAdapter(getContext(), books, "all");
+        if (books.size() == 0) {
+            recyclerAdapter = new BooksRecyclerAdapter(getContext(), empty_book, "null");
         } else {
-            recyclerAdapter = new BooksRecyclerAdapter(getContext(), books, "null");
+            recyclerAdapter = new BooksRecyclerAdapter(getContext(), books, "current");
         }
         recyclerView.setAdapter(recyclerAdapter);
 
