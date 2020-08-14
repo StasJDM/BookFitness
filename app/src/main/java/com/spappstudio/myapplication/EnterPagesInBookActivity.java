@@ -18,7 +18,6 @@ public class EnterPagesInBookActivity extends AppCompatActivity {
     Book book;
 
     Button buttonSave;
-    CheckBox checkBoxIsAdd;
     NumberPicker numberPicker;
 
     DBHelper dbHelper;
@@ -33,7 +32,6 @@ public class EnterPagesInBookActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         buttonSave = (Button)findViewById(R.id.buttonSave);
-        checkBoxIsAdd = (CheckBox)findViewById(R.id.checkBoxIsAdd);
         numberPicker = (NumberPicker)findViewById(R.id.numberPicker);
 
         numberPicker.setMinValue(0);
@@ -58,13 +56,10 @@ public class EnterPagesInBookActivity extends AppCompatActivity {
     }
 
     public void onClickSave(View view) {
-        boolean isAdd = checkBoxIsAdd.isChecked();
         int insertPageCount = numberPicker.getValue();
 
         dbHelper.updatePageInBook(book.id, book.addPages(insertPageCount));
-        if (isAdd) {
-            dbHelper.insertPages(insertPageCount);
-        }
+        dbHelper.insertPages(insertPageCount, book_id);
 
         setResult(RESULT_OK);
         finish();

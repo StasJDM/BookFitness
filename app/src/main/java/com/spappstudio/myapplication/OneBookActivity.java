@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -34,7 +35,7 @@ public class OneBookActivity extends AppCompatActivity {
     TextView textViewPagesAllTitle;
     TextView textViewEndingYear;
     TextView textViewEndingYearTitle;
-    Button buttonAdd;
+    ImageButton buttonAdd;
 
     Book book;
     int book_id;
@@ -58,7 +59,7 @@ public class OneBookActivity extends AppCompatActivity {
         textViewPagesAllTitle = (TextView)findViewById(R.id.textViewPagesAllTitle);
         textViewEndingYear = findViewById(R.id.textViewEndingYear);
         textViewEndingYearTitle = findViewById(R.id.textViewEndingYearTitle);
-        buttonAdd = findViewById(R.id.buttonAdd);
+        buttonAdd = findViewById(R.id.imageButtonAdd);
 
         book_id = getIntent().getExtras().getInt("book_id");
 
@@ -79,6 +80,7 @@ public class OneBookActivity extends AppCompatActivity {
 
                 textViewEndingYear.setVisibility(View.GONE);
                 textViewEndingYearTitle.setVisibility(View.GONE);
+                buttonAdd.setVisibility(View.VISIBLE);
                 break;
             case "archive":
                 textViewPage.setVisibility(View.GONE);
@@ -87,6 +89,7 @@ public class OneBookActivity extends AppCompatActivity {
                 textViewPagesAllTitle.setVisibility(View.GONE);
                 textViewEndingYear.setVisibility(View.GONE);
                 textViewEndingYearTitle.setVisibility(View.GONE);
+                buttonAdd.setVisibility(View.GONE);
                 break;
             case "wishful":
                 textViewPagesAll.setVisibility(View.GONE);
@@ -95,6 +98,7 @@ public class OneBookActivity extends AppCompatActivity {
                 textViewPageTitle.setVisibility(View.GONE);
                 textViewPagesAll.setVisibility(View.GONE);
                 textViewPagesAllTitle.setVisibility(View.GONE);
+                buttonAdd.setVisibility(View.GONE);
                 break;
             default:
                 break;

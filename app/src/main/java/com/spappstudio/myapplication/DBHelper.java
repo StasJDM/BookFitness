@@ -17,33 +17,33 @@ import java.util.Date;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 3;
 
-    public static final String PAGES_TABLE_NAME = "BookFitnessPages";
-    public static final String BOOKS_TABLE_NAME = "BookFitnessBooks";
-    public static final String WISHFUL_BOOKS_TABLE_NAME = "BookFitnessWishfulBooks";
-    public static final String WISHFUL_BOOKS_TABLE_NAME_OLD = "BookFitnessWishfulBooksOld";
+    private static final String PAGES_TABLE_NAME = "BookFitnessPages";
+    private static final String BOOKS_TABLE_NAME = "BookFitnessBooks";
+    private static final String WISHFUL_BOOKS_TABLE_NAME = "BookFitnessWishfulBooks";
+    private static final String WISHFUL_BOOKS_TABLE_NAME_OLD = "BookFitnessWishfulBooksOld";
 
-    public static final String PAGES_TABLE_COLUMN_ID = "id";
-    public static final String PAGES_TABLE_COLUMN_DATE = "Date";
-    public static final String PAGES_TABLE_COLUMN_PAGES = "Pages";
-    public static final String PAGES_TABLE_COLUMN_BOOK_ID = "Book_id";
+    private static final String PAGES_TABLE_COLUMN_ID = "id";
+    private static final String PAGES_TABLE_COLUMN_DATE = "Date";
+    private static final String PAGES_TABLE_COLUMN_PAGES = "Pages";
+    private static final String PAGES_TABLE_COLUMN_BOOK_ID = "Book_id";
 
-    public static final String BOOKS_TABLE_COLUMN_ID = "id";
-    public static final String BOOKS_TABLE_COLUMN_AUTHOR = "Author";
-    public static final String BOOKS_TABLE_COLUMN_NAME = "Name";
-    public static final String BOOKS_TABLE_COLUMN_TYPE = "Type";
-    public static final String BOOKS_TABLE_COLUMN_PAGES_ALL = "Pages_All";
-    public static final String BOOKS_TABLE_COLUMN_PAGE = "Page";
-    public static final String BOOKS_TABLE_COLUMN_START_DATE = "Start_Date";
-    public static final String BOOKS_TABLE_COLUMN_END_DATE = "End_Date";
-    public static final String BOOKS_TABLE_COLUMN_END_YEAR = "End_Year";
-    public static final String BOOKS_TABLE_COLUMN_RATING = "Rating";
-    public static final String BOOKS_TABLE_COLUMN_IS_END = "is_end"; // Outdated
+    private static final String BOOKS_TABLE_COLUMN_ID = "id";
+    private static final String BOOKS_TABLE_COLUMN_AUTHOR = "Author";
+    private static final String BOOKS_TABLE_COLUMN_NAME = "Name";
+    private static final String BOOKS_TABLE_COLUMN_TYPE = "Type";
+    private static final String BOOKS_TABLE_COLUMN_PAGES_ALL = "Pages_All";
+    private static final String BOOKS_TABLE_COLUMN_PAGE = "Page";
+    private static final String BOOKS_TABLE_COLUMN_START_DATE = "Start_Date";
+    private static final String BOOKS_TABLE_COLUMN_END_DATE = "End_Date";
+    private static final String BOOKS_TABLE_COLUMN_END_YEAR = "End_Year";
+    private static final String BOOKS_TABLE_COLUMN_RATING = "Rating";
+    private static final String BOOKS_TABLE_COLUMN_IS_END = "is_end"; // Outdated
 
-    public static final String BOOK_TYPE_CURRENT = "current";
-    public static final String BOOK_TYPE_ARCHIVE = "archive";
-    public static final String BOOK_TYPE_WISHFUL = "wishful";
+    private static final String BOOK_TYPE_CURRENT = "current";
+    private static final String BOOK_TYPE_ARCHIVE = "archive";
+    private static final String BOOK_TYPE_WISHFUL = "wishful";
 
     public DBHelper (Context context) {
         super(context, "BookFitnessDB", null, DATABASE_VERSION);
@@ -111,9 +111,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public int getPages(String date) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query("BookFitnessPages", null, "Date = '" + date + "'", null, null, null, null);
+        Cursor cursor = db.rawQuery("SELECT SUM(" + PAGES_TABLE_COLUMN_PAGES + ") FROM " + PAGES_TABLE_NAME + " WHERE Date='" + date + "';", null);
         if (cursor.moveToFirst()) {
-            return cursor.getInt(cursor.getColumnIndex("Pages"));
+            return cursor.getInt(0);
         } else {
             return 0;
         }
