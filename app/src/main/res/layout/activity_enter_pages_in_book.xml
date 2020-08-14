@@ -36,14 +36,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <CheckBox
-                android:id="@+id/checkBoxIsAdd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/add_in_page_counter"
-                android:textSize="16sp"
-                android:textColor="@color/textColor2" />
-
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
