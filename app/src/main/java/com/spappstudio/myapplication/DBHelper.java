@@ -428,6 +428,16 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    public boolean finishBook(int book_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(BOOKS_TABLE_COLUMN_TYPE, BOOK_TYPE_ARCHIVE);
+        contentValues.put(BOOKS_TABLE_COLUMN_END_DATE, getTodayDateString());
+        contentValues.put(BOOKS_TABLE_COLUMN_END_YEAR, getYearString());
+        db.update(BOOKS_TABLE_NAME, contentValues, "id = ?", new String[] {String.valueOf(book_id)});
+        return true;
+    }
+
     public Book getLastInsertedBook() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + BOOKS_TABLE_NAME + " ORDER BY id DESC LIMIT 1", null);
@@ -471,6 +481,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public String getTodayDateString() {
         Date dateNow = new Date();
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("dd.MM.yyyy");
+        return formatForDateNow.format(dateNow);
+    }
+
+    public String getYearString() {
+        Date dateNow = new Date();
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy");
         return formatForDateNow.format(dateNow);
     }
 

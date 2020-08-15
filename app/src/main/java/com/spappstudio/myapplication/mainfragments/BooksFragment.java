@@ -56,6 +56,7 @@ public class BooksFragment extends Fragment {
                 } else {
                     recyclerAdapter.updateData(empty_book, "null");
                 }
+                chip_current.setChecked(true);
             }
         });
 
@@ -67,6 +68,7 @@ public class BooksFragment extends Fragment {
                 } else {
                     recyclerAdapter.updateData(empty_book, "null");
                 }
+                chip_archive.setChecked(true);
             }
         });
 
@@ -78,6 +80,7 @@ public class BooksFragment extends Fragment {
                 } else {
                     recyclerAdapter.updateData(empty_book, "null");
                 }
+                chip_wishful.setChecked(true);
             }
         });
 
@@ -93,5 +96,11 @@ public class BooksFragment extends Fragment {
         recyclerView.setAdapter(recyclerAdapter);
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        chip_current.setChecked(true);
     }
 }
