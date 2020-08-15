@@ -87,7 +87,6 @@ public class BooksRecyclerAdapter extends RecyclerView.Adapter<BooksRecyclerAdap
                 intent.putExtra("type", "add_in_book");
                 intent.putExtra("book_id", book_id);
             } else {
-                Log.d("LOG","ELSE");
                 intent = new Intent(view.getContext(), OneBookActivity.class);
                 int book_id = books.get(itemPosition).id;
                 intent.putExtra("book_id", book_id);

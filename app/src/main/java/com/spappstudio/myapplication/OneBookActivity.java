@@ -36,6 +36,7 @@ public class OneBookActivity extends AppCompatActivity {
     TextView textViewEndingYear;
     TextView textViewEndingYearTitle;
     ImageButton buttonAdd;
+    Button buttonChange;
 
     Book book;
     int book_id;
@@ -52,14 +53,15 @@ public class OneBookActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        textViewBookTitle = (TextView)findViewById(R.id.textViewBookTitle);
-        textViewPage = (TextView)findViewById(R.id.textViewPage);
-        textViewPageTitle = (TextView)findViewById(R.id.textViewPageTitle);
-        textViewPagesAll = (TextView)findViewById(R.id.textViewPagesAll);
-        textViewPagesAllTitle = (TextView)findViewById(R.id.textViewPagesAllTitle);
+        textViewBookTitle = findViewById(R.id.textViewBookTitle);
+        textViewPage = findViewById(R.id.textViewPage);
+        textViewPageTitle = findViewById(R.id.textViewPageTitle);
+        textViewPagesAll = findViewById(R.id.textViewPagesAll);
+        textViewPagesAllTitle = findViewById(R.id.textViewPagesAllTitle);
         textViewEndingYear = findViewById(R.id.textViewEndingYear);
         textViewEndingYearTitle = findViewById(R.id.textViewEndingYearTitle);
         buttonAdd = findViewById(R.id.imageButtonAdd);
+        buttonChange = findViewById(R.id.buttonChange);
 
         book_id = getIntent().getExtras().getInt("book_id");
 
@@ -81,15 +83,18 @@ public class OneBookActivity extends AppCompatActivity {
                 textViewEndingYear.setVisibility(View.GONE);
                 textViewEndingYearTitle.setVisibility(View.GONE);
                 buttonAdd.setVisibility(View.VISIBLE);
+
+                buttonChange.setVisibility(View.VISIBLE);
+                buttonChange.setText(getString(R.string.finish_book));
                 break;
             case "archive":
                 textViewPage.setVisibility(View.GONE);
                 textViewPageTitle.setVisibility(View.GONE);
                 textViewPagesAll.setVisibility(View.GONE);
                 textViewPagesAllTitle.setVisibility(View.GONE);
-                textViewEndingYear.setVisibility(View.GONE);
-                textViewEndingYearTitle.setVisibility(View.GONE);
                 buttonAdd.setVisibility(View.GONE);
+
+                buttonChange.setVisibility(View.GONE);
                 break;
             case "wishful":
                 textViewPagesAll.setVisibility(View.GONE);
@@ -98,7 +103,12 @@ public class OneBookActivity extends AppCompatActivity {
                 textViewPageTitle.setVisibility(View.GONE);
                 textViewPagesAll.setVisibility(View.GONE);
                 textViewPagesAllTitle.setVisibility(View.GONE);
+                textViewEndingYear.setVisibility(View.GONE);
+                textViewEndingYearTitle.setVisibility(View.GONE);
                 buttonAdd.setVisibility(View.GONE);
+
+                buttonChange.setVisibility(View.VISIBLE);
+                buttonChange.setText(getString(R.string.start_reading));
                 break;
             default:
                 break;
@@ -146,5 +156,13 @@ public class OneBookActivity extends AppCompatActivity {
         Intent intent = new Intent(OneBookActivity.this, EnterPagesInBookActivity.class);
         intent.putExtra("book_id", book_id);
         startActivityForResult(intent, REQUEST_ADD_PAGES);
+    }
+
+    public void onClickChange(View view) {
+        switch (book.type) {
+            case "current":
+                dbHelper.finishBook(book_id);
+                finish();
+        }
     }
 }

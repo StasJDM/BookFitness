@@ -22,23 +22,15 @@
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/book"
-                android:textColor="@color/textColor"
-                android:textSize="30sp" />
-
-            <TextView
                 android:id="@+id/textViewBookTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:text="Автор книги - Название книги"
                 android:textAllCaps="false"
-                android:textColor="@color/textColor"
+                android:textColor="@color/colorAccent"
                 android:textColorHighlight="#FFFFFF"
-                android:textSize="22sp" />
+                android:textSize="30sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -130,6 +122,16 @@
                     android:textColor="@color/textColor2"
                     android:textSize="18sp" />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/buttonChange"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/button_1"
+                android:onClick="onClickChange"
+                android:text="@string/save" />
 
         </LinearLayout>
 

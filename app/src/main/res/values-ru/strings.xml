@@ -55,6 +55,8 @@
     <string name="empty_book_message">Добавьте книги, чтобы более подробно сохранять статистику</string>
     <string name="ending_year">В каком году была прочтена книга </string>
     <string name="end_date">Год прочтения:</string>
+    <string name="start_reading">Начать читать</string>
+    <string name="finish_book">Закончить книгу</string>
 
     <string name="add_pages_button">Добавить\nстраницы</string>
     <string name="change_goal_button">Изменить\nцель</string>

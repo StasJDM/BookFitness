@@ -55,6 +55,8 @@
     <string name="empty_book_message">Add books to save statistics in more detail</string>
     <string name="ending_year">In what year was the book read</string>
     <string name="end_date">Year of book completion:</string>
+    <string name="start_reading">Start reading</string>
+    <string name="finish_book">Finish the book</string>
 
     <string name="add_current">Reading now</string>
     <string name="add_archive">Already read</string>
