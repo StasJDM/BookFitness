@@ -114,13 +114,21 @@ public class AddBookActivity extends AppCompatActivity {
         if (book_id != -1) {
             textViewTitle.setText(getString(R.string.edit_book));
             Book book = dbHelper.getBookByID(book_id);
+            int mode = getIntent().getIntExtra("is_start_reading", 0);
+            if (mode == 1) {
+                book.type = "current";
+            }
             type = book.type;
             editTextAuthor.setText(book.author);
             editTextName.setText(book.name);
             switch (type) {
                 case "current":
-                    editTextPagesAll.setText(String.valueOf(book.pagesAll));
-                    editTextPage.setText(String.valueOf(book.page));
+                    if (book.pagesAll != 0) {
+                        editTextPagesAll.setText(String.valueOf(book.pagesAll));
+                    }
+                    if (book.page != 0) {
+                        editTextPage.setText(String.valueOf(book.page));
+                    }
                     editTextDate.setVisibility(View.GONE);
                     textViewDate.setVisibility(View.GONE);
                     break;
