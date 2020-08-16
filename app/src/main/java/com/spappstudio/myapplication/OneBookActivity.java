@@ -163,6 +163,12 @@ public class OneBookActivity extends AppCompatActivity {
             case "current":
                 dbHelper.finishBook(book_id);
                 finish();
+            case "wishful":
+                Intent intent = new Intent(OneBookActivity.this, AddBookActivity.class);
+                intent.putExtra("book_id", book_id);
+                intent.putExtra("is_start_reading", 1);
+                startActivity(intent);
+                finish();
         }
     }
 }
