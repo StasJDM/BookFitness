@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.spappstudio.myapplication.objects.Book;
 
@@ -63,13 +64,15 @@ public class DBHelper extends SQLiteOpenHelper {
                 db.execSQL("ALTER TABLE " + PAGES_TABLE_NAME + " ADD COLUMN " + PAGES_TABLE_COLUMN_BOOK_ID + " INTEGER;");
                 break;
             case 2:
+                Log.d("LOG", "IT'S OKEY");
                 db.execSQL("ALTER TABLE " + PAGES_TABLE_NAME + " ADD COLUMN " + PAGES_TABLE_COLUMN_BOOK_ID + " INTEGER;");
                 db.execSQL("ALTER TABLE " + BOOKS_TABLE_NAME + " RENAME TO " + WISHFUL_BOOKS_TABLE_NAME_OLD + ";");
                 db.execSQL("CREATE TABLE " + BOOKS_TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, Author TEXT, Name TEXT, Type TEXT, Pages_All INTEGER, Page INTEGER, Start_Date TEXT, End_Date TEXT, End_Year TEXT, Rating INTEGER);");
-                db.execSQL("INSERT INTO " + WISHFUL_BOOKS_TABLE_NAME + "(id, Author, Name, Pages_All, Page, Type) SELECT id, Author, Name, Pages_All, Page, is_end FROM " + WISHFUL_BOOKS_TABLE_NAME_OLD + ";");
+                db.execSQL("INSERT INTO " + BOOKS_TABLE_NAME + "(id, Author, Name, Pages_All, Page, Type) SELECT id, Author, Name, Pages_All, Page, is_end FROM " + WISHFUL_BOOKS_TABLE_NAME_OLD + ";");
                 db.execSQL("DROP TABLE IF EXISTS " + WISHFUL_BOOKS_TABLE_NAME_OLD + ";");
                 db.execSQL("UPDATE " + BOOKS_TABLE_NAME + " SET Type = '" + BOOK_TYPE_CURRENT + "' WHERE Type = '0';");
                 db.execSQL("UPDATE " + BOOKS_TABLE_NAME + " SET Type = '" + BOOK_TYPE_ARCHIVE + "' WHERE Type = '1';");
+                break;
             default:
                 break;
         }
@@ -399,6 +402,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(BOOKS_TABLE_COLUMN_NAME, book.name);
         contentValues.put(BOOKS_TABLE_COLUMN_PAGES_ALL, book.pagesAll);
         contentValues.put(BOOKS_TABLE_COLUMN_PAGE, book.page);
+        contentValues.put(BOOKS_TABLE_COLUMN_END_YEAR, book.end_year);
         db.update(BOOKS_TABLE_NAME, contentValues, "id = ?", new String[] {String.valueOf(book.id)});
         return true;
     }
@@ -456,7 +460,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(BOOKS_TABLE_NAME, null, "id = '" + String.valueOf(id) + "'", null, null, null, null);
         cursor.moveToFirst();
-        return new Book(
+        Book book =  new Book(
                 id,
                 cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_AUTHOR)),
                 cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_NAME)),
@@ -464,6 +468,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_PAGES_ALL)),
                 cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_PAGE))
         );
+        book.end_year = cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_END_YEAR));
+        return book;
     }
 
     public String getDayOfWeek(String date) {

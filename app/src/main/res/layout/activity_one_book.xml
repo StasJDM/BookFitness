@@ -83,16 +83,6 @@
                     android:textColor="@color/textColor2"
                     android:textSize="18sp" />
 
-                <ImageButton
-                    android:id="@+id/imageButtonAdd"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginLeft="4dp"
-                    android:background="#00F48FB1"
-                    android:onClick="onClickAddPages"
-                    android:tint="@color/colorAccent"
-                    app:srcCompat="@drawable/ic_add_white_36dp" />
 
             </LinearLayout>
 
@@ -124,10 +114,20 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/buttonChange"
+                android:id="@+id/imageButtonAdd"
+                android:onClick="onClickAddPages"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="4dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/button_1"
+                android:text="@string/add_pages"/>
+
+            <Button
+                android:id="@+id/buttonChange"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
                 android:textColor="@android:color/white"
                 android:background="@drawable/button_1"
                 android:onClick="onClickChange"

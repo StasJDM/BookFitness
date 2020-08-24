@@ -7,10 +7,6 @@
         android:title="@string/settings_text">
 
         <item
-            android:id="@+id/item_add_pages"
-            android:title="@string/menu_add_pages" />
-
-        <item
             android:id="@+id/item_edit_book"
             android:title="@string/menu_edit_book" />
 

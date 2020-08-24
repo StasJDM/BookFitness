@@ -49,23 +49,21 @@ public class AddBookActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        chip_current = (Chip)findViewById(R.id.chip_current);
-        chip_archive = (Chip)findViewById(R.id.chip_archive);
-        chip_wishful = (Chip)findViewById(R.id.chip_wishful);
-        chipGroup = (ChipGroup)findViewById(R.id.chip_group);
-        editTextAuthor = (EditText)findViewById(R.id.editTextAuthor);
-        editTextName = (EditText)findViewById(R.id.editTextName);
-        editTextPagesAll = (EditText)findViewById(R.id.editTextPagesAll);
-        editTextPage = (EditText)findViewById(R.id.editTextPage);
+        chip_current = findViewById(R.id.chip_current);
+        chip_archive = findViewById(R.id.chip_archive);
+        chip_wishful = findViewById(R.id.chip_wishful);
+        chipGroup = findViewById(R.id.chip_group);
+        editTextAuthor = findViewById(R.id.editTextAuthor);
+        editTextName = findViewById(R.id.editTextName);
+        editTextPagesAll = findViewById(R.id.editTextPagesAll);
+        editTextPage = findViewById(R.id.editTextPage);
         editTextDate = findViewById(R.id.editTextDate);
         textViewDate = findViewById(R.id.textViewDate);
-        textViewTitle = (TextView)findViewById(R.id.textViewTitle);
-        textViewPagesAll = (TextView)findViewById(R.id.textViewNumberOfPages);
-        textViewPageNow = (TextView)findViewById(R.id.textViewPageNow);
+        textViewTitle = findViewById(R.id.textViewTitle);
+        textViewPagesAll = findViewById(R.id.textViewNumberOfPages);
+        textViewPageNow = findViewById(R.id.textViewPageNow);
 
         chip_current.setChecked(true);
-        textViewDate.setVisibility(View.GONE);
-        editTextDate.setVisibility(View.GONE);
 
         type = "current";
 
@@ -79,6 +77,7 @@ public class AddBookActivity extends AppCompatActivity {
                 editTextPage.setVisibility(View.VISIBLE);
                 editTextPagesAll.setVisibility(View.VISIBLE);
                 editTextDate.setVisibility(View.GONE);
+
             }
         });
 
@@ -137,6 +136,7 @@ public class AddBookActivity extends AppCompatActivity {
                     editTextPage.setVisibility(View.GONE);
                     textViewPagesAll.setVisibility(View.GONE);
                     textViewPageNow.setVisibility(View.GONE);
+                    editTextDate.setText(book.end_year);
                     break;
                 case "wishful":
                     editTextPagesAll.setVisibility(View.GONE);
@@ -228,7 +228,7 @@ public class AddBookActivity extends AppCompatActivity {
                 editTextAuthor.getText().toString(),
                 editTextName.getText().toString(),
                 "archive",
-                textViewDate.getText().toString()
+                editTextDate.getText().toString()
         );
         if (book_id == -1) {
             dbHelper.insertArchiveBook(book);
