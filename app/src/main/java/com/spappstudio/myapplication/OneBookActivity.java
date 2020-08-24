@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +36,7 @@ public class OneBookActivity extends AppCompatActivity {
     TextView textViewPagesAllTitle;
     TextView textViewEndingYear;
     TextView textViewEndingYearTitle;
-    ImageButton buttonAdd;
+    Button buttonAdd;
     Button buttonChange;
 
     Book book;
@@ -94,6 +95,11 @@ public class OneBookActivity extends AppCompatActivity {
                 textViewPagesAllTitle.setVisibility(View.GONE);
                 buttonAdd.setVisibility(View.GONE);
 
+                if (book.end_year.isEmpty()) {
+                    book.end_year = "2020";
+                    dbHelper.updateArchiveBook(book);
+                }
+                textViewEndingYear.setText(book.end_year);
                 buttonChange.setVisibility(View.GONE);
                 break;
             case "wishful":
@@ -130,11 +136,6 @@ public class OneBookActivity extends AppCompatActivity {
             case android.R.id.home:
                 super.onBackPressed();
                 return true;
-            case R.id.item_add_pages:
-                intent = new Intent(OneBookActivity.this, EnterPagesInBookActivity.class);
-                intent.putExtra("book_id", book_id);
-                startActivityForResult(intent, REQUEST_ADD_PAGES);
-                return true;
             case R.id.item_edit_book:
                 intent = new Intent(OneBookActivity.this, AddBookActivity.class);
                 intent.putExtra("book_id", book_id);
@@ -159,16 +160,21 @@ public class OneBookActivity extends AppCompatActivity {
     }
 
     public void onClickChange(View view) {
+        Log.d("LOG", book.type);
         switch (book.type) {
             case "current":
+                Log.d("LOG", "CURRENT");
                 dbHelper.finishBook(book_id);
                 finish();
+                break;
             case "wishful":
+                Log.d("LOG", "WISHFUL");
                 Intent intent = new Intent(OneBookActivity.this, AddBookActivity.class);
                 intent.putExtra("book_id", book_id);
                 intent.putExtra("is_start_reading", 1);
                 startActivity(intent);
                 finish();
+                break;
         }
     }
 }
