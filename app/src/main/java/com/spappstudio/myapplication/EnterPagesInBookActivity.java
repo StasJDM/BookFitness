@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.NumberPicker;
 
 import com.spappstudio.myapplication.objects.Book;
@@ -36,12 +35,12 @@ public class EnterPagesInBookActivity extends AppCompatActivity {
 
         numberPicker.setMinValue(0);
         numberPicker.setMaxValue(999);
-        numberPicker.setValue(0);
         numberPicker.setWrapSelectorWheel(false);
 
         dbHelper = new DBHelper(this);
         book_id = getIntent().getExtras().getInt("book_id");
         book = dbHelper.getBookByID(book_id);
+        numberPicker.setValue(book.page);
     }
 
     @Override
@@ -58,8 +57,8 @@ public class EnterPagesInBookActivity extends AppCompatActivity {
     public void onClickSave(View view) {
         int insertPageCount = numberPicker.getValue();
 
-        dbHelper.updatePageInBook(book.id, book.addPages(insertPageCount));
-        dbHelper.insertPages(insertPageCount, book_id);
+        dbHelper.updatePageInBook(book.id, insertPageCount);
+        dbHelper.insertPages(insertPageCount - book.page, book_id);
 
         setResult(RESULT_OK);
         finish();

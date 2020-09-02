@@ -8,14 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.spappstudio.myapplication.dialogs.DeleteDialog;
@@ -95,7 +91,7 @@ public class OneBookActivity extends AppCompatActivity {
                 textViewPagesAllTitle.setVisibility(View.GONE);
                 buttonAdd.setVisibility(View.GONE);
 
-                if (book.end_year.isEmpty()) {
+                if (book.end_year == null) {
                     book.end_year = "2020";
                     dbHelper.updateArchiveBook(book);
                 }
@@ -160,15 +156,12 @@ public class OneBookActivity extends AppCompatActivity {
     }
 
     public void onClickChange(View view) {
-        Log.d("LOG", book.type);
         switch (book.type) {
             case "current":
-                Log.d("LOG", "CURRENT");
                 dbHelper.finishBook(book_id);
                 finish();
                 break;
             case "wishful":
-                Log.d("LOG", "WISHFUL");
                 Intent intent = new Intent(OneBookActivity.this, AddBookActivity.class);
                 intent.putExtra("book_id", book_id);
                 intent.putExtra("is_start_reading", 1);

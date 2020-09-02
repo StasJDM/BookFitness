@@ -54,6 +54,8 @@ public class EditActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        books = dbHelper.getAllCurrentBooks();
+        recyclerAdapter.updateData(books, "add_pages");
     }
 
     @Override
