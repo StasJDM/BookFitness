@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -17,7 +16,6 @@ import com.google.android.material.chip.ChipGroup;
 import com.spappstudio.myapplication.dialogs.BackDialog;
 import com.spappstudio.myapplication.objects.Book;
 
-import org.w3c.dom.Text;
 
 public class AddBookActivity extends AppCompatActivity {
 
@@ -62,6 +60,9 @@ public class AddBookActivity extends AppCompatActivity {
         textViewTitle = findViewById(R.id.textViewTitle);
         textViewPagesAll = findViewById(R.id.textViewNumberOfPages);
         textViewPageNow = findViewById(R.id.textViewPageNow);
+
+        editTextDate.setVisibility(View.GONE);
+        textViewDate.setVisibility(View.GONE);
 
         chip_current.setChecked(true);
 

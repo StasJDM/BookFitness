@@ -64,7 +64,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 db.execSQL("ALTER TABLE " + PAGES_TABLE_NAME + " ADD COLUMN " + PAGES_TABLE_COLUMN_BOOK_ID + " INTEGER;");
                 break;
             case 2:
-                Log.d("LOG", "IT'S OKEY");
                 db.execSQL("ALTER TABLE " + PAGES_TABLE_NAME + " ADD COLUMN " + PAGES_TABLE_COLUMN_BOOK_ID + " INTEGER;");
                 db.execSQL("ALTER TABLE " + BOOKS_TABLE_NAME + " RENAME TO " + WISHFUL_BOOKS_TABLE_NAME_OLD + ";");
                 db.execSQL("CREATE TABLE " + BOOKS_TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, Author TEXT, Name TEXT, Type TEXT, Pages_All INTEGER, Page INTEGER, Start_Date TEXT, End_Date TEXT, End_Year TEXT, Rating INTEGER);");
@@ -345,7 +344,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_AUTHOR)),
                     cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_NAME)),
                     cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_TYPE)),
-                    cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_END_DATE)),
+                    cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_START_DATE)),
                     cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_END_DATE))
             ));
             cursor.moveToNext();
@@ -387,6 +386,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean updateCurrentBook(Book book) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put(BOOKS_TABLE_COLUMN_TYPE, BOOK_TYPE_CURRENT);
         contentValues.put(BOOKS_TABLE_COLUMN_AUTHOR, book.author);
         contentValues.put(BOOKS_TABLE_COLUMN_NAME, book.name);
         contentValues.put(BOOKS_TABLE_COLUMN_PAGES_ALL, book.pagesAll);
@@ -398,6 +398,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean updateArchiveBook(Book book) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put(BOOKS_TABLE_COLUMN_TYPE, BOOK_TYPE_ARCHIVE);
         contentValues.put(BOOKS_TABLE_COLUMN_AUTHOR, book.author);
         contentValues.put(BOOKS_TABLE_COLUMN_NAME, book.name);
         contentValues.put(BOOKS_TABLE_COLUMN_PAGES_ALL, book.pagesAll);
@@ -411,6 +412,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void updateWishfulBook(Book book) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put(BOOKS_TABLE_COLUMN_TYPE, BOOK_TYPE_WISHFUL);
         contentValues.put(BOOKS_TABLE_COLUMN_AUTHOR, book.author);
         contentValues.put(BOOKS_TABLE_COLUMN_NAME, book.name);
         db.update(WISHFUL_BOOKS_TABLE_NAME, contentValues, "id = ?", new String[] {String.valueOf(book.id)});
