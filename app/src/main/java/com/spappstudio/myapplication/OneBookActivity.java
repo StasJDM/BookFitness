@@ -14,8 +14,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
 import com.spappstudio.myapplication.dialogs.DeleteDialog;
 import com.spappstudio.myapplication.objects.Book;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class OneBookActivity extends AppCompatActivity {
 
@@ -34,6 +41,7 @@ public class OneBookActivity extends AppCompatActivity {
     TextView textViewEndingYearTitle;
     Button buttonAdd;
     Button buttonChange;
+    AdView adView;
 
     Book book;
     int book_id;
@@ -49,6 +57,10 @@ public class OneBookActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        adView = findViewById(R.id.ad_view);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         textViewBookTitle = findViewById(R.id.textViewBookTitle);
         textViewPage = findViewById(R.id.textViewPage);
@@ -70,6 +82,10 @@ public class OneBookActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        if (adView != null) {
+            adView.resume();
+        }
 
         book = dbHelper.getBookByID(book_id);
         switch (book.type) {
@@ -169,5 +185,21 @@ public class OneBookActivity extends AppCompatActivity {
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void onPause() {
+        if (adView != null) {
+            adView.pause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
     }
 }

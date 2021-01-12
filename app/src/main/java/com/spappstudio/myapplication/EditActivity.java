@@ -75,4 +75,17 @@ public class EditActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void onClickEdit(View view) {
+        Intent intent = new Intent(EditActivity.this, EnterPagesActivity.class);
+        intent.putExtra("type", "edit");
+        startActivity(intent);
+        finish();
+    }
+
+    public void onClickEditMoreDay(View view) {
+        Intent intent = new Intent(EditActivity.this, EnterDatePagesActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

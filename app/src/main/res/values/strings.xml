@@ -78,6 +78,11 @@
     <string name="menu_books">Books</string>
     <string name="menu_statistics">Statistics</string>
 
+    <string name="book_banner">ca-app-pub-7669772816496338/8754731451</string>
+    <string name="add_pages_banner">ca-app-pub-7669772816496338/3206891304</string>
+    <string name="add_pages_with_date_banner">ca-app-pub-7669772816496338/4049199688</string>
+    <string name="change_goal_banner">ca-app-pub-7669772816496338/4432343068</string>
+
     <string-array name="days_of_week">
         <item></item>
         <item>Mon</item>

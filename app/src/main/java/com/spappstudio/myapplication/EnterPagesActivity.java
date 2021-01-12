@@ -9,17 +9,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
+
+import java.util.Arrays;
+
 public class EnterPagesActivity extends AppCompatActivity {
 
     public static final String ADD_IN_BOOK = "add_in_book";
     public static final String ADD_WITHOUT_BOOK = "add_without_book";
+    public static final String EDIT = "edit";
 
     int book_id;
     int pageCount;
+    int pages;
     String type;
 
     Button buttonSave;
     NumberPicker numberPicker;
+    AdView adView;
 
     DBHelper dbHelper;
 
@@ -32,7 +42,13 @@ public class EnterPagesActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        adView = findViewById(R.id.ad_view);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
         dbHelper = new DBHelper(this);
+
+        pages = dbHelper.getPagesToday();
 
         buttonSave = (Button)findViewById(R.id.buttonSave);
         numberPicker = (NumberPicker)findViewById(R.id.numberPicker);
@@ -48,6 +64,8 @@ public class EnterPagesActivity extends AppCompatActivity {
             book_id = getIntent().getExtras().getInt("book_id");
             pageCount = dbHelper.getPagesInBook(book_id);
             numberPicker.setValue(pageCount);
+        } else if (type.equals(EDIT)) {
+            numberPicker.setValue(pages);
         }
     }
 
@@ -69,8 +87,36 @@ public class EnterPagesActivity extends AppCompatActivity {
         } else if(type.equals(ADD_IN_BOOK)) {
             dbHelper.updatePageInBook(book_id, insertPageCount);
             dbHelper.insertPages(insertPageCount - pageCount, book_id);
+        } else if (type.equals(EDIT)) {
+            int new_pages_value = numberPicker.getValue();
+            int d_pages = new_pages_value - pages;
+            dbHelper.insertPages(d_pages);
         }
         setResult(RESULT_OK);
         finish();
+    }
+
+    @Override
+    public void onPause() {
+        if (adView != null) {
+            adView.pause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adView != null) {
+            adView.resume();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
     }
 }

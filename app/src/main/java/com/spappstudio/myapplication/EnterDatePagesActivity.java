@@ -13,6 +13,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
+
+import java.util.Arrays;
 import java.util.Calendar;
 
 public class EnterDatePagesActivity extends AppCompatActivity {
@@ -23,6 +29,7 @@ public class EnterDatePagesActivity extends AppCompatActivity {
     Button buttonSave;
     EditText editTextDate;
     NumberPicker numberPicker;
+    AdView adView;
 
     DBHelper dbHelper;
 
@@ -36,6 +43,10 @@ public class EnterDatePagesActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        adView = findViewById(R.id.ad_view);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         buttonSave = (Button)findViewById(R.id.buttonSave);
         editTextDate = (EditText)findViewById(R.id.editTextDate);
@@ -74,12 +85,12 @@ public class EnterDatePagesActivity extends AppCompatActivity {
     }
 
     public void onClickSave(View view) {
-        pages = numberPicker.getValue();
+        int new_pages_value = numberPicker.getValue();
+        int d_pages = new_pages_value - pages;
 
-        dbHelper.insertPages(date, pages);
+        dbHelper.insertPages(date, d_pages);
 
-        Intent intent = new Intent(EnterDatePagesActivity.this, MainActivity.class);
-        startActivity(intent);
+        setResult(RESULT_OK);
         finish();
     }
 
@@ -110,4 +121,28 @@ public class EnterDatePagesActivity extends AppCompatActivity {
 
         }
     };
+
+    @Override
+    public void onPause() {
+        if (adView != null) {
+            adView.pause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adView != null) {
+            adView.resume();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
+    }
 }
