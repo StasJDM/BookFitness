@@ -415,7 +415,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(BOOKS_TABLE_COLUMN_TYPE, BOOK_TYPE_WISHFUL);
         contentValues.put(BOOKS_TABLE_COLUMN_AUTHOR, book.author);
         contentValues.put(BOOKS_TABLE_COLUMN_NAME, book.name);
-        db.update(WISHFUL_BOOKS_TABLE_NAME, contentValues, "id = ?", new String[] {String.valueOf(book.id)});
+        db.update(BOOKS_TABLE_NAME, contentValues, "id = ?", new String[] {String.valueOf(book.id)});
     }
 
     public int getBooksCount () {
