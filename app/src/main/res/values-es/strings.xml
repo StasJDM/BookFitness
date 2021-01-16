@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LibroAptitud</string>
+    <string name="about_text">Acerca de</string>
+    <string name="settings_text">Configuraciones</string>
+
+    <string name="add_book_message">Haga clic para agregar un libro</string>
+    <string name="edit_book">Editar libro</string>
+    <string name="enter_page_number">Ingrese el número de página</string>
+    <string name="enter_page_count">Ingrese el número de páginas</string>
+    <string name="enter_book_name">Ingrese el título del libro</string>
+    <string name="enter_book_author">Entra el autor del libro</string>
+    <string name="year">2020</string>
+    <string name="add_book">Agregar libro</string>
+    <string name="author">Autor</string>
+    <string name="name">Título</string>
+    <string name="page_number">Número de páginas</string>
+    <string name="page_now">En que pagina estas ahora</string>
+    <string name="book_is_end">Libro terminado</string>
+    <string name="save">Salvar</string>
+    <string name="book_list">Lista de libros</string>
+    <string name="pages_today">Páginas hoy</string>
+    <string name="add_pages">Agregar páginas</string>
+    <string name="change">Editar</string>
+    <string name="change_another_day">Cambiar otro dia</string>
+    <string name="pages_for_day">Páginas por día</string>
+    <string name="date">Fecha</string>
+    <string name="add_in_page_counter">Agregar al contador de páginas</string>
+    <string name="progress_for_week">Progreso semanal</string>
+    <string name="quotes">Leer citas</string>
+    <string name="books">Libros</string>
+    <string name="book">Libro</string>
+    <string name="all_pages">Paginas totales:</string>
+    <string name="ready_pages">Páginas leídas:</string>
+    <string name="statistics">Estadísticas</string>
+    <string name="for_week">Durante la semana</string>
+    <string name="in_this_month">Este mes</string>
+    <string name="yesterday">Ayer</string>
+    <string name="week_average">En promedio por semana</string>
+    <string name="month_average">En promedio por mes</string>
+    <string name="book_will_deleted">El libro será eliminado</string>
+    <string name="changes_will_not_be_saved">Los cambios no se guardarán</string>
+    <string name="ok">Okay</string>
+    <string name="cancel">Cancelar</string>
+    <string name="change_goal">Cambiar objetivo</string>
+    <string name="goal">Objetivo</string>
+    <string name="today">Hoy</string>
+    <string name="set_goal_text">Fíjese una meta e intente alcanzarla más a menudo</string>
+    <string name="high_score">Puntuación más alta</string>
+    <string name="current">Actual</string>
+    <string name="wishful">Deseoso</string>
+    <string name="archive">Archivo</string>
+    <string name="select_book">Seleccionar un libro</string>
+    <string name="add_without_book">Agregar sin libro</string>
+    <string name="empty_book_message">Agregue libros para guardar estadísticas con más detalle</string>
+    <string name="ending_year">¿En qué año se leyó el libro?</string>
+    <string name="end_date">Año de finalización del libro:</string>
+    <string name="start_reading">Empieza a leer</string>
+    <string name="finish_book">Termina el libro</string>
+
+    <string name="add_current">Leyendo ahora</string>
+    <string name="add_archive">Ya leído</string>
+    <string name="add_wishful">Quiero leer</string>
+
+    <string name="add_pages_button">Agregar páginas</string>
+    <string name="change_goal_button">Cambiar objetivo</string>
+    <string name="add_book_button">Añadir</string>
+
+    <string name="menu_edit_book">Editar libro</string>
+    <string name="menu_delete_book">Eliminar libro</string>
+    <string name="menu_add_pages">Agregar páginas</string>
+
+    <string name="MY_NAME">Pyatnicyn Stanislav</string>
+    <string name="MY_EMAIL">pyatnicyn.stanislav@gmail.com</string>
+    <string name="MAY_BEE">Diseño - MayBee</string>
+
+    <string name="menu_home">Página principal</string>
+    <string name="menu_books">Libros</string>
+    <string name="menu_statistics">Estadísticas</string>
+
+    <string name="book_banner">ca-app-pub-7669772816496338/8754731451</string>
+    <string name="add_pages_banner">ca-app-pub-7669772816496338/3206891304</string>
+    <string name="add_pages_with_date_banner">ca-app-pub-7669772816496338/4049199688</string>
+    <string name="change_goal_banner">ca-app-pub-7669772816496338/4432343068</string>
+
+    <string-array name="days_of_week">
+        <item></item>
+        <item>Lun</item>
+        <item>Mar</item>
+        <item>Mié</item>
+        <item>Jue</item>
+        <item>Vie</item>
+        <item>Sáb</item>
+        <item>Dom</item>
+        <item>Lun</item>
+        <item>Mar</item>
+        <item>Mié</item>
+        <item>Jue</item>
+        <item>Vie</item>
+        <item>Sáb</item>
+        <item>Dom</item>
+    </string-array>
+</resources>
