@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BookFitness</string>
+    <string name="about_text">关于</string>
+    <string name="settings_text">设置</string>
+
+    <string name="add_book_message">单击添加图书</string>
+    <string name="edit_book">编辑书籍</string>
+    <string name="enter_page_number">输入页码</string>
+    <string name="enter_page_count">输入页数</string>
+    <string name="enter_book_name">输入书名</string>
+    <string name="enter_book_author">输入本书的作者</string>
+    <string name="year">2020</string>
+    <string name="add_book">添加书</string>
+    <string name="author">作者</string>
+    <string name="name">标题</string>
+    <string name="page_number">页数</string>
+    <string name="page_now">你现在在哪一页</string>
+    <string name="book_is_end">书已完成</string>
+    <string name="save">保存</string>
+    <string name="book_list">书籍清单</string>
+    <string name="pages_today">今天的页面</string>
+    <string name="add_pages">添加页面</string>
+    <string name="change">编辑</string>
+    <string name="change_another_day">改变另一天</string>
+    <string name="pages_for_day">每天页数</string>
+    <string name="date">日期</string>
+    <string name="add_in_page_counter">添加到页面计数器</string>
+    <string name="progress_for_week">每周进度</string>
+    <string name="quotes">阅读报价</string>
+    <string name="books">书籍</string>
+    <string name="book">书</string>
+    <string name="all_pages">总页数:</string>
+    <string name="ready_pages">页面读取:</string>
+    <string name="statistics">统计</string>
+    <string name="for_week">在一周内</string>
+    <string name="in_this_month">这个月</string>
+    <string name="yesterday">昨天</string>
+    <string name="week_average">平均每周</string>
+    <string name="month_average">平均每月</string>
+    <string name="book_will_deleted">这本书将被删除</string>
+    <string name="changes_will_not_be_saved">更改将不会被保存</string>
+    <string name="ok">好的</string>
+    <string name="cancel">禄谩卤拢潞</string>
+    <string name="change_goal">更改目标</string>
+    <string name="goal">目标</string>
+    <string name="today">今天</string>
+    <string name="set_goal_text">设定一个目标，并尝试更频繁地实现它</string>
+    <string name="high_score">高分</string>
+    <string name="current">电流</string>
+    <string name="wishful">一厢情愿</string>
+    <string name="archive">存档</string>
+    <string name="select_book">选择一本书</string>
+    <string name="add_without_book">添加没有一本书</string>
+    <string name="empty_book_message">添加书籍以更详细地保存统计数据</string>
+    <string name="ending_year">这本书是在哪一年读的</string>
+    <string name="end_date">完成书的年份:</string>
+    <string name="start_reading">开始阅读</string>
+    <string name="finish_book">完成这本书</string>
+
+    <string name="add_current">现在阅读</string>
+    <string name="add_archive">已阅读</string>
+    <string name="add_wishful">想读</string>
+
+    <string name="add_pages_button">添加页面</string>
+    <string name="change_goal_button">更改目标</string>
+    <string name="add_book_button">添加</string>
+
+    <string name="menu_edit_book">编辑书籍</string>
+    <string name="menu_delete_book">删除书</string>
+    <string name="menu_add_pages">添加页面</string>
+
+    <string name="MY_NAME">Pyatnicyn Stanislav</string>
+    <string name="MY_EMAIL">pyatnicyn.stanislav@gmail.com</string>
+    <string name="MAY_BEE">设计 - MayBee</string>
+
+    <string name="menu_home">首页</string>
+    <string name="menu_books">书籍</string>
+    <string name="menu_statistics">统计</string>
+
+    <string name="book_banner">ca-app-pub-7669772816496338/8754731451</string>
+    <string name="add_pages_banner">ca-app-pub-7669772816496338/3206891304</string>
+    <string name="add_pages_with_date_banner">ca-app-pub-7669772816496338/4049199688</string>
+    <string name="change_goal_banner">ca-app-pub-7669772816496338/4432343068</string>
+
+    <string-array name="days_of_week">
+        <item></item>
+        <item>星期一</item>
+        <item>星期二</item>
+        <item>星期三</item>
+        <item>星期四</item>
+        <item>星期五</item>
+        <item>星期六</item>
+        <item>星期天</item>
+        <item>星期一</item>
+        <item>星期二</item>
+        <item>星期三</item>
+        <item>星期四</item>
+        <item>星期五</item>
+        <item>星期六</item>
+        <item>星期天</item>
+    </string-array>
+</resources>
