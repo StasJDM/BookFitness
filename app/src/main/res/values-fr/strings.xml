@@ -9,7 +9,7 @@
     <string name="enter_page_number">Entrez le numéro de page</string>
     <string name="enter_page_count">Entrez le nombre de pages</string>
     <string name="enter_book_name">Entrez le titre du livre</string>
-    <string name="enter_book_author">Entrez l'auteur du livre</string>
+    <string name="enter_book_author">Entrez l\'auteur du livre</string>
     <string name="year">2020</string>
     <string name="add_book">Ajouter un livre</string>
     <string name="author">Auteur</string>
@@ -19,7 +19,7 @@
     <string name="book_is_end">Livre terminé</string>
     <string name="save">Sauver</string>
     <string name="book_list">Liste des livres</string>
-    <string name="pages_today">Pages aujourd'hui</string>
+    <string name="pages_today">Pages aujourd\'hui</string>
     <string name="add_pages">Ajouter des pages</string>
     <string name="change">Éditer</string>
     <string name="change_another_day">Changer un autre jour</string>
@@ -40,12 +40,12 @@
     <string name="month_average">En moyenne par mois</string>
     <string name="book_will_deleted">Le livre sera supprimé</string>
     <string name="changes_will_not_be_saved">Les modifications ne seront pas enregistrées</string>
-    <string name="ok">D'accord</string>
+    <string name="ok">D\'accord</string>
     <string name="cancel">Annuler</string>
-    <string name="change_goal">Changer d'objectif</string>
+    <string name="change_goal">Changer d\'objectif</string>
     <string name="goal">Objectif</string>
-    <string name="today">Aujourd'hui</string>
-    <string name="set_goal_text">Fixez-vous un objectif et essayez de l'atteindre plus souvent</string>
+    <string name="today">Aujourd\'hui</string>
+    <string name="set_goal_text">Fixez-vous un objectif et essayez de l\'atteindre plus souvent</string>
     <string name="high_score">Score élevé</string>
     <string name="current">Actuel</string>
     <string name="wishful">Pieux</string>
@@ -54,7 +54,7 @@
     <string name="add_without_book">Ajouter sans livre</string>
     <string name="empty_book_message">Ajoutez des livres pour enregistrer des statistiques plus en détail</string>
     <string name="ending_year">En quelle année le livre a-t-il été lu</string>
-    <string name="end_date">Année d'achèvement du livre:</string>
+    <string name="end_date">Année d\'achèvement du livre:</string>
     <string name="start_reading">Commencer à lire</string>
     <string name="finish_book">Terminer le livre</string>
 
@@ -63,7 +63,7 @@
     <string name="add_wishful">Veux lire</string>
 
     <string name="add_pages_button">Ajouter des pages</string>
-    <string name="change_goal_button">Changer d'objectif</string>
+    <string name="change_goal_button">Changer d\'objectif</string>
     <string name="add_book_button">Ajouter</string>
 
     <string name="menu_edit_book">Modifier le livre</string>
