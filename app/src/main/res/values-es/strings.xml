@@ -100,4 +100,6 @@
         <item>Sáb</item>
         <item>Dom</item>
     </string-array>
+    <string name="rate_the_book">Califica el libro</string>
+    <string name="book_rating">Valoración Del Libro</string>
 </resources>

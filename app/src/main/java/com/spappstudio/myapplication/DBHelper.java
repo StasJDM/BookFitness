@@ -226,6 +226,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(BOOKS_TABLE_COLUMN_AUTHOR, book.author);
         contentValues.put(BOOKS_TABLE_COLUMN_NAME, book.name);
         contentValues.put(BOOKS_TABLE_COLUMN_TYPE, book.type);
+        contentValues.put(BOOKS_TABLE_COLUMN_RATING, book.rating);
         if (!book.end_year.isEmpty()) {
             contentValues.put(BOOKS_TABLE_COLUMN_END_YEAR, book.end_year);
         }
@@ -283,6 +284,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_PAGES_ALL)),
                 cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_PAGE))
         );
+        book.rating = cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_RATING));
         cursor.close();
         return book;
     }
@@ -339,14 +341,16 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT * FROM " + BOOKS_TABLE_NAME + " WHERE " + BOOKS_TABLE_COLUMN_TYPE + " = '" + BOOK_TYPE_ARCHIVE + "';", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            books.add(new Book(
+            Book book = new Book(
                     cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_ID)),
                     cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_AUTHOR)),
                     cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_NAME)),
                     cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_TYPE)),
                     cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_START_DATE)),
                     cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_END_DATE))
-            ));
+            );
+            book.rating = cursor.getColumnIndex(BOOKS_TABLE_COLUMN_RATING);
+            books.add(book);
             cursor.moveToNext();
         }
         cursor.close();
@@ -404,6 +408,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(BOOKS_TABLE_COLUMN_PAGES_ALL, book.pagesAll);
         contentValues.put(BOOKS_TABLE_COLUMN_PAGE, book.page);
         contentValues.put(BOOKS_TABLE_COLUMN_END_YEAR, book.end_year);
+        contentValues.put(BOOKS_TABLE_COLUMN_RATING, book.rating);
         db.update(BOOKS_TABLE_NAME, contentValues, "id = ?", new String[] {String.valueOf(book.id)});
         return true;
     }
@@ -434,12 +439,13 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean finishBook(int book_id) {
+    public boolean finishBook(int book_id, int rating) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(BOOKS_TABLE_COLUMN_TYPE, BOOK_TYPE_ARCHIVE);
         contentValues.put(BOOKS_TABLE_COLUMN_END_DATE, getTodayDateString());
         contentValues.put(BOOKS_TABLE_COLUMN_END_YEAR, getYearString());
+        contentValues.put(BOOKS_TABLE_COLUMN_RATING, rating);
         db.update(BOOKS_TABLE_NAME, contentValues, "id = ?", new String[] {String.valueOf(book_id)});
         return true;
     }
@@ -471,6 +477,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_PAGE))
         );
         book.end_year = cursor.getString(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_END_YEAR));
+        book.rating = cursor.getInt(cursor.getColumnIndex(BOOKS_TABLE_COLUMN_RATING));
         return book;
     }
 

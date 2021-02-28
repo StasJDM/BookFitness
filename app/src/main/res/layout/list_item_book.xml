@@ -11,8 +11,7 @@
         android:id="@+id/tvBookName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Автор книги - Название книги"
-        android:textSize="20dp" />
+        android:textSize="18sp" />
 
     <ProgressBar
         android:id="@+id/pbBookProgress"

@@ -100,4 +100,6 @@
         <item>Sat</item>
         <item>Sun</item>
     </string-array>
+    <string name="rate_the_book">Rate the book</string>
+    <string name="book_rating">Book Rating</string>
 </resources>

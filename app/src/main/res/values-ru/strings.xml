@@ -100,5 +100,7 @@
         <item>Сб</item>
         <item>Вс</item>
     </string-array>
+    <string name="rate_the_book">Оцените книгу</string>
+    <string name="book_rating">Рейтинг книги</string>
 
 </resources>

@@ -100,4 +100,6 @@
         <item>星期六</item>
         <item>星期天</item>
     </string-array>
+    <string name="rate_the_book">给书打分</string>
+    <string name="book_rating">书评</string>
 </resources>

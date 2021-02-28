@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.android.material.chip.Chip;
@@ -17,7 +18,7 @@ import com.spappstudio.myapplication.dialogs.BackDialog;
 import com.spappstudio.myapplication.objects.Book;
 
 
-public class AddBookActivity extends AppCompatActivity {
+public class AddBookActivity extends AppCompatActivity implements RatingBar.OnRatingBarChangeListener {
 
     int book_id;
     String type;
@@ -37,6 +38,8 @@ public class AddBookActivity extends AppCompatActivity {
     TextView textViewPagesAll;
     TextView textViewPageNow;
     TextView textViewDate;
+    TextView textViewRating;
+    RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +63,14 @@ public class AddBookActivity extends AppCompatActivity {
         textViewTitle = findViewById(R.id.textViewTitle);
         textViewPagesAll = findViewById(R.id.textViewNumberOfPages);
         textViewPageNow = findViewById(R.id.textViewPageNow);
+        textViewRating = findViewById(R.id.textViewRating);
+        ratingBar = findViewById(R.id.ratingBar);
+        ratingBar.setOnRatingBarChangeListener(this);
 
         editTextDate.setVisibility(View.GONE);
         textViewDate.setVisibility(View.GONE);
+        textViewRating.setVisibility(View.GONE);
+        ratingBar.setVisibility(View.GONE);
 
         chip_current.setChecked(true);
 
@@ -78,7 +86,8 @@ public class AddBookActivity extends AppCompatActivity {
                 editTextPage.setVisibility(View.VISIBLE);
                 editTextPagesAll.setVisibility(View.VISIBLE);
                 editTextDate.setVisibility(View.GONE);
-
+                textViewRating.setVisibility(View.GONE);
+                ratingBar.setVisibility(View.GONE);
             }
         });
 
@@ -92,6 +101,8 @@ public class AddBookActivity extends AppCompatActivity {
                 editTextPage.setVisibility(View.GONE);
                 editTextPagesAll.setVisibility(View.GONE);
                 editTextDate.setVisibility(View.VISIBLE);
+                textViewRating.setVisibility(View.VISIBLE);
+                ratingBar.setVisibility(View.VISIBLE);
             }
         });
 
@@ -105,6 +116,8 @@ public class AddBookActivity extends AppCompatActivity {
                 editTextPage.setVisibility(View.GONE);
                 editTextPagesAll.setVisibility(View.GONE);
                 editTextDate.setVisibility(View.GONE);
+                textViewRating.setVisibility(View.GONE);
+                ratingBar.setVisibility(View.GONE);
             }
         });
 
@@ -131,12 +144,17 @@ public class AddBookActivity extends AppCompatActivity {
                     }
                     editTextDate.setVisibility(View.GONE);
                     textViewDate.setVisibility(View.GONE);
+                    textViewRating.setVisibility(View.GONE);
+                    ratingBar.setVisibility(View.GONE);
                     break;
                 case "archive":
                     editTextPagesAll.setVisibility(View.GONE);
                     editTextPage.setVisibility(View.GONE);
                     textViewPagesAll.setVisibility(View.GONE);
                     textViewPageNow.setVisibility(View.GONE);
+                    textViewRating.setVisibility(View.VISIBLE);
+                    ratingBar.setVisibility(View.VISIBLE);
+                    ratingBar.setRating(book.rating);
                     editTextDate.setText(book.end_year);
                     break;
                 case "wishful":
@@ -146,6 +164,8 @@ public class AddBookActivity extends AppCompatActivity {
                     textViewPagesAll.setVisibility(View.GONE);
                     textViewPageNow.setVisibility(View.GONE);
                     textViewDate.setVisibility(View.GONE);
+                    textViewRating.setVisibility(View.GONE);
+                    ratingBar.setVisibility(View.GONE);
                     break;
             }
             chipGroup.setVisibility(View.GONE);
@@ -231,6 +251,7 @@ public class AddBookActivity extends AppCompatActivity {
                 "archive",
                 editTextDate.getText().toString()
         );
+        book.rating = (int) ratingBar.getRating();
         if (book_id == -1) {
             dbHelper.insertArchiveBook(book);
         } else {
@@ -262,5 +283,12 @@ public class AddBookActivity extends AppCompatActivity {
     public void onBackPressed() {
         BackDialog backDialog = new BackDialog();
         backDialog.show(getSupportFragmentManager(), "Back");
+    }
+
+    @Override
+    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+        if (ratingBar.getRating() < 1) {
+            ratingBar.setRating(1);
+        }
     }
 }

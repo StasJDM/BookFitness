@@ -64,14 +64,15 @@
                     android:layout_height="wrap_content"
                     android:text="@string/author"
                     android:textColor="@color/textColor2"
-                    android:textSize="16dp" />
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/editTextAuthor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName|textCapWords" />
+                    android:inputType="textPersonName|textCapWords"
+                    android:autofillHints="" />
 
                 <TextView
                     android:id="@+id/textView8"
@@ -79,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/name"
                     android:textColor="@color/textColor2"
-                    android:textSize="16dp" />
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/editTextName"
@@ -94,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/page_number"
                     android:textColor="@color/textColor2"
-                    android:textSize="16dp" />
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/editTextPagesAll"
@@ -109,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/page_now"
                     android:textColor="@color/textColor2"
-                    android:textSize="16dp" />
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/editTextPage"
@@ -125,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/ending_year"
                     android:textColor="@color/textColor2"
-                    android:textSize="16dp" />
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/editTextDate"
@@ -134,6 +135,23 @@
                     android:ems="10"
                     android:text="2020"
                     android:inputType="date" />
+
+                <TextView
+                    android:id="@+id/textViewRating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColor2"
+                    android:textSize="16sp"
+                    android:text="@string/rate_the_book" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:stepSize="1.0"
+                    android:rating="1.0"
+                    android:layout_gravity="center" />
 
                 <Button
                     android:id="@+id/buttonAdd"
@@ -145,7 +163,6 @@
                     android:onClick="onClickAdd"
                     android:text="@string/save"
                     android:textColor="@android:color/white" />
-
 
             </LinearLayout>
 

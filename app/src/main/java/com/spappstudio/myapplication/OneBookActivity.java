@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -19,6 +20,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.RequestConfiguration;
 import com.spappstudio.myapplication.dialogs.DeleteDialog;
+import com.spappstudio.myapplication.dialogs.RateBookDialog;
 import com.spappstudio.myapplication.objects.Book;
 
 import java.lang.reflect.Array;
@@ -39,6 +41,8 @@ public class OneBookActivity extends AppCompatActivity {
     TextView textViewPagesAllTitle;
     TextView textViewEndingYear;
     TextView textViewEndingYearTitle;
+    TextView textViewRating;
+    TextView textViewRatingTitle;
     Button buttonAdd;
     Button buttonChange;
     AdView adView;
@@ -69,6 +73,8 @@ public class OneBookActivity extends AppCompatActivity {
         textViewPagesAllTitle = findViewById(R.id.textViewPagesAllTitle);
         textViewEndingYear = findViewById(R.id.textViewEndingYear);
         textViewEndingYearTitle = findViewById(R.id.textViewEndingYearTitle);
+        textViewRating = findViewById(R.id.textViewRating);
+        textViewRatingTitle = findViewById(R.id.textViewRatingTitle);
         buttonAdd = findViewById(R.id.imageButtonAdd);
         buttonChange = findViewById(R.id.buttonChange);
 
@@ -95,23 +101,33 @@ public class OneBookActivity extends AppCompatActivity {
 
                 textViewEndingYear.setVisibility(View.GONE);
                 textViewEndingYearTitle.setVisibility(View.GONE);
-                buttonAdd.setVisibility(View.VISIBLE);
+                textViewRating.setVisibility(View.GONE);
+                textViewRatingTitle.setVisibility(View.GONE);
 
+                buttonAdd.setVisibility(View.VISIBLE);
                 buttonChange.setVisibility(View.VISIBLE);
                 buttonChange.setText(getString(R.string.finish_book));
                 break;
             case "archive":
+                textViewEndingYear.setText(book.end_year);
+
                 textViewPage.setVisibility(View.GONE);
                 textViewPageTitle.setVisibility(View.GONE);
                 textViewPagesAll.setVisibility(View.GONE);
                 textViewPagesAllTitle.setVisibility(View.GONE);
-                buttonAdd.setVisibility(View.GONE);
-
                 if (book.end_year == null) {
-                    book.end_year = "2020";
+                    book.end_year = "2021";
                     dbHelper.updateArchiveBook(book);
                 }
-                textViewEndingYear.setText(book.end_year);
+                if (book.rating != 0) {
+                    textViewRating.setText(String.valueOf(book.rating));
+                } else {
+                    textViewRating.setVisibility(View.GONE);
+                    textViewRatingTitle.setVisibility(View.GONE);
+                }
+
+
+                buttonAdd.setVisibility(View.GONE);
                 buttonChange.setVisibility(View.GONE);
                 break;
             case "wishful":
@@ -123,6 +139,9 @@ public class OneBookActivity extends AppCompatActivity {
                 textViewPagesAllTitle.setVisibility(View.GONE);
                 textViewEndingYear.setVisibility(View.GONE);
                 textViewEndingYearTitle.setVisibility(View.GONE);
+                textViewRating.setVisibility(View.GONE);
+                textViewRatingTitle.setVisibility(View.GONE);
+
                 buttonAdd.setVisibility(View.GONE);
 
                 buttonChange.setVisibility(View.VISIBLE);
@@ -174,8 +193,11 @@ public class OneBookActivity extends AppCompatActivity {
     public void onClickChange(View view) {
         switch (book.type) {
             case "current":
-                dbHelper.finishBook(book_id);
-                finish();
+                RateBookDialog rateBookDialog = new RateBookDialog();
+                Bundle args = new Bundle();
+                args.putInt("book_id", book_id);
+                rateBookDialog.setArguments(args);
+                rateBookDialog.show(getSupportFragmentManager(), "Rating");
                 break;
             case "wishful":
                 Intent intent = new Intent(OneBookActivity.this, AddBookActivity.class);

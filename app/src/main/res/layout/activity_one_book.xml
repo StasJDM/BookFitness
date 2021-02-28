@@ -113,6 +113,33 @@
                     android:textSize="18sp" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/linearLayoutRating">
+
+                <TextView
+                    android:id="@+id/textViewRatingTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="@string/book_rating"
+                    android:textAllCaps="false"
+                    android:textColor="@color/textColor2"
+                    android:textColorHighlight="#FFFFFF"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textViewRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="4"
+                    android:textColor="@color/textColor2"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
             <Button
                 android:id="@+id/imageButtonAdd"
                 android:onClick="onClickAddPages"
