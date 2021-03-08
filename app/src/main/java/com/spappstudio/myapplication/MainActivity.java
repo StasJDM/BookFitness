@@ -2,13 +2,20 @@ package com.spappstudio.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
     private static final String APP_PREFERENCES_GRAPH_TYPE = "graph_type";
     private static final String APP_PREFERENCES_GRAPH_TYPE_MONTH = "graph_type_month";
 
+    private static final int NOTIFY_ID = 1;
+    private static String CHANNEL_ID = "BookFitness channel";
+    private static String CHANNEL_DESCRIPRION = "Notification channel for BookFitness app";
+
     String[] daysOfWeek;
 
     SharedPreferences sharedPreferences;
@@ -78,6 +89,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_main_2);
+
+        createNotificationChannel();
+
+        Intent notificationIntent = new Intent(MainActivity.this, MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(MainActivity.this,
+                0, notificationIntent,
+                PendingIntent.FLAG_CANCEL_CURRENT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_menu_book_white_48dp)
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText(getString(R.string.notification_text))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(contentIntent);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MainActivity.this);
+        notificationManager.notify(NOTIFY_ID, builder.build());
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
@@ -447,6 +474,18 @@ public class MainActivity extends AppCompatActivity {
             graphViewMonth.addSeries(line_series_month);
         }
         graphViewMonth.setVisibility(View.VISIBLE);
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = CHANNEL_ID;
+            String description = CHANNEL_DESCRIPRION;
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
 }

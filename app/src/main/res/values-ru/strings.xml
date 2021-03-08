@@ -102,5 +102,6 @@
     </string-array>
     <string name="rate_the_book">Оцените книгу</string>
     <string name="book_rating">Рейтинг книги</string>
+    <string name="notification_text">Псс... Не хотите немного почитать?</string>
 
 </resources>

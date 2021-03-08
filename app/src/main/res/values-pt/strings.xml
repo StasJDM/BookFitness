@@ -102,4 +102,5 @@
     </string-array>
     <string name="rate_the_book">Avalie o livro</string>
     <string name="book_rating">Classificação Contabilística</string>
+    <string name="notification_text">Olá... Quer ler um pouco?</string>
 </resources>
