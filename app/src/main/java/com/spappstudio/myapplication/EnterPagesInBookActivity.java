@@ -34,7 +34,7 @@ public class EnterPagesInBookActivity extends AppCompatActivity {
         numberPicker = (NumberPicker)findViewById(R.id.numberPicker);
 
         numberPicker.setMinValue(0);
-        numberPicker.setMaxValue(999);
+        numberPicker.setMaxValue(99999);
         numberPicker.setWrapSelectorWheel(false);
 
         dbHelper = new DBHelper(this);

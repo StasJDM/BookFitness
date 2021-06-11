@@ -47,7 +47,7 @@ public class EditGoalActivity extends AppCompatActivity {
 
         numberPicker = (NumberPicker)findViewById(R.id.numberPicker);
         numberPicker.setMinValue(0);
-        numberPicker.setMaxValue(999);
+        numberPicker.setMaxValue(99999);
         numberPicker.setValue(goal);
         numberPicker.setWrapSelectorWheel(false);
     }
