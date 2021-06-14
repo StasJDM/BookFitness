@@ -10,7 +10,7 @@
     <string name="enter_page_count">Insira o número de páginas</string>
     <string name="enter_book_name">Insira o título do livro</string>
     <string name="enter_book_author">Digite o autor do livro</string>
-    <string name="year">2020</string>
+    <string name="year_2020">2020</string>
     <string name="add_book">Adicionar livro</string>
     <string name="author">Autor</string>
     <string name="name">Título</string>

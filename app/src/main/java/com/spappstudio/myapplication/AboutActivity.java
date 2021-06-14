@@ -5,8 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import java.util.Calendar;
 
 public class AboutActivity extends AppCompatActivity {
+
+    TextView textViewYear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +21,10 @@ public class AboutActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        textViewYear = findViewById(R.id.textViewYear);
+        String yearsText = getString(R.string.year_2020) + "-" + String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+        textViewYear.setText(yearsText);
     }
 
     @Override

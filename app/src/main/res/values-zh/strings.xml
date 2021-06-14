@@ -10,7 +10,7 @@
     <string name="enter_page_count">输入页数</string>
     <string name="enter_book_name">输入书名</string>
     <string name="enter_book_author">输入本书的作者</string>
-    <string name="year">2020</string>
+    <string name="year_2020">2020</string>
     <string name="add_book">添加书</string>
     <string name="author">作者</string>
     <string name="name">标题</string>

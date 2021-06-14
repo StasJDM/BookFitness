@@ -60,23 +60,12 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/textView17"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="8dp"
-                android:text="@string/MAY_BEE"
-                android:textColor="@color/textColor2"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/textView18"
+                android:id="@+id/textViewYear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingTop="20dp"
                 android:paddingBottom="8dp"
-                android:text="@string/year"
                 android:textColor="@color/textColor2"
                 android:textSize="18dp" />
 
