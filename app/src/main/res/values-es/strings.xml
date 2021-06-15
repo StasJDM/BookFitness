@@ -103,4 +103,6 @@
     <string name="rate_the_book">Califica el libro</string>
     <string name="book_rating">Valoración Del Libro</string>
     <string name="notification_text">Hola... Te gustaría leer un poco?</string>
+    <string name="edit">Editar</string>
+    <string name="edit_another_day">Editar para otro día</string>
 </resources>

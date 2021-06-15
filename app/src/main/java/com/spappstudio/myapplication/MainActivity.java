@@ -90,21 +90,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_main_2);
 
-        createNotificationChannel();
-
-        Intent notificationIntent = new Intent(MainActivity.this, MainActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(MainActivity.this,
-                0, notificationIntent,
-                PendingIntent.FLAG_CANCEL_CURRENT);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_menu_book_white_48dp)
-                .setContentTitle(getString(R.string.app_name))
-                .setContentText(getString(R.string.notification_text))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(contentIntent);
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MainActivity.this);
-        notificationManager.notify(NOTIFY_ID, builder.build());
+//        createNotificationChannel();
+//
+//        Intent notificationIntent = new Intent(MainActivity.this, MainActivity.class);
+//        PendingIntent contentIntent = PendingIntent.getActivity(MainActivity.this,
+//                0, notificationIntent,
+//                PendingIntent.FLAG_CANCEL_CURRENT);
+//
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, CHANNEL_ID)
+//                .setSmallIcon(R.drawable.ic_menu_book_white_48dp)
+//                .setContentTitle(getString(R.string.app_name))
+//                .setContentText(getString(R.string.notification_text))
+//                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//                .setContentIntent(contentIntent);
+//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MainActivity.this);
+//        notificationManager.notify(NOTIFY_ID, builder.build());
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override

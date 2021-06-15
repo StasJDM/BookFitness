@@ -103,4 +103,6 @@
     <string name="rate_the_book">Rate the book</string>
     <string name="book_rating">Book Rating</string>
     <string name="notification_text">Pss... Would you like to read a little?</string>
+    <string name="edit">Edit</string>
+    <string name="edit_another_day">Edit for another day</string>
 </resources>

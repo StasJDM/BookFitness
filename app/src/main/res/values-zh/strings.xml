@@ -103,4 +103,6 @@
     <string name="rate_the_book">给书打分</string>
     <string name="book_rating">书评</string>
     <string name="notification_text">嘿. 你想读一点吗？</string>
+    <string name="edit">编辑</string>
+    <string name="edit_another_day">编辑另一天</string>
 </resources>
