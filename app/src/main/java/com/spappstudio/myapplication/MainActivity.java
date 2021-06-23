@@ -120,6 +120,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (sharedPreferences.contains(APP_PREFERENCES_GOAL)) {
             goal = sharedPreferences.getInt(APP_PREFERENCES_GOAL, 20);
+            if (goal == 0) {
+                sharedPreferences.edit().putInt(APP_PREFERENCES_GOAL, 20).apply();
+            }
         } else {
             sharedPreferences.edit().putInt(APP_PREFERENCES_GOAL, 20).apply();
             goal = 20;
